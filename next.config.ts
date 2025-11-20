@@ -13,5 +13,8 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  eslint: {
+    dirs: ['src'],
+  },
 }
 export default nextConfig;

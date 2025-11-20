@@ -1,9 +1,9 @@
-// src/components/sections/Prices.tsx
 'use client'
 
+import { useState } from 'react'
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
-import { Check } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown, Check } from 'lucide-react'
 import Container from '@/components/layout/Container'
 
 const PricesSection = styled.section`
@@ -11,164 +11,307 @@ const PricesSection = styled.section`
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
 `
 
-const SectionTitle = styled.h2`
-    font-size: ${({ theme }) => theme.fontSize['4xl']};
-    font-weight: ${({ theme }) => theme.fontWeight.bold};
-    color: ${({ theme }) => theme.colors.heading};
-    text-align: center;
-    margin-bottom: ${({ theme }) => theme.spacing.md};
+const SectionWrapper = styled.div`
+    max-width: 900px;
+    margin: 0 auto;
+`
 
-    span {
-        color: ${({ theme }) => theme.colors.primary};
-    }
+const SectionHeader = styled.div`
+  text-align: center;
+  margin-bottom: ${({ theme }) => theme.spacing.xxxl};
+`
+
+const SectionTitle = styled.h2`
+  font-size: ${({ theme }) => theme.fontSize['4xl']};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  color: ${({ theme }) => theme.colors.heading};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+
+  span {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.fontSize['3xl']};
+  }
 `
 
 const SectionDescription = styled.p`
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.colors.textLight};
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto ${({ theme }) => theme.spacing.xxxl};
 `
 
-const PriceTable = styled.div`
-    overflow-x: auto;
+const PricesList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.lg};
 `
 
-const Table = styled.table`
-    width: 100%;
-    border-collapse: collapse;
-    background-color: ${({ theme }) => theme.colors.background};
+const PriceItem = styled.div<{ $isOpen: boolean }>`
+    background-color: ${({ theme }) => theme.colors.navy};
+    border: 2px solid ${({ theme, $isOpen }) =>
+            $isOpen ? theme.colors.primary : theme.colors.navyLight
+    };
     border-radius: ${({ theme }) => theme.borderRadius.lg};
     overflow: hidden;
-    box-shadow: ${({ theme }) => theme.shadows.md};
-`
-
-const TableHead = styled.thead`
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: white;
-`
-
-const TableRow = styled.tr`
-    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-
-    &:last-child {
-        border-bottom: none;
-    }
+    transition: all ${({ theme }) => theme.transitions.normal};
 
     &:hover {
-        background-color: ${({ theme }) => theme.colors.backgroundAlt};
+        border-color: ${({ theme }) => theme.colors.primary};
     }
 `
 
-const TableHeader = styled.th`
+const PriceHeader = styled.button`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${({ theme }) => theme.spacing.xl};
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: all ${({ theme }) => theme.transitions.fast};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.navyLight};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: ${({ theme }) => theme.spacing.lg};
-    text-align: left;
+  }
+`
+
+const PriceHeaderContent = styled.div`
+  flex: 1;
+`
+
+const PriceTitle = styled.h3`
+    font-size: ${({ theme }) => theme.fontSize['2xl']};
     font-weight: ${({ theme }) => theme.fontWeight.semibold};
+    color: ${({ theme }) => theme.colors.heading};
+    margin-bottom: ${({ theme }) => theme.spacing.xs};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        padding: ${({ theme }) => theme.spacing.md};
-        font-size: ${({ theme }) => theme.fontSize.sm};
+        font-size: ${({ theme }) => theme.fontSize.xl};
     }
 `
 
-const TableCell = styled.td`
-    padding: ${({ theme }) => theme.spacing.lg};
-    color: ${({ theme }) => theme.colors.text};
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        padding: ${({ theme }) => theme.spacing.md};
-        font-size: ${({ theme }) => theme.fontSize.sm};
-    }
-`
-
-const PriceCell = styled(TableCell)`
+const PriceValue = styled.div`
+    font-size: ${({ theme }) => theme.fontSize['3xl']};
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.colors.primary};
-    font-size: ${({ theme }) => theme.fontSize.xl};
+    text-shadow: ${({ theme }) => theme.shadows.glow};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        font-size: ${({ theme }) => theme.fontSize['2xl']};
+    }
 `
 
-const priceData = [
+const ChevronIcon = styled(motion.div)`
+    color: ${({ theme }) => theme.colors.primary};
+    flex-shrink: 0;
+    margin-left: ${({ theme }) => theme.spacing.lg};
+`
+
+const PriceContent = styled(motion.div)`
+    padding: 0 ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.xl};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        padding: 0 ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.lg};
+    }
+`
+
+const PriceDescription = styled.p`
+    font-size: ${({ theme }) => theme.fontSize.base};
+    color: ${({ theme }) => theme.colors.text};
+    line-height: 1.8;
+    margin-bottom: ${({ theme }) => theme.spacing.lg};
+    padding-left: ${({ theme }) => theme.spacing.md};
+    border-left: 3px solid ${({ theme }) => theme.colors.primary};
+`
+
+const FeaturesList = styled.ul`
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing.sm};
+    margin-bottom: ${({ theme }) => theme.spacing.lg};
+`
+
+const FeatureItem = styled.li`
+    display: flex;
+    align-items: flex-start;
+    gap: ${({ theme }) => theme.spacing.sm};
+    color: ${({ theme }) => theme.colors.text};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    line-height: 1.6;
+
+    svg {
+        color: ${({ theme }) => theme.colors.primary};
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+`
+
+const PriceNote = styled.div`
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    color: ${({ theme }) => theme.colors.textLight};
+    font-style: italic;
+    padding: ${({ theme }) => theme.spacing.md};
+    background-color: ${({ theme }) => theme.colors.backgroundAlt};
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    border-left: 3px solid ${({ theme }) => theme.colors.primary};
+`
+
+const SpecialConditions = styled.div`
+    margin-top: ${({ theme }) => theme.spacing.xxxl};
+    padding: ${({ theme }) => theme.spacing.xxl};
+    background: linear-gradient(
+            135deg,
+            ${({ theme }) => theme.colors.navy} 0%,
+            ${({ theme }) => theme.colors.navyLight} 100%
+    );
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
+`
+
+const SpecialTitle = styled.h3`
+    font-size: ${({ theme }) => theme.fontSize['2xl']};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    color: ${({ theme }) => theme.colors.primary};
+    margin-bottom: ${({ theme }) => theme.spacing.lg};
+    text-align: center;
+`
+
+const SpecialList = styled.ul`
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing.md};
+`
+
+const SpecialItem = styled.li`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  line-height: 1.6;
+
+  &::before {
+    content: '★';
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: 1.2em;
+    flex-shrink: 0;
+  }
+`
+
+const pricesData = [
   {
-    service: 'Уничтожение клопов',
-    apartment1: '2 500 ₽',
-    apartment2: '3 000 ₽',
-    apartment3: '3 500 ₽',
-    house: 'от 5 000 ₽',
+    title: 'Рестораны / пищевое производство',
+    price: 'от 8 000 ₽/мес',
+    description: 'Стоимость зависит от площади, сложности и режима работы объекта.',
+    features: [
+      'Разработка Программ пест-контроля',
+      'Регулярный мониторинг',
+      'Профилактические и истребительные мероприятия',
+      'Отчётные документы для проверок',
+    ],
+    note: 'Стоимость рассчитывается индивидуально после осмотра объекта.',
   },
   {
-    service: 'Уничтожение тараканов',
-    apartment1: '2 000 ₽',
-    apartment2: '2 500 ₽',
-    apartment3: '3 000 ₽',
-    house: 'от 4 000 ₽',
-  },
-  {
-    service: 'Дератизация',
-    apartment1: '3 000 ₽',
-    apartment2: '3 500 ₽',
-    apartment3: '4 000 ₽',
-    house: 'от 6 000 ₽',
-  },
-  {
-    service: 'Дезинфекция',
-    apartment1: '2 500 ₽',
-    apartment2: '3 000 ₽',
-    apartment3: '3 500 ₽',
-    house: 'от 5 000 ₽',
-  },
-  {
-    service: 'Обработка от клещей',
-    apartment1: '—',
-    apartment2: '—',
-    apartment3: '—',
-    house: 'от 3 000 ₽',
+    title: 'Фитосанитария / борщевик',
+    price: 'от 250-400 ₽ за сотку',
+    description: '1-2 обработки за сезон с контролем результата.',
+    features: [
+      '1-2 обработки за сезон',
+      'Контроль отклика и повторная обработка при необходимости',
+      'Отчёт с фотофиксацией',
+      'Рекомендации по восстановлению травостоя',
+    ],
+    note: 'Итоговая цена рассчитывается после осмотра и подбора схемы.',
   },
 ]
 
 export default function Prices() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
+
+  const toggleItem = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index)
+  }
+
   return (
     <PricesSection id="prices">
       <Container>
-        <SectionTitle>
-          <span>Цены</span> на услуги
-        </SectionTitle>
-        <SectionDescription>
-          Стоимость зависит от площади помещения и степени заражения.
-          Точную цену озвучим после осмотра.
-        </SectionDescription>
+        <SectionWrapper>
+          <SectionHeader>
+            <SectionTitle>
+              <span>Цены</span> на услуги
+            </SectionTitle>
+            <SectionDescription>
+              Индивидуальный расчет стоимости под ваши задачи и особенности объекта
+            </SectionDescription>
+          </SectionHeader>
 
-        <PriceTable>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableHeader>Услуга</TableHeader>
-                <TableHeader>1-комн.</TableHeader>
-                <TableHeader>2-комн.</TableHeader>
-                <TableHeader>3-комн.</TableHeader>
-                <TableHeader>Дом</TableHeader>
-              </TableRow>
-            </TableHead>
-            <tbody>
-            {priceData.map((row, index) => (
-              <TableRow
-                as={motion.tr}
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                <TableCell>{row.service}</TableCell>
-                <PriceCell>{row.apartment1}</PriceCell>
-                <PriceCell>{row.apartment2}</PriceCell>
-                <PriceCell>{row.apartment3}</PriceCell>
-                <PriceCell>{row.house}</PriceCell>
-              </TableRow>
+          <PricesList>
+            {pricesData.map((item, index) => (
+              <PriceItem key={index} $isOpen={openIndex === index}>
+                <PriceHeader onClick={() => toggleItem(index)}>
+                  <PriceHeaderContent>
+                    <PriceTitle>{item.title}</PriceTitle>
+                    <PriceValue>{item.price}</PriceValue>
+                  </PriceHeaderContent>
+                  <ChevronIcon
+                    animate={{ rotate: openIndex === index ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown size={32} />
+                  </ChevronIcon>
+                </PriceHeader>
+
+                <AnimatePresence>
+                  {openIndex === index && (
+                    <PriceContent
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <PriceDescription>{item.description}</PriceDescription>
+
+                      <FeaturesList>
+                        {item.features.map((feature, idx) => (
+                          <FeatureItem key={idx}>
+                            <Check size={20} />
+                            {feature}
+                          </FeatureItem>
+                        ))}
+                      </FeaturesList>
+
+                      <PriceNote>* {item.note}</PriceNote>
+                    </PriceContent>
+                  )}
+                </AnimatePresence>
+              </PriceItem>
             ))}
-            </tbody>
-          </Table>
-        </PriceTable>
+          </PricesList>
+
+          <SpecialConditions>
+            <SpecialTitle>Специальные условия</SpecialTitle>
+            <SpecialList>
+              <SpecialItem>
+                Скидка при площадях {'>'} 50 га (фитосанитария)
+              </SpecialItem>
+              <SpecialItem>
+                Индивидуальные SLA для сетей и крупных производств
+              </SpecialItem>
+              <SpecialItem>
+                Консалтинг на площадке заказчика «инженер + химия» – от 100 000 ₽ за 3 дня (без учёта препаратов)
+              </SpecialItem>
+            </SpecialList>
+          </SpecialConditions>
+        </SectionWrapper>
       </Container>
     </PricesSection>
   )

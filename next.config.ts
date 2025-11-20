@@ -1,5 +1,3 @@
-import type { NextConfig } from "next";
-
 const nextConfig = {
   compiler: {
     styledComponents: true,
@@ -11,6 +9,9 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+  },
+  experimental: {
+    scrollRestoration: true,
   },
 }
 export default nextConfig;

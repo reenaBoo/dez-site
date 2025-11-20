@@ -89,6 +89,7 @@ export default function ContactForm() {
   return (
     <FormSection id="contact-form">
       <Container>
+        <img src="/images/test3.svg" alt="Иконка" />
         <SectionTitle>Оставить заявку</SectionTitle>
 
         <Form onSubmit={handleSubmit}>
@@ -107,7 +108,7 @@ export default function ContactForm() {
             <Input
               id="phone"
               type="tel"
-              placeholder="+7 (999) 123-45-67"
+              placeholder="+7 (495) 956‑48‑55"
               required
             />
           </FormGroup>

@@ -1,15 +1,28 @@
-// src/components/sections/Services.tsx
 'use client'
 
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
-import { Bug, Rat, Droplets, Check, ArrowRight } from 'lucide-react'
+import { Bug, Rat, Check, Leaf, FlaskConical } from 'lucide-react'
 import Container from '@/components/layout/Container'
-import { Button } from '@/components/common/Button'
 
 const ServicesSection = styled.section`
-  padding: ${({ theme }) => theme.spacing.xxxl} 0;
-  background-color: ${({ theme }) => theme.colors.background};
+    padding: ${({ theme }) => theme.spacing.xxxl} 0;
+    background-color: ${({ theme }) => theme.colors.backgroundAlt}; // Темный фон
+`
+
+const ServiceCard = styled(motion.div)`
+  background-color: ${({ theme }) => theme.colors.navy}; // Темнее карточки
+  border: 2px solid ${({ theme }) => theme.colors.navyLight};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: ${({ theme }) => theme.spacing.xl};
+  transition: all ${({ theme }) => theme.transitions.normal};
+  cursor: pointer;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.primary};
+    box-shadow: ${({ theme }) => theme.shadows.glow};
+    transform: translateY(-4px);
+  }
 `
 
 const SectionHeader = styled.div`
@@ -41,42 +54,27 @@ const SectionDescription = styled.p`
 
 const ServicesGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, minmax(350px, 450px));
   gap: ${({ theme }) => theme.spacing.xl};
+  justify-content: center; 
+  justify-items: center;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     grid-template-columns: 1fr;
   }
 `
 
-const ServiceCard = styled(motion.div)`
-  background-color: ${({ theme }) => theme.colors.backgroundAlt};
-  border: 2px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing.xl};
-  transition: all ${({ theme }) => theme.transitions.normal};
-  cursor: pointer;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: ${({ theme }) => theme.shadows.lg};
-    transform: translateY(-4px);
-  }
-`
-
 const ServiceIcon = styled.div`
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, 
-    ${({ theme }) => theme.colors.primary} 0%, 
-    ${({ theme }) => theme.colors.primaryLight} 100%
-  );
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  color: white;
+    width: 64px;
+    height: 64px;
+    background: ${({ theme }) => theme.colors.primary}; // Желтый фон
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: ${({ theme }) => theme.spacing.lg};
+    color: ${({ theme }) => theme.colors.navy}; // Темно-синяя иконка
+    box-shadow: ${({ theme }) => theme.shadows.glow};
 `
 
 const ServiceTitle = styled.h3`
@@ -111,68 +109,56 @@ const ServiceFeature = styled.li`
   }
 `
 
-const ServicePrice = styled.div`
-  font-size: ${({ theme }) => theme.fontSize['2xl']};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-`
-
-const ServiceButton = styled(Button)`
-  width: 100%;
-`
-
 const services = [
   {
     icon: Bug,
-    title: 'Уничтожение клопов',
-    description: 'Полное уничтожение клопов с гарантией. Используем профессиональные препараты.',
+    title: 'Дезинсекция',
+    description: 'Комплексная борьба с различными насекомыми (тараканы, муравьи, мошки, комары, клопы, мухи, кожееды и др.). Используем профессиональные препараты.',
     features: [
       'Обработка горячим туманом',
-      'Безопасные препараты',
-      'Гарантия 1 год',
+      'Гели, пасты, инсектицидные концентраты, ловушки, ИК-приманки, аэрозоли',
+      'Акарицидные обработки для территорий (клещи)',
     ],
-    price: 'от 2 500 ₽',
   },
   {
-    icon: Bug,
-    title: 'Уничтожение тараканов',
-    description: 'Эффективная обработка от тараканов. Результат уже после первой обработки.',
-    features: [
-      'Холодный и горячий туман',
-      'Обработка труднодоступных мест',
-      'Гарантия 6 месяцев',
-    ],
-    price: 'от 2 000 ₽',
-  },
-  {
-    icon: Rat,
-    title: 'Дератизация',
-    description: 'Профессиональное уничтожение грызунов. Комплексный подход к решению проблемы.',
-    features: [
-      'Механические ловушки',
-      'Химические препараты',
-      'Гарантия 3 месяца',
-    ],
-    price: 'от 3 000 ₽',
-  },
-  {
-    icon: Droplets, // 👈 Изменено здесь
+    icon: FlaskConical,
     title: 'Дезинфекция',
-    description: 'Полная дезинфекция помещений от вирусов и бактерий.',
+    description: 'Обеззараживание помещений, поверхностей и транспорта. Противовирусные и антибактериальные протоколы с контролем времени экспозиции и концентраций, безопасные для персонала и оборудования.',
     features: [
       'Сертифицированные препараты',
       'Обработка всех поверхностей',
       'Безопасно для людей',
     ],
-    price: 'от 2 500 ₽',
+  },
+  {
+    icon: Rat,
+    title: 'Дератизация',
+    description: 'Профессиональное уничтожение грызунов. Контроль популяций на объектах с высокой пищевой нагрузкой.',
+    features: [
+      'Мониторинг',
+      'Приманочные станции, блокировка путей проникновения',
+      'Использование родентицидов с мумифицирующим эффектом',
+      'Отчётность'
+    ],
+  },
+  {
+    icon: Leaf,
+    title: 'Фитосанитарная защита',
+    description: 'Обработка территорий и зелёных зон. Подбираем щадящие или усиленные программы в зависимости от ситуации. По окончании - рекомендации по восстановлению дернового покрова',
+    features: [
+      'Экологически безопасные препараты',
+      'Безопасно для растений и людей',
+      'Эффективно против борщевика Сосновского и инвазивных видов',
+    ],
   },
 ]
 
 export default function Services() {
   return (
     <ServicesSection id="services">
-      <Container>
+      <Container style={{ position: 'relative' }}>
+        <img src="/images/bug.svg" alt="Иконка" style={{ position: 'absolute' }} width={80} height={80} />
+
         <SectionHeader>
           <SectionTitle>
             Наши <span>услуги</span>
@@ -207,13 +193,6 @@ export default function Services() {
                   </ServiceFeature>
                 ))}
               </ServiceFeatures>
-
-              <ServicePrice>{service.price}</ServicePrice>
-
-              <ServiceButton as="a" href="#contact-form">
-                Заказать
-                <ArrowRight size={18} />
-              </ServiceButton>
             </ServiceCard>
           ))}
         </ServicesGrid>

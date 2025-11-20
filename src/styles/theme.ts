@@ -1,19 +1,27 @@
 // src/styles/theme.ts
 export const theme = {
   colors: {
-    primary: '#2563eb',
-    primaryDark: '#1e40af',
-    primaryLight: '#3b82f6',
-    secondary: '#10b981',
-    background: '#ffffff',
-    backgroundAlt: '#f9fafb',
-    text: '#1f2937',
-    textLight: '#6b7280',
-    heading: '#111827',
-    border: '#e5e7eb',
-    error: '#ef4444',
-    success: '#10b981',
-    warning: '#f59e0b',
+    primary: '#FDB913',
+    primaryDark: '#E5A50B',
+    primaryLight: '#FFCA3A',
+
+    background: '#03060D',
+    backgroundAlt: '#0A1018',
+    navy: '#03060D',
+    navyLight: '#0F1824',
+    navyDark: '#000000',
+
+    secondary: '#1E3A8A',
+
+    // Текст
+    text: '#E5E7EB',
+    textLight: '#9CA3AF',
+    heading: '#FFFFFF',
+
+    border: '#1E3A8A',
+    error: '#EF4444',
+    success: '#10B981',
+    warning: '#FDB913',
   },
 
   breakpoints: {
@@ -60,10 +68,11 @@ export const theme = {
   },
 
   shadows: {
-    sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    md: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+    sm: '0 1px 2px 0 rgba(0, 0, 0, 0.3)',
+    md: '0 4px 6px -1px rgba(0, 0, 0, 0.4)',
+    lg: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+    xl: '0 20px 25px -5px rgba(0, 0, 0, 0.6)',
+    glow: '0 0 20px rgba(253, 185, 19, 0.5)',
   },
 
   transitions: {

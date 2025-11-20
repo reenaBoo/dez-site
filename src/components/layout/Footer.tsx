@@ -6,10 +6,10 @@ import { Phone, Mail, MapPin, Send } from 'lucide-react'
 import Container from './Container'
 
 const FooterWrapper = styled.footer`
-  background-color: ${({ theme }) => theme.colors.backgroundAlt};
-  padding: ${({ theme }) => theme.spacing.xxxl} 0 ${({ theme }) => theme.spacing.xl};
-  margin-top: ${({ theme }) => theme.spacing.xxxl};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
+    background-color: ${({ theme }) => theme.colors.navy}; // Очень темный
+    padding: ${({ theme }) => theme.spacing.xxxl} 0 ${({ theme }) => theme.spacing.xl};
+    margin-top: ${({ theme }) => theme.spacing.xxxl};
+    border-top: 2px solid ${({ theme }) => theme.colors.navyLight};
 `
 
 const FooterContent = styled.div`
@@ -151,7 +151,7 @@ export default function Footer() {
             <FooterTitle>ДезСервис</FooterTitle>
             <FooterText>
               Профессиональная дезинсекция, дератизация и дезинфекция в Москве и области.
-              Гарантия результата. Работаем с 2010 года.
+              Гарантия результата. Работаем с 2002 года.
             </FooterText>
             <SocialLinks>
               <SocialLink
@@ -163,7 +163,7 @@ export default function Footer() {
                 <Send size={20} />
               </SocialLink>
               <SocialLink
-                href="https://wa.me/79991234567"
+                href="https://wa.me/74959564855"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -200,8 +200,8 @@ export default function Footer() {
             <ContactItem>
               <Phone size={18} />
               <div>
-                <ContactLink href="tel:+79991234567">
-                  +7 (999) 123-45-67
+                <ContactLink href="tel:+74959564855">
+                  +7 (495) 956‑48‑55
                 </ContactLink>
                 <br />
                 <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>

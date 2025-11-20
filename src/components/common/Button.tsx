@@ -13,13 +13,14 @@ export const Button = styled.button<ButtonProps>`
     align-items: center;
     justify-content: center;
     gap: ${({ theme }) => theme.spacing.sm};
-    font-family: ${({ theme }) => theme.fontFamily};
     font-weight: ${({ theme }) => theme.fontWeight.semibold};
     border-radius: ${({ theme }) => theme.borderRadius.md};
     cursor: pointer;
     transition: all ${({ theme }) => theme.transitions.normal};
     border: 2px solid transparent;
     text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 
     padding: ${({ theme, size }) => {
         switch (size) {
@@ -50,10 +51,10 @@ export const Button = styled.button<ButtonProps>`
         switch (variant) {
             case 'secondary':
                 return `
-          background-color: ${theme.colors.secondary};
-          color: white;
+          background-color: ${theme.colors.navyLight};
+          color: ${theme.colors.heading};
           &:hover {
-            background-color: #059669;
+            background-color: ${theme.colors.secondary};
             box-shadow: ${theme.shadows.md};
           }
         `
@@ -64,17 +65,21 @@ export const Button = styled.button<ButtonProps>`
           border-color: ${theme.colors.primary};
           &:hover {
             background-color: ${theme.colors.primary};
-            color: white;
+            color: ${theme.colors.navy};
+            box-shadow: ${theme.shadows.glow};
           }
         `
             default:
                 return `
           background-color: ${theme.colors.primary};
-          color: white;
+          color: ${theme.colors.navy};
+          font-weight: ${theme.fontWeight.bold};
+          box-shadow: ${theme.shadows.glow};
+          
           &:hover {
-            background-color: ${theme.colors.primaryDark};
-            box-shadow: ${theme.shadows.md};
+            background-color: ${theme.colors.primaryLight};
             transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(253, 185, 19, 0.7);
           }
         `
         }

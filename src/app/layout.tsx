@@ -1,9 +1,4 @@
-// src/app/layout.tsx
 import type { Metadata } from 'next'
-import { ThemeProvider } from 'styled-components'
-import StyledComponentsRegistry from '@/lib/registry'
-import { GlobalStyles } from '@/styles/GlobalStyles'
-import { theme } from '@/styles/theme'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Providers from '@/components/Providers'

@@ -1,18 +1,20 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
 import { Phone, Menu, X } from 'lucide-react'
 import Container from './Container'
 
 const HeaderWrapper = styled.header`
-    background-color: ${({ theme }) => theme.colors.background};
-    box-shadow: ${({ theme }) => theme.shadows.sm};
+    background-color: ${({ theme }) => theme.colors.backgroundAlt};
+    box-shadow: ${({ theme }) => theme.shadows.md};
     position: sticky;
     top: 0;
     z-index: 100;
     padding: ${({ theme }) => theme.spacing.lg} 0;
+    border-bottom: 2px solid ${({ theme }) => theme.colors.navyLight};
 `
 
 const HeaderContent = styled.div`
@@ -23,18 +25,16 @@ const HeaderContent = styled.div`
 `
 
 const Logo = styled(Link)`
-  font-size: ${({ theme }) => theme.fontSize['2xl']};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.primary};
-  transition: color ${({ theme }) => theme.transitions.fast};
+    font-size: ${({ theme }) => theme.fontSize['2xl']};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    color: ${({ theme }) => theme.colors.primary};
+    transition: all ${({ theme }) => theme.transitions.fast};
+    text-shadow: ${({ theme }) => theme.shadows.glow};
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.primaryDark};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.fontSize.xl};
-  }
+    &:hover {
+        color: ${({ theme }) => theme.colors.primaryLight};
+        transform: scale(1.05);
+    }
 `
 
 const Nav = styled.nav<{ $isOpen: boolean }>`
@@ -47,20 +47,20 @@ const Nav = styled.nav<{ $isOpen: boolean }>`
         right: 0;
         bottom: 0;
         width: 280px;
-        background-color: ${({ theme }) => theme.colors.background};
+        background-color: ${({ theme }) => theme.colors.backgroundAlt};
         flex-direction: column;
         padding: ${({ theme }) => theme.spacing.xxxl} ${({ theme }) => theme.spacing.xl};
         box-shadow: ${({ theme }) => theme.shadows.xl};
         transform: translateX(${({ $isOpen }) => $isOpen ? '0' : '100%'});
         transition: transform ${({ theme }) => theme.transitions.normal};
         z-index: 1000;
+        border-left: 2px solid ${({ theme }) => theme.colors.navyLight};
     }
 `
 
 const NavLink = styled(Link)`
     color: ${({ theme }) => theme.colors.text};
     font-weight: ${({ theme }) => theme.fontWeight.medium};
-    font-size: ${({ theme }) => theme.fontSize.base};
     transition: color ${({ theme }) => theme.transitions.fast};
     white-space: nowrap;
 
@@ -70,116 +70,145 @@ const NavLink = styled(Link)`
 `
 
 const PhoneLink = styled.a`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  color: ${({ theme }) => theme.colors.primary};
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  white-space: nowrap;
-  transition: color ${({ theme }) => theme.transitions.fast};
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.sm};
+    color: ${({ theme }) => theme.colors.primary};
+    font-weight: ${({ theme }) => theme.fontWeight.semibold};
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    transition: all ${({ theme }) => theme.transitions.fast};
 
-  &:hover {
-    color: ${({ theme }) => theme.colors.primaryDark};
-  }
+    &:hover {
+        color: ${({ theme }) => theme.colors.primaryLight};
+        text-shadow: ${({ theme }) => theme.shadows.glow};
+    }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.fontSize.base};
-  }
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        font-size: ${({ theme }) => theme.fontSize.base};
+    }
 `
 
 const MenuButton = styled.button`
-  display: none;
-  background: none;
-  color: ${({ theme }) => theme.colors.text};
-  padding: ${({ theme }) => theme.spacing.sm};
-  z-index: 1001;
+    display: none;
+    background: none;
+    color: ${({ theme }) => theme.colors.primary};
+    padding: ${({ theme }) => theme.spacing.sm};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+        display: flex;
+    }
 `
 
 const CloseButton = styled.button`
-  display: none;
-  position: absolute;
-  top: ${({ theme }) => theme.spacing.lg};
-  right: ${({ theme }) => theme.spacing.lg};
-  background: none;
-  color: ${({ theme }) => theme.colors.text};
-  padding: ${({ theme }) => theme.spacing.sm};
+    display: none;
+    position: absolute;
+    top: ${({ theme }) => theme.spacing.lg};
+    right: ${({ theme }) => theme.spacing.lg};
+    background: none;
+    color: ${({ theme }) => theme.colors.primary};
+    padding: ${({ theme }) => theme.spacing.sm};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+        display: flex;
+    }
 `
 
 const Overlay = styled.div<{ $isOpen: boolean }>`
-  display: none;
+    display: none;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    display: ${({ $isOpen }) => $isOpen ? 'block' : 'none'};
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-  }
+    @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+        display: ${({ $isOpen }) => $isOpen ? 'block' : 'none'};
+        position: fixed;
+        inset: 0;
+        background-color: rgba(10, 22, 40, 0.9);
+        z-index: 999;
+    }
 `
 
 const RightSection = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.lg};
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.lg};
 `
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
-  const closeMenu = () => setIsMenuOpen(false)
+  // Обработка якорей при монтировании
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash
+      if (hash) {
+        const id = hash.substring(1)
+        setTimeout(() => {
+          const element = document.getElementById(id)
+          if (element) {
+            const offset = 100 // Отступ для Header
+            const elementPosition = element.getBoundingClientRect().top
+            const offsetPosition = elementPosition + window.pageYOffset - offset
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            })
+          }
+        }, 100)
+      }
+    }
+
+    handleHashChange()
+    window.addEventListener('hashchange', handleHashChange)
+
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
 
   return (
     <>
       <HeaderWrapper>
         <Container>
           <HeaderContent>
-            <Logo href="/" onClick={closeMenu}>
-              ДезСервис
+            <Logo href="/" onClick={() => setIsMenuOpen(false)}>
+              НПП «БИОХИММАШ»
             </Logo>
 
             <Nav $isOpen={isMenuOpen}>
-              <CloseButton onClick={closeMenu} aria-label="Закрыть меню">
+              <CloseButton onClick={() => setIsMenuOpen(false)}>
                 <X size={24} />
               </CloseButton>
 
-              <NavLink href="/" onClick={closeMenu}>
+              <NavLink href="/" onClick={() => setIsMenuOpen(false)}>
                 Главная
               </NavLink>
-              <NavLink href="/services" onClick={closeMenu}>
+
+              <NavLink href="/#services" onClick={() => setIsMenuOpen(false)}>
                 Услуги
               </NavLink>
-              <NavLink href="/prices" onClick={closeMenu}>
+
+              <NavLink href="/industries" onClick={() => setIsMenuOpen(false)}>
+                Отрасли
+              </NavLink>
+
+              <NavLink href="/#prices" onClick={() => setIsMenuOpen(false)}>
                 Цены
               </NavLink>
-              <NavLink href="/about" onClick={closeMenu}>
+
+              <NavLink href="/about" onClick={() => setIsMenuOpen(false)}>
                 О нас
               </NavLink>
-              <NavLink href="/contacts" onClick={closeMenu}>
+
+              <NavLink href="/contacts" onClick={() => setIsMenuOpen(false)}>
                 Контакты
               </NavLink>
             </Nav>
 
             <RightSection>
-              <PhoneLink href="tel:+79991234567">
+              <PhoneLink href="tel:+74959564855">
                 <Phone size={20} />
-                <span>+7 (999) 123-45-67</span>
+                <span>+7 (495) 956-48-55</span>
               </PhoneLink>
 
-              <MenuButton onClick={toggleMenu} aria-label="Открыть меню">
+              <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <Menu size={24} />
               </MenuButton>
             </RightSection>
@@ -187,7 +216,7 @@ export default function Header() {
         </Container>
       </HeaderWrapper>
 
-      <Overlay $isOpen={isMenuOpen} onClick={closeMenu} />
+      <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
     </>
   )
 }

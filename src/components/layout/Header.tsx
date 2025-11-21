@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { usePathname } from 'next/navigation';
 import styled from 'styled-components';
 import { Phone, Menu, X } from 'lucide-react';
 import Container from './Container';
+import { useScrollToSection } from '@/hooks/useScrollToSection';
 
 const HeaderWrapper = styled.header`
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
@@ -133,90 +133,72 @@ const RightSection = styled.div`
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname();
+  const { scrollToSection } = useScrollToSection();
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition, behavior: 'smooth',
-      });
-    }
+  const handleAnchorClick = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
+    scrollToSection(sectionId);
     setIsMenuOpen(false);
   };
 
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-
-    if (pathname !== '/' && pathname !== '/dez-site' && pathname !== '/dez-site/') {
-      window.location.href = `/#${sectionId}`;
-    } else {
-      scrollToSection(sectionId);
-    }
-  };
-
   return (<>
-    <HeaderWrapper>
-      <Container>
-        <HeaderContent>
-          <Logo href='/' onClick={() => setIsMenuOpen(false)}>
-            НПП «БИОХИММАШ»
-          </Logo>
+      <HeaderWrapper>
+        <Container>
+          <HeaderContent>
+            <Logo href='/' onClick={() => setIsMenuOpen(false)}>
+              НПП «БИОХИММАШ»
+            </Logo>
 
-          <Nav $isOpen={isMenuOpen}>
-            <CloseButton onClick={() => setIsMenuOpen(false)}>
-              <X size={24} />
-            </CloseButton>
+            <Nav $isOpen={isMenuOpen}>
+              <CloseButton onClick={() => setIsMenuOpen(false)}>
+                <X size={24} />
+              </CloseButton>
 
-            <NavLink href='/' onClick={() => setIsMenuOpen(false)}>
-              Главная
-            </NavLink>
+              <NavLink href='/' onClick={() => setIsMenuOpen(false)}>
+                Главная
+              </NavLink>
 
-            <NavLink
-              href='/#services'
-              onClick={(e) => handleAnchorClick(e, 'services')}
-            >
-              Услуги
-            </NavLink>
+              <NavLink
+                href='/#services'
+                onClick={(e) => handleAnchorClick(e, 'services')}
+              >
+                Услуги
+              </NavLink>
 
-            <NavLink href='/industries' onClick={() => setIsMenuOpen(false)}>
-              Отрасли
-            </NavLink>
+              <NavLink href='/industries' onClick={() => setIsMenuOpen(false)}>
+                Отрасли
+              </NavLink>
 
-            <NavLink
-              href='/#prices'
-              onClick={(e) => handleAnchorClick(e, 'prices')}
-            >
-              Цены
-            </NavLink>
+              <NavLink
+                href='/#prices'
+                onClick={(e) => handleAnchorClick(e, 'prices')}
+              >
+                Цены
+              </NavLink>
 
-            <NavLink href='/about' onClick={() => setIsMenuOpen(false)}>
-              О нас
-            </NavLink>
+              <NavLink href='/about' onClick={() => setIsMenuOpen(false)}>
+                О нас
+              </NavLink>
 
-            <NavLink href='/contacts' onClick={() => setIsMenuOpen(false)}>
-              Контакты
-            </NavLink>
-          </Nav>
+              <NavLink href='/contacts' onClick={() => setIsMenuOpen(false)}>
+                Контакты
+              </NavLink>
+            </Nav>
 
-          <RightSection>
-            <PhoneLink href='tel:+74959564855'>
-              <Phone size={20} />
-              <span>+7 (495) 956-48-55</span>
-            </PhoneLink>
+            <RightSection>
+              <PhoneLink href='tel:+74959564855'>
+                <Phone size={20} />
+                <span>+7 (495) 956-48-55</span>
+              </PhoneLink>
 
-            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              <Menu size={24} />
-            </MenuButton>
-          </RightSection>
-        </HeaderContent>
-      </Container>
-    </HeaderWrapper>
+              <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <Menu size={24} />
+              </MenuButton>
+            </RightSection>
+          </HeaderContent>
+        </Container>
+      </HeaderWrapper>
 
-    <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
-  </>);
+      <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
+    </>);
 }

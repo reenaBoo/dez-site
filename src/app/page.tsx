@@ -5,6 +5,7 @@ import ContactForm from '@/components/sections/ContactForm';
 import Prices from '@/components/sections/Prices';
 import About from '@/components/sections/About';
 import Clients from '@/components/sections/Clients';
+import ScrollHandler from '@/components/ScrollHandler';
 
 export const metadata: Metadata = {
   title: 'Главная — Дезинсекция в Москве', description: 'Профессиональная дезинсекция. Гарантия результата.',
@@ -12,11 +13,12 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (<>
-      <Hero />
-      <About />
-      <Services />
-      <Clients />
-      <Prices />
-      <ContactForm />
-    </>);
+    <ScrollHandler />
+    <Hero />
+    <About />
+    <Services />
+    <Clients />
+    <Prices />
+    <ContactForm />
+  </>);
 }

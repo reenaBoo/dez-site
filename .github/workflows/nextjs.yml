@@ -1,4 +1,4 @@
-name: Deploy Next.js to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
         env:
           NODE_ENV: production
 
-      - name: Add .nojekyll file
+      - name: Add .nojekyll
         run: touch ./out/.nojekyll
 
       - name: Upload artifact

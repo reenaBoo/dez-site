@@ -2,6 +2,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  basePath: '/dez-site',
+  assetPrefix: '/dez-site',
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },

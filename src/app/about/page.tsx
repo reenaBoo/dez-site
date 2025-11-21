@@ -2,7 +2,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { Download } from 'lucide-react';
+import { Download, ExternalLink } from 'lucide-react';
 import Container from '@/components/layout/Container';
 
 const PageWrapper = styled.div`
@@ -102,6 +102,17 @@ const LicenseItem = styled.li`
     }
 `;
 
+const ButtonsGroup = styled.div`
+    display: flex;
+    gap: ${({ theme }) => theme.spacing.md};
+    margin-top: ${({ theme }) => theme.spacing.xl};
+    flex-wrap: wrap;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        flex-direction: column;
+    }
+`;
+
 const DownloadButton = styled.a`
     display: inline-flex;
     align-items: center;
@@ -117,7 +128,6 @@ const DownloadButton = styled.a`
     cursor: pointer;
     transition: all ${({ theme }) => theme.transitions.normal};
     box-shadow: ${({ theme }) => theme.shadows.glow};
-    margin-top: ${({ theme }) => theme.spacing.xl};
 
     &:hover {
         background-color: ${({ theme }) => theme.colors.primaryLight};
@@ -130,91 +140,128 @@ const DownloadButton = styled.a`
     }
 `;
 
+const SecondaryButton = styled.a`
+    display: inline-flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.sm};
+    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    text-decoration: none;
+    cursor: pointer;
+    transition: all ${({ theme }) => theme.transitions.normal};
+
+    &:hover {
+        background-color: ${({ theme }) => theme.colors.primary};
+        color: ${({ theme }) => theme.colors.navy};
+        transform: translateY(-2px);
+    }
+
+    svg {
+        flex-shrink: 0;
+    }
+`;
+
 export default function AboutPage() {
   return (<PageWrapper>
-      <Container>
-        <Content>
-          <Title>О компании</Title>
+    <Container>
+      <Content>
+        <Title>О компании</Title>
 
-          <Section>
-            <Text>
-              <span>ООО «НПП «БИОХИММАШ»</span> - специализированная компания полного цикла.
-              Выполняем дезинсекцию (включая акарицидные обработки), дератизацию, дезинфекцию
-              помещений, оборудования и транспорта, а также фитосанитарную обработку территорий
-              (в т.ч. удаление инвазивных видов, таких как борщевик Сосновского).
-            </Text>
-            <Text>
-              Работаем по утверждённым регламентам, документируем все этапы и обеспечиваем
-              контроль качества.
-            </Text>
-          </Section>
+        <Section>
+          <Text>
+            <span>ООО «НПП «БИОХИММАШ»</span> - специализированная компания полного цикла.
+            Выполняем дезинсекцию (включая акарицидные обработки), дератизацию, дезинфекцию
+            помещений, оборудования и транспорта, а также фитосанитарную обработку территорий
+            (в т.ч. удаление инвазивных видов, таких как борщевик Сосновского).
+          </Text>
+          <Text>
+            Работаем по утверждённым регламентам, документируем все этапы и обеспечиваем
+            контроль качества.
+          </Text>
+        </Section>
 
-          <Section>
-            <SectionTitle>Наши преимущества</SectionTitle>
-            <List>
-              <ListItem>
-                Производственный контроль (ППК) под требования Роспотребнадзора, журналы учёта,
-                акты, протоколы, технологические карты
-              </ListItem>
-              <ListItem>
-                Обученный персонал (гражданство РФ), использование современных методик (в т.ч.
-                сухая обработка), СИЗ и современное оборудование
-              </ListItem>
-              <ListItem>Работаем с 2002 года — более 20 лет опыта</ListItem>
-              <ListItem>Гарантия результата</ListItem>
-              <ListItem>Безопасные сертифицированные препараты</ListItem>
-              <ListItem>Выезд специалиста в день обращения</ListItem>
-            </List>
-          </Section>
+        <Section>
+          <SectionTitle>Наши преимущества</SectionTitle>
+          <List>
+            <ListItem>
+              Производственный контроль (ППК) под требования Роспотребнадзора, журналы учёта,
+              акты, протоколы, технологические карты
+            </ListItem>
+            <ListItem>
+              Обученный персонал (гражданство РФ), использование современных методик (в т.ч.
+              сухая обработка), СИЗ и современное оборудование
+            </ListItem>
+            <ListItem>Работаем с 2002 года — более 20 лет опыта</ListItem>
+            <ListItem>Гарантия результата</ListItem>
+            <ListItem>Безопасные сертифицированные препараты</ListItem>
+            <ListItem>Выезд специалиста в день обращения</ListItem>
+          </List>
+        </Section>
 
-          <Section>
-            <SectionTitle>Клиенты и опыт</SectionTitle>
-            <Text>
-              Работаем с объектами любой сложности. Среди реализованных проектов и категорий
-              клиентов:
-            </Text>
-            <List>
-              <ListItem>Maison Dellos (рестораны, сеть «МуМу» и др.)</ListItem>
-              <ListItem>Бизнес-залы</ListItem>
-              <ListItem>Бизнесцентры</ListItem>
-              <ListItem>Объекты Министерства обороны</ListItem>
-              <ListItem>Объекты Минздрава</ListItem>
-              <ListItem>ООО «ВсеИнструменты.Ру»</ListItem>
-              <ListItem>ООО «РБЕ»</ListItem>
-              <ListItem>ООО «СИМПЛ ФУД»</ListItem>
-              <ListItem>Сеть зоомагазинов «Бетховен»</ListItem>
-              <ListItem>Сеть кафе «PIMS»</ListItem>
-              <ListItem>Сеть кафе «Штолле»</ListItem>
-              <ListItem>Социальные объекты</ListItem>
-              <ListItem>Хадасса Медикал</ListItem>
-              <ListItem>Школы Москвы</ListItem>
-            </List>
-            <Text style={{ marginTop: '1.5rem' }}>
-              <strong>География:</strong> Москва, Московская область и регионы РФ.
-            </Text>
-          </Section>
+        <Section>
+          <SectionTitle>Клиенты и опыт</SectionTitle>
+          <Text>
+            Работаем с объектами любой сложности. Среди реализованных проектов и категорий
+            клиентов:
+          </Text>
+          <List>
+            <ListItem>Maison Dellos (рестораны, сеть «МуМу» и др.)</ListItem>
+            <ListItem>Бизнес-залы</ListItem>
+            <ListItem>Бизнесцентры</ListItem>
+            <ListItem>Объекты Министерства обороны</ListItem>
+            <ListItem>Объекты Минздрава</ListItem>
+            <ListItem>ООО «ВсеИнструменты.Ру»</ListItem>
+            <ListItem>ООО «РБЕ»</ListItem>
+            <ListItem>ООО «СИМПЛ ФУД»</ListItem>
+            <ListItem>Сеть зоомагазинов «Бетховен»</ListItem>
+            <ListItem>Сеть кафе «PIMS»</ListItem>
+            <ListItem>Сеть кафе «Штолле»</ListItem>
+            <ListItem>Социальные объекты</ListItem>
+            <ListItem>Хадасса Медикал</ListItem>
+            <ListItem>Школы Москвы</ListItem>
+          </List>
+          <Text style={{ marginTop: '1.5rem' }}>
+            <strong>География:</strong> Москва, Московская область и регионы РФ.
+          </Text>
+        </Section>
 
-          <LicenseSection>
-            <SectionTitle>Лицензия</SectionTitle>
-            <LicenseList>
-              <LicenseItem>ЕРУЛ №: Л064-00111-77/01975167</LicenseItem>
-              <LicenseItem>Рег. номер лицензии: 77.01.13.003.Л.000163.03.25</LicenseItem>
-              <LicenseItem>Дата предоставления: 11.03.2025</LicenseItem>
-              <LicenseItem>Приказ лицензирующего органа: № 88 от 11.03.2025</LicenseItem>
-              <LicenseItem>
-                Лицензирующий орган: Управление Роспотребнадзора по г. Москве
-              </LicenseItem>
-              <LicenseItem>
-                Вид деятельности: услуги по дезинфекции, дезинсекции и дератизации
-              </LicenseItem>
-            </LicenseList>
+        <LicenseSection>
+          <SectionTitle>Лицензия</SectionTitle>
+          <LicenseList>
+            <LicenseItem>ЕРУЛ №: Л064-00111-77/01975167</LicenseItem>
+            <LicenseItem>Рег. номер лицензии: 77.01.13.003.Л.000163.03.25</LicenseItem>
+            <LicenseItem>Дата предоставления: 11.03.2025</LicenseItem>
+            <LicenseItem>Приказ лицензирующего органа: № 88 от 11.03.2025</LicenseItem>
+            <LicenseItem>
+              Лицензирующий орган: Управление Роспотребнадзора по г. Москве
+            </LicenseItem>
+            <LicenseItem>
+              Вид деятельности: услуги по дезинфекции, дезинсекции и дератизации
+            </LicenseItem>
+          </LicenseList>
+
+          <ButtonsGroup>
+            <SecondaryButton
+              href='https://fp.rospotrebnadzor.ru/licen/?record_uuid=48fd48e7-fe83-11ef-9d7d-40f2e9218cba'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <ExternalLink size={20} />
+              Проверить запись в реестре
+            </SecondaryButton>
 
             <DownloadButton href='/documents/license.pdf' download>
               <Download size={20} />
               Скачать выписку (PDF)
             </DownloadButton>
-          </LicenseSection>
-        </Content>
-      </Container>
-    </PageWrapper>);
+          </ButtonsGroup>
+        </LicenseSection>
+      </Content>
+    </Container>
+  </PageWrapper>);
 }

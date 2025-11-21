@@ -187,8 +187,24 @@ export default function Hero() {
         </Features>
 
         <CTAButtons>
-          <PrimaryButton href='/#contact-form'>Заказать обработку</PrimaryButton>
-          <SecondaryButton href='tel:+74959564855'>+7 (495) 956-48-55</SecondaryButton>
+          <PrimaryButton
+            href='/#contact-form'
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById('contact-form');
+              if (element) {
+                const offset = 100;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+              }
+            }}
+          >
+            Заказать обработку
+          </PrimaryButton>
+          <SecondaryButton href='tel:+74959564855'>
+            +7 (495) 956-48-55
+          </SecondaryButton>
         </CTAButtons>
       </Content>
     </Container>

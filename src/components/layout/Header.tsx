@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
-import styled from 'styled-components'
-import { Phone, Menu, X } from 'lucide-react'
-import Container from './Container'
+import Link from 'next/link';
+import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import styled from 'styled-components';
+import { Phone, Menu, X } from 'lucide-react';
+import Container from './Container';
 
 const HeaderWrapper = styled.header`
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
@@ -15,14 +15,14 @@ const HeaderWrapper = styled.header`
     z-index: 100;
     padding: ${({ theme }) => theme.spacing.lg} 0;
     border-bottom: 2px solid ${({ theme }) => theme.colors.navyLight};
-`
+`;
 
 const HeaderContent = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: ${({ theme }) => theme.spacing.xl};
-`
+`;
 
 const Logo = styled(Link)`
     font-size: ${({ theme }) => theme.fontSize['2xl']};
@@ -35,7 +35,7 @@ const Logo = styled(Link)`
         color: ${({ theme }) => theme.colors.primaryLight};
         transform: scale(1.05);
     }
-`
+`;
 
 const Nav = styled.nav<{ $isOpen: boolean }>`
     display: flex;
@@ -56,7 +56,7 @@ const Nav = styled.nav<{ $isOpen: boolean }>`
         z-index: 1000;
         border-left: 2px solid ${({ theme }) => theme.colors.navyLight};
     }
-`
+`;
 
 const NavLink = styled(Link)`
     color: ${({ theme }) => theme.colors.text};
@@ -67,7 +67,7 @@ const NavLink = styled(Link)`
     &:hover {
         color: ${({ theme }) => theme.colors.primary};
     }
-`
+`;
 
 const PhoneLink = styled.a`
     display: flex;
@@ -86,7 +86,7 @@ const PhoneLink = styled.a`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize.base};
     }
-`
+`;
 
 const MenuButton = styled.button`
     display: none;
@@ -97,7 +97,7 @@ const MenuButton = styled.button`
     @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
         display: flex;
     }
-`
+`;
 
 const CloseButton = styled.button`
     display: none;
@@ -111,7 +111,7 @@ const CloseButton = styled.button`
     @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
         display: flex;
     }
-`
+`;
 
 const Overlay = styled.div<{ $isOpen: boolean }>`
     display: none;
@@ -123,100 +123,100 @@ const Overlay = styled.div<{ $isOpen: boolean }>`
         background-color: rgba(10, 22, 40, 0.9);
         z-index: 999;
     }
-`
+`;
 
 const RightSection = styled.div`
     display: flex;
     align-items: center;
     gap: ${({ theme }) => theme.spacing.lg};
-`
+`;
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const pathname = usePathname()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
-  // Обработка якорей при монтировании
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash
-      if (hash) {
-        const id = hash.substring(1)
-        setTimeout(() => {
-          const element = document.getElementById(id)
-          if (element) {
-            const offset = 100 // Отступ для Header
-            const elementPosition = element.getBoundingClientRect().top
-            const offsetPosition = elementPosition + window.pageYOffset - offset
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
 
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            })
-          }
-        }, 100)
-      }
+      window.scrollTo({
+        top: offsetPosition, behavior: 'smooth',
+      });
     }
+    setIsMenuOpen(false);
+  };
 
-    handleHashChange()
-    window.addEventListener('hashchange', handleHashChange)
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
 
-    return () => window.removeEventListener('hashchange', handleHashChange)
-  }, [])
+    if (pathname !== '/' && pathname !== '/dez-site' && pathname !== '/dez-site/') {
+      window.location.href = `/#${sectionId}`;
+    } else {
+      scrollToSection(sectionId);
+    }
+  };
 
-  return (
-    <>
-      <HeaderWrapper>
-        <Container>
-          <HeaderContent>
-            <Logo href="/" onClick={() => setIsMenuOpen(false)}>
-              НПП «БИОХИММАШ»
-            </Logo>
+  return (<>
+    <HeaderWrapper>
+      <Container>
+        <HeaderContent>
+          <Logo href='/' onClick={() => setIsMenuOpen(false)}>
+            НПП «БИОХИММАШ»
+          </Logo>
 
-            <Nav $isOpen={isMenuOpen}>
-              <CloseButton onClick={() => setIsMenuOpen(false)}>
-                <X size={24} />
-              </CloseButton>
+          <Nav $isOpen={isMenuOpen}>
+            <CloseButton onClick={() => setIsMenuOpen(false)}>
+              <X size={24} />
+            </CloseButton>
 
-              <NavLink href="/" onClick={() => setIsMenuOpen(false)}>
-                Главная
-              </NavLink>
+            <NavLink href='/' onClick={() => setIsMenuOpen(false)}>
+              Главная
+            </NavLink>
 
-              <NavLink href="/#services" onClick={() => setIsMenuOpen(false)}>
-                Услуги
-              </NavLink>
+            <NavLink
+              href='/#services'
+              onClick={(e) => handleAnchorClick(e, 'services')}
+            >
+              Услуги
+            </NavLink>
 
-              <NavLink href="/industries" onClick={() => setIsMenuOpen(false)}>
-                Отрасли
-              </NavLink>
+            <NavLink href='/industries' onClick={() => setIsMenuOpen(false)}>
+              Отрасли
+            </NavLink>
 
-              <NavLink href="/#prices" onClick={() => setIsMenuOpen(false)}>
-                Цены
-              </NavLink>
+            <NavLink
+              href='/#prices'
+              onClick={(e) => handleAnchorClick(e, 'prices')}
+            >
+              Цены
+            </NavLink>
 
-              <NavLink href="/about" onClick={() => setIsMenuOpen(false)}>
-                О нас
-              </NavLink>
+            <NavLink href='/about' onClick={() => setIsMenuOpen(false)}>
+              О нас
+            </NavLink>
 
-              <NavLink href="/contacts" onClick={() => setIsMenuOpen(false)}>
-                Контакты
-              </NavLink>
-            </Nav>
+            <NavLink href='/contacts' onClick={() => setIsMenuOpen(false)}>
+              Контакты
+            </NavLink>
+          </Nav>
 
-            <RightSection>
-              <PhoneLink href="tel:+74959564855">
-                <Phone size={20} />
-                <span>+7 (495) 956-48-55</span>
-              </PhoneLink>
+          <RightSection>
+            <PhoneLink href='tel:+74959564855'>
+              <Phone size={20} />
+              <span>+7 (495) 956-48-55</span>
+            </PhoneLink>
 
-              <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <Menu size={24} />
-              </MenuButton>
-            </RightSection>
-          </HeaderContent>
-        </Container>
-      </HeaderWrapper>
+            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <Menu size={24} />
+            </MenuButton>
+          </RightSection>
+        </HeaderContent>
+      </Container>
+    </HeaderWrapper>
 
-      <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
-    </>
-  )
+    <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
+  </>);
 }

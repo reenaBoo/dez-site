@@ -1,5 +1,5 @@
 const nextConfig = {
-  output: 'export', basePath: '/nextjs-github-pages', images: {
+  output: 'export', basePath: process.env.NODE_ENV === 'production' ? '/dez-site' : '', images: {
     unoptimized: true,
   }, compiler: {
     styledComponents: true,
@@ -9,4 +9,5 @@ const nextConfig = {
     dirs: ['src'],
   },
 };
+
 export default nextConfig;

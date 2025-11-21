@@ -1,26 +1,27 @@
-'use client'
+'use client';
 
-import styled from 'styled-components'
-import { Phone, ArrowRight } from 'lucide-react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import Container from '@/components/layout/Container'
-import { Button } from '@/components/common/Button'
+import styled from 'styled-components';
+import { Phone, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Container from '@/components/layout/Container';
+import { Button } from '@/components/common/Button';
+import { getAssetPath } from '@/utils/etAssetPath';
 
 const HeroSection = styled.section`
     position: relative;
-    min-height: calc(100vh - 90px); 
+    min-height: calc(100vh - 90px);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background-color: ${({ theme }) => theme.colors.background};
-    padding-top: 0; 
+    padding-top: 0;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         min-height: calc(100vh - 80px);
     }
-`
+`;
 
 const BackgroundImage = styled.div`
     position: absolute;
@@ -32,22 +33,22 @@ const BackgroundImage = styled.div`
         object-position: center right;
         opacity: 0.3;
     }
-`
+`;
 
 const HeroContent = styled.div`
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 0; 
+    padding: 0;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         text-align: center;
     }
-`
+`;
 
 const HeroText = styled.div`
     max-width: 800px;
-`
+`;
 
 const HeroTitle = styled(motion.h1)`
     font-size: ${({ theme }) => theme.fontSize['5xl']};
@@ -64,7 +65,7 @@ const HeroTitle = styled(motion.h1)`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize['3xl']};
     }
-`
+`;
 
 const HeroDescription = styled(motion.p)`
     font-size: ${({ theme }) => theme.fontSize.xl};
@@ -79,7 +80,7 @@ const HeroDescription = styled(motion.p)`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize.lg};
     }
-`
+`;
 
 const HeroButtons = styled(motion.div)`
     display: flex;
@@ -94,7 +95,7 @@ const HeroButtons = styled(motion.div)`
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         flex-direction: column;
     }
-`
+`;
 
 const FeaturesList = styled(motion.ul)`
     display: grid;
@@ -106,7 +107,7 @@ const FeaturesList = styled(motion.ul)`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         grid-template-columns: 1fr;
     }
-`
+`;
 
 const FeatureItem = styled.li`
     display: flex;
@@ -129,70 +130,68 @@ const FeatureItem = styled.li`
         font-weight: bold;
         box-shadow: ${({ theme }) => theme.shadows.glow};
     }
-`
+`;
 
 export default function Hero() {
-  return (
-    <HeroSection>
-      <BackgroundImage>
-        <Image
-          src="/images/hero-bg.jpg"
-          alt="Профессиональная дезинсекция"
-          fill
-          priority
-          quality={90}
-        />
-      </BackgroundImage>
+  return (<HeroSection>
+    <BackgroundImage>
+      <Image
+        src={getAssetPath('/images/hero-bg.jpg')}
+        alt='Профессиональная дезинсекция'
+        fill
+        priority
+        quality={90}
+      />
+    </BackgroundImage>
 
-      <Container>
-        <HeroContent>
-          <HeroText>
-            <HeroTitle
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              Профессиональная <span className="accent">дезинсекция</span> и санитарная безопасность
-            </HeroTitle>
+    <Container>
+      <HeroContent>
+        <HeroText>
+          <HeroTitle
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Профессиональная <span className='accent'>дезинсекция</span> и санитарная безопасность
+          </HeroTitle>
 
-            <HeroDescription
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Дезинсекция (уничтожение насекомых), дератизация (уничтожение грызунов) <br/> и фитосанитарная обработка для физлиц
-              и бизнеса в Москве, МО и ЦФО
-            </HeroDescription>
+          <HeroDescription
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Дезинсекция (уничтожение насекомых), дератизация (уничтожение грызунов) <br /> и фитосанитарная обработка для физлиц
+            и бизнеса в Москве, МО и ЦФО
+          </HeroDescription>
 
-            <FeaturesList
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <FeatureItem>Работаем с 2002 года</FeatureItem>
-              <FeatureItem>Гарантия результата</FeatureItem>
-              <FeatureItem>Безопасные препараты</FeatureItem>
-              <FeatureItem>Выезд в день заказа</FeatureItem>
-            </FeaturesList>
+          <FeaturesList
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <FeatureItem>Работаем с 2002 года</FeatureItem>
+            <FeatureItem>Гарантия результата</FeatureItem>
+            <FeatureItem>Безопасные препараты</FeatureItem>
+            <FeatureItem>Выезд в день заказа</FeatureItem>
+          </FeaturesList>
 
-            <HeroButtons
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <Button as="a" href="#contact-form" size="lg">
-                Заказать обработку
-                <ArrowRight size={20} />
-              </Button>
+          <HeroButtons
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <Button as='a' href='#contact-form' size='lg'>
+              Заказать обработку
+              <ArrowRight size={20} />
+            </Button>
 
-              <Button as="a" href="tel:+79991234567" variant="outline" size="lg">
-                <Phone size={20} />
-                +7 (495) 956‑48‑55
-              </Button>
-            </HeroButtons>
-          </HeroText>
-        </HeroContent>
-      </Container>
-    </HeroSection>
-  )
+            <Button as='a' href='tel:+79991234567' variant='outline' size='lg'>
+              <Phone size={20} />
+              +7 (495) 956‑48‑55
+            </Button>
+          </HeroButtons>
+        </HeroText>
+      </HeroContent>
+    </Container>
+  </HeroSection>);
 }

@@ -1,20 +1,12 @@
 const nextConfig = {
-  compiler: {
+  output: 'export', basePath: '/nextjs-github-pages', images: {
+    unoptimized: true,
+  }, compiler: {
     styledComponents: true,
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
-  },
-  experimental: {
+  }, experimental: {
     scrollRestoration: true,
-  },
-  eslint: {
+  }, eslint: {
     dirs: ['src'],
   },
-}
+};
 export default nextConfig;

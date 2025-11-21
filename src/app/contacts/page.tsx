@@ -1,9 +1,10 @@
-'use client'
+'use client';
 
-import styled from 'styled-components'
-import Image from 'next/image'
-import { Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react'
-import Container from '@/components/layout/Container'
+import styled from 'styled-components';
+import Image from 'next/image';
+import { Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
+import Container from '@/components/layout/Container';
+import { getAssetPath } from '@/utils/etAssetPath';
 
 const PageWrapper = styled.div`
     position: relative;
@@ -12,7 +13,7 @@ const PageWrapper = styled.div`
     align-items: center;
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
     overflow: hidden;
-`
+`;
 
 const BackgroundImage = styled.div`
     position: absolute;
@@ -24,7 +25,7 @@ const BackgroundImage = styled.div`
         object-position: center left;
         opacity: 0.4;
     }
-`
+`;
 
 const ContentWrapper = styled.div`
     position: relative;
@@ -37,7 +38,7 @@ const ContentWrapper = styled.div`
     @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
         align-items: center;
     }
-`
+`;
 
 const Title = styled.h1`
     font-size: ${({ theme }) => theme.fontSize['4xl']};
@@ -56,7 +57,7 @@ const Title = styled.h1`
         text-align: center;
         max-width: 100%;
     }
-`
+`;
 
 const ContactsGrid = styled.div`
     display: grid;
@@ -74,6 +75,7 @@ const ContactsGrid = styled.div`
     }
 
     /* Смещаем каждую четную карточку (правая колонка) вниз */
+
     & > *:nth-child(2n) {
         transform: translateY(50px); /* Вместо -50px теперь +50px */
 
@@ -81,7 +83,7 @@ const ContactsGrid = styled.div`
             transform: translateY(0);
         }
     }
-`
+`;
 
 const ContactCard = styled.div`
     background: rgba(10, 16, 24, 0.85);
@@ -102,14 +104,14 @@ const ContactCard = styled.div`
         transform: translateX(-4px);
         background: rgba(10, 16, 24, 0.95);
     }
-`
+`;
 
 const CardHeader = styled.div`
     display: flex;
     align-items: center;
     gap: ${({ theme }) => theme.spacing.sm};
     margin-bottom: ${({ theme }) => theme.spacing.sm};
-`
+`;
 
 const IconWrapper = styled.div`
     width: 40px;
@@ -122,25 +124,25 @@ const IconWrapper = styled.div`
     color: ${({ theme }) => theme.colors.navy};
     box-shadow: ${({ theme }) => theme.shadows.glow};
     flex-shrink: 0;
-`
+`;
 
 const CardTitle = styled.h3`
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.colors.heading};
     font-weight: ${({ theme }) => theme.fontWeight.semibold};
-`
+`;
 
 const CardContent = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing.xs};
-`
+`;
 
 const ContactInfo = styled.div`
     font-size: ${({ theme }) => theme.fontSize.sm};
     color: ${({ theme }) => theme.colors.text};
     line-height: 1.5;
-`
+`;
 
 const ContactLink = styled.a`
     color: ${({ theme }) => theme.colors.primary};
@@ -154,20 +156,20 @@ const ContactLink = styled.a`
         color: ${({ theme }) => theme.colors.primaryLight};
         text-decoration: underline;
     }
-`
+`;
 
 const WorkingHours = styled.div`
     font-size: ${({ theme }) => theme.fontSize.xs};
     color: ${({ theme }) => theme.colors.textLight};
     margin-top: ${({ theme }) => theme.spacing.xs};
-`
+`;
 
 const SocialButtons = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing.sm};
     margin-top: ${({ theme }) => theme.spacing.sm};
-`
+`;
 
 const SocialButton = styled.a`
     display: flex;
@@ -193,15 +195,14 @@ const SocialButton = styled.a`
     svg {
         flex-shrink: 0;
     }
-`
+`;
 
 export default function ContactsPage() {
-  return (
-    <PageWrapper>
+  return (<PageWrapper>
       <BackgroundImage>
         <Image
-          src="/images/contacts-bg.jpg"
-          alt="Профессиональная дезинсекция"
+          src={getAssetPath('/images/contacts-bg.jpg')}
+          alt='Профессиональная дезинсекция'
           fill
           priority
           quality={90}
@@ -226,17 +227,17 @@ export default function ContactsPage() {
                 <ContactInfo>Свяжитесь с нами удобным способом:</ContactInfo>
                 <SocialButtons>
                   <SocialButton
-                    href="https://t.me/+74959564855"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href='https://t.me/+74959564855'
+                    target='_blank'
+                    rel='noopener noreferrer'
                   >
                     <Send size={18} />
                     Написать в Telegram
                   </SocialButton>
                   <SocialButton
-                    href="https://wa.me/74959564855"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href='https://wa.me/74959564855'
+                    target='_blank'
+                    rel='noopener noreferrer'
                   >
                     <MessageCircle size={18} />
                     Написать в WhatsApp
@@ -255,7 +256,7 @@ export default function ContactsPage() {
               </CardHeader>
               <CardContent>
                 <ContactInfo>Звоните нам по телефону:</ContactInfo>
-                <ContactLink href="tel:+74959564855">
+                <ContactLink href='tel:+74959564855'>
                   +7 (495) 956-48-55
                 </ContactLink>
                 <WorkingHours>Ежедневно с 8:00 до 22:00</WorkingHours>
@@ -272,7 +273,7 @@ export default function ContactsPage() {
               </CardHeader>
               <CardContent>
                 <ContactInfo>Напишите нам на почту:</ContactInfo>
-                <ContactLink href="mailto:biohimmash@mail.ru">
+                <ContactLink href='mailto:biohimmash@mail.ru'>
                   biohimmash@mail.ru
                 </ContactLink>
               </CardContent>
@@ -296,6 +297,5 @@ export default function ContactsPage() {
           </ContactsGrid>
         </ContentWrapper>
       </Container>
-    </PageWrapper>
-  )
+    </PageWrapper>);
 }

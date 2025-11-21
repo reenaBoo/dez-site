@@ -2,6 +2,7 @@
 
 import styled, { keyframes } from 'styled-components';
 import Container from '@/components/layout/Container';
+import { getAssetPath } from '@/utils/getAssetPath';
 
 const ClientsSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -213,7 +214,7 @@ const LogoDescription = styled.div`
 `;
 
 const clients = [{
-  name: 'Maison Dellos', description: 'Рестораны, сеть «МуМу»', logo: '/images/clients/maison-dellos.svg', hasLogo: true,
+  name: 'Maison Dellos', description: 'Рестораны, сеть «МуМу»', logo: getAssetPath('/images/clients/maison-dellos.svg'), hasLogo: true,
 }, {
   name: 'ВсеИнструменты.Ру', description: 'Розничная сеть', hasLogo: false,
 }, {
@@ -231,29 +232,29 @@ export default function Clients() {
   const doubledClients = [...clients, ...clients];
 
   return (<ClientsSection>
-      <Container>
-        <SectionHeader>
-          <SectionTitle>
-            Нам <span>доверяют</span>
-          </SectionTitle>
-          <SectionDescription>
-            Крупнейшие компании и государственные учреждения выбирают нас
-          </SectionDescription>
-        </SectionHeader>
-      </Container>
+    <Container>
+      <SectionHeader>
+        <SectionTitle>
+          Нам <span>доверяют</span>
+        </SectionTitle>
+        <SectionDescription>
+          Крупнейшие компании и государственные учреждения выбирают нас
+        </SectionDescription>
+      </SectionHeader>
+    </Container>
 
-      <SliderWrapper>
-        <SliderContainer>
-          <SliderTrack>
-            {doubledClients.map((client, index) => (<LogoCard key={index}>
-                <LogoWrapper>
-                  {client.hasLogo ? (<LogoImage src={client.logo} alt={client.name} />) : (<LogoPlaceholder>{client.name.substring(0, 3)}</LogoPlaceholder>)}
-                </LogoWrapper>
-                <LogoName>{client.name}</LogoName>
-                <LogoDescription>{client.description}</LogoDescription>
-              </LogoCard>))}
-          </SliderTrack>
-        </SliderContainer>
-      </SliderWrapper>
-    </ClientsSection>);
+    <SliderWrapper>
+      <SliderContainer>
+        <SliderTrack>
+          {doubledClients.map((client, index) => (<LogoCard key={index}>
+            <LogoWrapper>
+              {client.hasLogo ? (<LogoImage src={client.logo} alt={client.name} />) : (<LogoPlaceholder>{client.name.substring(0, 3)}</LogoPlaceholder>)}
+            </LogoWrapper>
+            <LogoName>{client.name}</LogoName>
+            <LogoDescription>{client.description}</LogoDescription>
+          </LogoCard>))}
+        </SliderTrack>
+      </SliderContainer>
+    </SliderWrapper>
+  </ClientsSection>);
 }

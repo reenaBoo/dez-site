@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import { getAssetPath } from '@/utils/getAssetPath';
 
 const PageWrapper = styled.div`
     position: relative;
@@ -198,7 +199,7 @@ export default function ContactsPage() {
   return (<PageWrapper>
     <BackgroundImage>
       <Image
-        src='/images/contacts-bg.jpg'
+        src={getAssetPath('/images/contacts-bg.jpg')}
         alt='Профессиональная дезинсекция'
         fill
         priority

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import { getAssetPath } from '@/utils/getAssetPath';
 
 const HeroSection = styled.section`
     position: relative;
@@ -144,52 +145,52 @@ const SecondaryButton = styled(Link)`
 
 export default function Hero() {
   return (<HeroSection>
-      <BackgroundImage>
-        <Image
-          src='/images/hero-bg.jpg'
-          alt='Профессиональная дезинсекция'
-          fill
-          priority
-          quality={90}
-        />
-      </BackgroundImage>
+    <BackgroundImage>
+      <Image
+        src={getAssetPath('/images/hero-bg.jpg')}
+        alt='Профессиональная дезинсекция'
+        fill
+        priority
+        quality={90}
+      />
+    </BackgroundImage>
 
-      <Container>
-        <Content>
-          <Title>
-            Профессиональная <span>дезинсекция</span>
-            <br />и санитарная безопасность
-          </Title>
+    <Container>
+      <Content>
+        <Title>
+          Профессиональная <span>дезинсекция</span>
+          <br />и санитарная безопасность
+        </Title>
 
-          <Subtitle>
-            Дезинсекция (уничтожение насекомых), дератизация (уничтожение грызунов) и
-            фитосанитарная обработка для физлиц и бизнеса в Москве, МО и ЦФО
-          </Subtitle>
+        <Subtitle>
+          Дезинсекция (уничтожение насекомых), дератизация (уничтожение грызунов) и
+          фитосанитарная обработка для физлиц и бизнеса в Москве, МО и ЦФО
+        </Subtitle>
 
-          <Features>
-            <Feature>
-              <CheckCircle size={24} />
-              Работаем с 2002 года
-            </Feature>
-            <Feature>
-              <CheckCircle size={24} />
-              Безопасные препараты
-            </Feature>
-            <Feature>
-              <CheckCircle size={24} />
-              Гарантия результата
-            </Feature>
-            <Feature>
-              <CheckCircle size={24} />
-              Выезд в день заказа
-            </Feature>
-          </Features>
+        <Features>
+          <Feature>
+            <CheckCircle size={24} />
+            Работаем с 2002 года
+          </Feature>
+          <Feature>
+            <CheckCircle size={24} />
+            Безопасные препараты
+          </Feature>
+          <Feature>
+            <CheckCircle size={24} />
+            Гарантия результата
+          </Feature>
+          <Feature>
+            <CheckCircle size={24} />
+            Выезд в день заказа
+          </Feature>
+        </Features>
 
-          <CTAButtons>
-            <PrimaryButton href='/#contact-form'>Заказать обработку</PrimaryButton>
-            <SecondaryButton href='tel:+74959564855'>+7 (495) 956-48-55</SecondaryButton>
-          </CTAButtons>
-        </Content>
-      </Container>
-    </HeroSection>);
+        <CTAButtons>
+          <PrimaryButton href='/#contact-form'>Заказать обработку</PrimaryButton>
+          <SecondaryButton href='tel:+74959564855'>+7 (495) 956-48-55</SecondaryButton>
+        </CTAButtons>
+      </Content>
+    </Container>
+  </HeroSection>);
 }

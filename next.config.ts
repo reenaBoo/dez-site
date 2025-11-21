@@ -1,14 +1,10 @@
 // next.config.ts
-/** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
-  output: 'export',
-  basePath: '/dez-site',
-  assetPrefix: '/dez-site',
-  trailingSlash: true,
-  images: {
+  output: 'export', basePath: isProd ? '/dez-site' : '', assetPrefix: isProd ? '/dez-site' : '', images: {
     unoptimized: true,
-  },
-  compiler: {
+  }, compiler: {
     styledComponents: true,
   },
 };

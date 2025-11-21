@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
 import Container from '@/components/layout/Container';
-import { getAssetPath } from '@/utils/etAssetPath';
 
 const PageWrapper = styled.div`
     position: relative;
@@ -74,10 +73,8 @@ const ContactsGrid = styled.div`
         padding-bottom: 0;
     }
 
-    /* Смещаем каждую четную карточку (правая колонка) вниз */
-
     & > *:nth-child(2n) {
-        transform: translateY(50px); /* Вместо -50px теперь +50px */
+        transform: translateY(50px);
 
         @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
             transform: translateY(0);
@@ -199,103 +196,103 @@ const SocialButton = styled.a`
 
 export default function ContactsPage() {
   return (<PageWrapper>
-      <BackgroundImage>
-        <Image
-          src={getAssetPath('/images/contacts-bg.jpg')}
-          alt='Профессиональная дезинсекция'
-          fill
-          priority
-          quality={90}
-        />
-      </BackgroundImage>
+    <BackgroundImage>
+      <Image
+        src='/images/contacts-bg.jpg'
+        alt='Профессиональная дезинсекция'
+        fill
+        priority
+        quality={90}
+      />
+    </BackgroundImage>
 
-      <Container>
-        <ContentWrapper>
-          <Title>
-            <span>Контакты</span>
-          </Title>
+    <Container>
+      <ContentWrapper>
+        <Title>
+          <span>Контакты</span>
+        </Title>
 
-          <ContactsGrid>
-            <ContactCard>
-              <CardHeader>
-                <IconWrapper>
-                  <MessageCircle size={20} />
-                </IconWrapper>
-                <CardTitle>Мессенджеры</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ContactInfo>Свяжитесь с нами удобным способом:</ContactInfo>
-                <SocialButtons>
-                  <SocialButton
-                    href='https://t.me/+74959564855'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <Send size={18} />
-                    Написать в Telegram
-                  </SocialButton>
-                  <SocialButton
-                    href='https://wa.me/74959564855'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <MessageCircle size={18} />
-                    Написать в WhatsApp
-                  </SocialButton>
-                </SocialButtons>
-              </CardContent>
-            </ContactCard>
+        <ContactsGrid>
+          <ContactCard>
+            <CardHeader>
+              <IconWrapper>
+                <MessageCircle size={20} />
+              </IconWrapper>
+              <CardTitle>Мессенджеры</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ContactInfo>Свяжитесь с нами удобным способом:</ContactInfo>
+              <SocialButtons>
+                <SocialButton
+                  href='https://t.me/+74959564855'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <Send size={18} />
+                  Написать в Telegram
+                </SocialButton>
+                <SocialButton
+                  href='https://wa.me/74959564855'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <MessageCircle size={18} />
+                  Написать в WhatsApp
+                </SocialButton>
+              </SocialButtons>
+            </CardContent>
+          </ContactCard>
 
-            {/* Телефон */}
-            <ContactCard>
-              <CardHeader>
-                <IconWrapper>
-                  <Phone size={20} />
-                </IconWrapper>
-                <CardTitle>Телефон</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ContactInfo>Звоните нам по телефону:</ContactInfo>
-                <ContactLink href='tel:+74959564855'>
-                  +7 (495) 956-48-55
-                </ContactLink>
-                <WorkingHours>Ежедневно с 8:00 до 22:00</WorkingHours>
-              </CardContent>
-            </ContactCard>
+          {/* Телефон */}
+          <ContactCard>
+            <CardHeader>
+              <IconWrapper>
+                <Phone size={20} />
+              </IconWrapper>
+              <CardTitle>Телефон</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ContactInfo>Звоните нам по телефону:</ContactInfo>
+              <ContactLink href='tel:+74959564855'>
+                +7 (495) 956-48-55
+              </ContactLink>
+              <WorkingHours>Ежедневно с 8:00 до 22:00</WorkingHours>
+            </CardContent>
+          </ContactCard>
 
-            {/* Email */}
-            <ContactCard>
-              <CardHeader>
-                <IconWrapper>
-                  <Mail size={20} />
-                </IconWrapper>
-                <CardTitle>Email</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ContactInfo>Напишите нам на почту:</ContactInfo>
-                <ContactLink href='mailto:biohimmash@mail.ru'>
-                  biohimmash@mail.ru
-                </ContactLink>
-              </CardContent>
-            </ContactCard>
+          {/* Email */}
+          <ContactCard>
+            <CardHeader>
+              <IconWrapper>
+                <Mail size={20} />
+              </IconWrapper>
+              <CardTitle>Email</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ContactInfo>Напишите нам на почту:</ContactInfo>
+              <ContactLink href='mailto:biohimmash@mail.ru'>
+                biohimmash@mail.ru
+              </ContactLink>
+            </CardContent>
+          </ContactCard>
 
-            {/* Адрес */}
-            <ContactCard>
-              <CardHeader>
-                <IconWrapper>
-                  <MapPin size={20} />
-                </IconWrapper>
-                <CardTitle>Адрес офиса</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ContactInfo>
-                  107076, г. Москва, пер. Большой Матросский, д. 1, эт. 1, пом. XXVII, ком. 19
-                </ContactInfo>
-              </CardContent>
-            </ContactCard>
+          {/* Адрес */}
+          <ContactCard>
+            <CardHeader>
+              <IconWrapper>
+                <MapPin size={20} />
+              </IconWrapper>
+              <CardTitle>Адрес офиса</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ContactInfo>
+                107076, г. Москва, пер. Большой Матросский, д. 1, эт. 1, пом. XXVII, ком. 19
+              </ContactInfo>
+            </CardContent>
+          </ContactCard>
 
-          </ContactsGrid>
-        </ContentWrapper>
-      </Container>
-    </PageWrapper>);
+        </ContactsGrid>
+      </ContentWrapper>
+    </Container>
+  </PageWrapper>);
 }

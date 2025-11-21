@@ -1,57 +1,55 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import styled from 'styled-components'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Check } from 'lucide-react'
-import Container from '@/components/layout/Container'
+import { useState } from 'react';
+import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, Check } from 'lucide-react';
+import Container from '@/components/layout/Container';
 
 const PricesSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
-`
+`;
 
 const SectionWrapper = styled.div`
     max-width: 900px;
     margin: 0 auto;
-`
+`;
 
 const SectionHeader = styled.div`
-  text-align: center;
-  margin-bottom: ${({ theme }) => theme.spacing.xxxl};
-`
+    text-align: center;
+    margin-bottom: ${({ theme }) => theme.spacing.xxxl};
+`;
 
 const SectionTitle = styled.h2`
-  font-size: ${({ theme }) => theme.fontSize['4xl']};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.heading};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+    font-size: ${({ theme }) => theme.fontSize['4xl']};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    color: ${({ theme }) => theme.colors.heading};
+    margin-bottom: ${({ theme }) => theme.spacing.md};
 
-  span {
-    color: ${({ theme }) => theme.colors.primary};
-  }
+    span {
+        color: ${({ theme }) => theme.colors.primary};
+    }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.fontSize['3xl']};
-  }
-`
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        font-size: ${({ theme }) => theme.fontSize['3xl']};
+    }
+`;
 
 const SectionDescription = styled.p`
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.colors.textLight};
-`
+`;
 
 const PricesList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.lg};
-`
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing.lg};
+`;
 
 const PriceItem = styled.div<{ $isOpen: boolean }>`
     background-color: ${({ theme }) => theme.colors.navy};
-    border: 2px solid ${({ theme, $isOpen }) =>
-            $isOpen ? theme.colors.primary : theme.colors.navyLight
-    };
+    border: 2px solid ${({ theme, $isOpen }) => $isOpen ? theme.colors.primary : theme.colors.navyLight};
     border-radius: ${({ theme }) => theme.borderRadius.lg};
     overflow: hidden;
     transition: all ${({ theme }) => theme.transitions.normal};
@@ -59,32 +57,32 @@ const PriceItem = styled.div<{ $isOpen: boolean }>`
     &:hover {
         border-color: ${({ theme }) => theme.colors.primary};
     }
-`
+`;
 
 const PriceHeader = styled.button`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${({ theme }) => theme.spacing.xl};
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  transition: all ${({ theme }) => theme.transitions.fast};
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: ${({ theme }) => theme.spacing.xl};
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: all ${({ theme }) => theme.transitions.fast};
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.navyLight};
-  }
+    &:hover {
+        background-color: ${({ theme }) => theme.colors.navyLight};
+    }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: ${({ theme }) => theme.spacing.lg};
-  }
-`
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        padding: ${({ theme }) => theme.spacing.lg};
+    }
+`;
 
 const PriceHeaderContent = styled.div`
-  flex: 1;
-`
+    flex: 1;
+`;
 
 const PriceTitle = styled.h3`
     font-size: ${({ theme }) => theme.fontSize['2xl']};
@@ -95,7 +93,7 @@ const PriceTitle = styled.h3`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize.xl};
     }
-`
+`;
 
 const PriceValue = styled.div`
     font-size: ${({ theme }) => theme.fontSize['3xl']};
@@ -106,13 +104,13 @@ const PriceValue = styled.div`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize['2xl']};
     }
-`
+`;
 
 const ChevronIcon = styled(motion.div)`
     color: ${({ theme }) => theme.colors.primary};
     flex-shrink: 0;
     margin-left: ${({ theme }) => theme.spacing.lg};
-`
+`;
 
 const PriceContent = styled(motion.div)`
     padding: 0 ${({ theme }) => theme.spacing.xl} ${({ theme }) => theme.spacing.xl};
@@ -120,7 +118,7 @@ const PriceContent = styled(motion.div)`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         padding: 0 ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.lg};
     }
-`
+`;
 
 const PriceDescription = styled.p`
     font-size: ${({ theme }) => theme.fontSize.base};
@@ -129,7 +127,7 @@ const PriceDescription = styled.p`
     margin-bottom: ${({ theme }) => theme.spacing.lg};
     padding-left: ${({ theme }) => theme.spacing.md};
     border-left: 3px solid ${({ theme }) => theme.colors.primary};
-`
+`;
 
 const FeaturesList = styled.ul`
     list-style: none;
@@ -137,7 +135,7 @@ const FeaturesList = styled.ul`
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing.sm};
     margin-bottom: ${({ theme }) => theme.spacing.lg};
-`
+`;
 
 const FeatureItem = styled.li`
     display: flex;
@@ -152,7 +150,7 @@ const FeatureItem = styled.li`
         flex-shrink: 0;
         margin-top: 2px;
     }
-`
+`;
 
 const PriceNote = styled.div`
     font-size: ${({ theme }) => theme.fontSize.sm};
@@ -162,7 +160,7 @@ const PriceNote = styled.div`
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
     border-radius: ${({ theme }) => theme.borderRadius.md};
     border-left: 3px solid ${({ theme }) => theme.colors.primary};
-`
+`;
 
 const SpecialConditions = styled.div`
     margin-top: ${({ theme }) => theme.spacing.xxxl};
@@ -174,7 +172,7 @@ const SpecialConditions = styled.div`
     );
     border: 2px solid ${({ theme }) => theme.colors.primary};
     border-radius: ${({ theme }) => theme.borderRadius.lg};
-`
+`;
 
 const SpecialTitle = styled.h3`
     font-size: ${({ theme }) => theme.fontSize['2xl']};
@@ -182,67 +180,49 @@ const SpecialTitle = styled.h3`
     color: ${({ theme }) => theme.colors.primary};
     margin-bottom: ${({ theme }) => theme.spacing.lg};
     text-align: center;
-`
+`;
 
 const SpecialList = styled.ul`
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing.md};
-`
+`;
 
 const SpecialItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  color: ${({ theme }) => theme.colors.text};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  line-height: 1.6;
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.sm};
+    color: ${({ theme }) => theme.colors.text};
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    line-height: 1.6;
 
-  &::before {
-    content: '★';
-    color: ${({ theme }) => theme.colors.primary};
-    font-size: 1.2em;
-    flex-shrink: 0;
-  }
-`
+    &::before {
+        content: '★';
+        color: ${({ theme }) => theme.colors.primary};
+        font-size: 1.2em;
+        flex-shrink: 0;
+    }
+`;
 
-const pricesData = [
-  {
-    title: 'Рестораны / пищевое производство',
-    price: 'от 8 000 ₽/мес',
-    description: 'Стоимость зависит от площади, сложности и режима работы объекта.',
-    features: [
-      'Разработка Программ пест-контроля',
-      'Регулярный мониторинг',
-      'Профилактические и истребительные мероприятия',
-      'Отчётные документы для проверок',
-    ],
-    note: 'Стоимость рассчитывается индивидуально после осмотра объекта.',
-  },
-  {
-    title: 'Фитосанитария / борщевик',
-    price: 'от 250-400 ₽ за сотку',
-    description: '1-2 обработки за сезон с контролем результата.',
-    features: [
-      '1-2 обработки за сезон',
-      'Контроль отклика и повторная обработка при необходимости',
-      'Отчёт с фотофиксацией',
-      'Рекомендации по восстановлению травостоя',
-    ],
-    note: 'Итоговая цена рассчитывается после осмотра и подбора схемы.',
-  },
-]
+const pricesData = [{
+  title: 'Рестораны / пищевое производство', price: 'от 8 000 ₽/мес', description: 'Стоимость зависит от площади, сложности и режима работы объекта.',
+  features: ['Разработка Программ пест-контроля', 'Регулярный мониторинг', 'Профилактические и истребительные мероприятия', 'Отчётные документы для проверок'],
+  note: 'Стоимость рассчитывается индивидуально после осмотра объекта.',
+}, {
+  title: 'Фитосанитария / борщевик', price: 'от 250-400 ₽ за сотку', description: '1-2 обработки за сезон с контролем результата.',
+  features: ['1-2 обработки за сезон', 'Контроль отклика и повторная обработка при необходимости', 'Отчёт с фотофиксацией', 'Рекомендации по восстановлению травостоя'],
+  note: 'Итоговая цена рассчитывается после осмотра и подбора схемы.',
+}];
 
 export default function Prices() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleItem = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index)
-  }
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
-  return (
-    <PricesSection id="prices">
+  return (<PricesSection id='prices'>
       <Container>
         <SectionWrapper>
           <SectionHeader>
@@ -255,9 +235,8 @@ export default function Prices() {
           </SectionHeader>
 
           <PricesList>
-            {pricesData.map((item, index) => (
-              <PriceItem key={index} $isOpen={openIndex === index}>
-                <PriceHeader onClick={() => toggleItem(index)}>
+            {pricesData.map((item, index) => (<PriceItem key={index} $isOpen={openIndex === index}>
+                <PriceHeader type='button' onClick={() => toggleItem(index)}>
                   <PriceHeaderContent>
                     <PriceTitle>{item.title}</PriceTitle>
                     <PriceValue>{item.price}</PriceValue>
@@ -271,8 +250,7 @@ export default function Prices() {
                 </PriceHeader>
 
                 <AnimatePresence>
-                  {openIndex === index && (
-                    <PriceContent
+                  {openIndex === index && (<PriceContent
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -281,20 +259,16 @@ export default function Prices() {
                       <PriceDescription>{item.description}</PriceDescription>
 
                       <FeaturesList>
-                        {item.features.map((feature, idx) => (
-                          <FeatureItem key={idx}>
+                        {item.features.map((feature, idx) => (<FeatureItem key={idx}>
                             <Check size={20} />
                             {feature}
-                          </FeatureItem>
-                        ))}
+                          </FeatureItem>))}
                       </FeaturesList>
 
                       <PriceNote>* {item.note}</PriceNote>
-                    </PriceContent>
-                  )}
+                    </PriceContent>)}
                 </AnimatePresence>
-              </PriceItem>
-            ))}
+              </PriceItem>))}
           </PricesList>
 
           <SpecialConditions>
@@ -313,6 +287,5 @@ export default function Prices() {
           </SpecialConditions>
         </SectionWrapper>
       </Container>
-    </PricesSection>
-  )
+    </PricesSection>);
 }

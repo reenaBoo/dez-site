@@ -5,8 +5,6 @@ const nextConfig = {
     styledComponents: true,
   }, experimental: {
     scrollRestoration: true,
-  }, eslint: {
-    dirs: ['src'],
   },
 };
 

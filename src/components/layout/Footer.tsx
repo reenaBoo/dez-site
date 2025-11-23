@@ -6,10 +6,15 @@ import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import Container from './Container';
 
 const FooterWrapper = styled.footer`
-    background-color: ${({ theme }) => theme.colors.navy}; // Очень темный
+    background-color: ${({ theme }) => theme.colors.navy};
     padding: ${({ theme }) => theme.spacing.xxxl} 0 ${({ theme }) => theme.spacing.xl};
     margin-top: ${({ theme }) => theme.spacing.xxxl};
     border-top: 2px solid ${({ theme }) => theme.colors.navyLight};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        padding: ${({ theme }) => theme.spacing.xl} 0 ${({ theme }) => theme.spacing.xl};
+        margin-top: 0;
+    }
 `;
 
 const FooterContent = styled.div`
@@ -143,100 +148,100 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (<FooterWrapper>
-      <Container>
-        <FooterContent>
-          {/* О компании */}
-          <FooterSection>
-            <FooterTitle>НПП «БИОХИММАШ»</FooterTitle>
-            <FooterText>
-              Профессиональная дезинсекция, дератизация и дезинфекция в Москве и области.
-              Гарантия результата. Работаем с 2002 года.
-            </FooterText>
-            <SocialLinks>
-              <SocialLink
-                href='https://t.me/yourcompany'
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='Telegram'
-              >
-                <Send size={20} />
-              </SocialLink>
-              <SocialLink
-                href='https://wa.me/74959564855'
-                target='_blank'
-                rel='noopener noreferrer'
-                aria-label='WhatsApp'
-              >
-                <Phone size={20} />
-              </SocialLink>
-            </SocialLinks>
-          </FooterSection>
+    <Container>
+      <FooterContent>
+        {/* О компании */}
+        <FooterSection>
+          <FooterTitle>НПП «БИОХИММАШ»</FooterTitle>
+          <FooterText>
+            Профессиональная дезинсекция, дератизация и дезинфекция в Москве и области.
+            Гарантия результата. Работаем с 2002 года.
+          </FooterText>
+          <SocialLinks>
+            <SocialLink
+              href='https://t.me/yourcompany'
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label='Telegram'
+            >
+              <Send size={20} />
+            </SocialLink>
+            <SocialLink
+              href='https://wa.me/74959564855'
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label='WhatsApp'
+            >
+              <Phone size={20} />
+            </SocialLink>
+          </SocialLinks>
+        </FooterSection>
 
-          {/* Навигация */}
-          <FooterSection>
-            <FooterTitle>Навигация</FooterTitle>
-            <FooterLink href='/'>Главная</FooterLink>
-            <FooterLink href='/services'>Услуги</FooterLink>
-            <FooterLink href='/prices'>Цены</FooterLink>
-            <FooterLink href='/about'>О компании</FooterLink>
-            <FooterLink href='/contacts'>Контакты</FooterLink>
-          </FooterSection>
+        {/* Навигация */}
+        <FooterSection>
+          <FooterTitle>Навигация</FooterTitle>
+          <FooterLink href='/'>Главная</FooterLink>
+          <FooterLink href='/services'>Услуги</FooterLink>
+          <FooterLink href='/prices'>Цены</FooterLink>
+          <FooterLink href='/about'>О компании</FooterLink>
+          <FooterLink href='/contacts'>Контакты</FooterLink>
+        </FooterSection>
 
-          {/* Услуги */}
-          <FooterSection>
-            <FooterTitle>Услуги</FooterTitle>
-            <FooterLink href='/services#bedbugs'>Уничтожение клопов</FooterLink>
-            <FooterLink href='/services#cockroaches'>Уничтожение тараканов</FooterLink>
-            <FooterLink href='/services#rodents'>Дератизация</FooterLink>
-            <FooterLink href='/services#disinfection'>Дезинфекция</FooterLink>
-            <FooterLink href='/services#ticks'>Обработка от клещей</FooterLink>
-          </FooterSection>
+        {/* Услуги */}
+        <FooterSection>
+          <FooterTitle>Услуги</FooterTitle>
+          <FooterLink href='/services#bedbugs'>Уничтожение клопов</FooterLink>
+          <FooterLink href='/services#cockroaches'>Уничтожение тараканов</FooterLink>
+          <FooterLink href='/services#rodents'>Дератизация</FooterLink>
+          <FooterLink href='/services#disinfection'>Дезинфекция</FooterLink>
+          <FooterLink href='/services#ticks'>Обработка от клещей</FooterLink>
+        </FooterSection>
 
-          {/* Контакты */}
-          <FooterSection>
-            <FooterTitle>Контакты</FooterTitle>
+        {/* Контакты */}
+        <FooterSection>
+          <FooterTitle>Контакты</FooterTitle>
 
-            <ContactItem>
-              <Phone size={18} />
-              <div>
-                <ContactLink href='tel:+74959564855'>
-                  +7 (495) 956‑48‑55
-                </ContactLink>
-                <br />
-                <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+          <ContactItem>
+            <Phone size={18} />
+            <div>
+              <ContactLink href='tel:+74959564855'>
+                +7 (495) 956‑48‑55
+              </ContactLink>
+              <br />
+              <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
                   Ежедневно 8:00 — 22:00
                 </span>
-              </div>
-            </ContactItem>
+            </div>
+          </ContactItem>
 
-            <ContactItem>
-              <Mail size={18} />
-              <ContactLink href='mailto:info@dezservice.ru'>
-                info@dezservice.ru
-              </ContactLink>
-            </ContactItem>
+          <ContactItem>
+            <Mail size={18} />
+            <ContactLink href='mailto:info@dezservice.ru'>
+              info@dezservice.ru
+            </ContactLink>
+          </ContactItem>
 
-            <ContactItem>
-              <MapPin size={18} />
-              <span>Москва, ул. Примерная, д. 123</span>
-            </ContactItem>
-          </FooterSection>
-        </FooterContent>
+          <ContactItem>
+            <MapPin size={18} />
+            <span>г. Москва, пер. Большой Матросский, д. 1, эт. 1, пом. XXVII, ком. 19</span>
+          </ContactItem>
+        </FooterSection>
+      </FooterContent>
 
-        <FooterBottom>
-          <Copyright>
-            © {currentYear} НПП «БИОХИММАШ». Все права защищены.
-          </Copyright>
+      <FooterBottom>
+        <Copyright>
+          © {currentYear} НПП «БИОХИММАШ». Все права защищены.
+        </Copyright>
 
-          <FooterLinks>
-            <FooterBottomLink href='/privacy'>
-              Политика конфиденциальности
-            </FooterBottomLink>
-            <FooterBottomLink href='/terms'>
-              Условия использования
-            </FooterBottomLink>
-          </FooterLinks>
-        </FooterBottom>
-      </Container>
-    </FooterWrapper>);
+        <FooterLinks>
+          <FooterBottomLink href='/privacy'>
+            Политика конфиденциальности
+          </FooterBottomLink>
+          <FooterBottomLink href='/terms'>
+            Условия использования
+          </FooterBottomLink>
+        </FooterLinks>
+      </FooterBottom>
+    </Container>
+  </FooterWrapper>);
 }

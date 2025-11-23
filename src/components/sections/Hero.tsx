@@ -13,6 +13,11 @@ const HeroSection = styled.section`
     display: flex;
     align-items: center;
     overflow: hidden;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        min-height: auto;
+        padding: ${({ theme }) => theme.spacing.xl} 0;
+    }
 `;
 
 const BackgroundImage = styled.div`
@@ -36,6 +41,34 @@ const BackgroundImage = styled.div`
         object-fit: cover;
         object-position: center;
     }
+
+    .desktop-bg {
+        display: block;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        .desktop-bg {
+            display: none;
+        }
+
+        &::after {
+            background: linear-gradient(
+                    to bottom,
+                    rgba(5, 11, 20, 0.85) 0%,
+                    rgba(10, 22, 40, 0.9) 100%
+            );
+        }
+    }
+
+    .mobile-bg {
+        display: none;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        .mobile-bg {
+            display: block;
+        }
+    }
 `;
 
 const Content = styled.div`
@@ -43,6 +76,10 @@ const Content = styled.div`
     z-index: 10;
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
     max-width: 900px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        padding: 0;
+    }
 `;
 
 const Title = styled.h1`
@@ -58,7 +95,12 @@ const Title = styled.h1`
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        font-size: ${({ theme }) => theme.fontSize['4xl']};
+        font-size: ${({ theme }) => theme.fontSize['3xl']};
+        margin-bottom: ${({ theme }) => theme.spacing.md};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize['2xl']};
     }
 `;
 
@@ -69,7 +111,8 @@ const Subtitle = styled.p`
     line-height: 1.6;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        font-size: ${({ theme }) => theme.fontSize.lg};
+        font-size: ${({ theme }) => theme.fontSize.base};
+        margin-bottom: ${({ theme }) => theme.spacing.lg};
     }
 `;
 
@@ -81,6 +124,8 @@ const Features = styled.div`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         grid-template-columns: 1fr;
+        gap: ${({ theme }) => theme.spacing.sm};
+        margin-bottom: ${({ theme }) => theme.spacing.lg};
     }
 `;
 
@@ -95,12 +140,31 @@ const Feature = styled.div`
         color: ${({ theme }) => theme.colors.primary};
         flex-shrink: 0;
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        font-size: ${({ theme }) => theme.fontSize.base};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.sm};
+        gap: ${({ theme }) => theme.spacing.xs};
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
 `;
 
 const CTAButtons = styled.div`
     display: flex;
     gap: ${({ theme }) => theme.spacing.lg};
     flex-wrap: wrap;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        flex-direction: column;
+        gap: ${({ theme }) => theme.spacing.md};
+    }
 `;
 
 const PrimaryButton = styled(Link)`
@@ -120,6 +184,12 @@ const PrimaryButton = styled(Link)`
         background-color: ${({ theme }) => theme.colors.primaryLight};
         transform: translateY(-2px);
         box-shadow: 0 0 30px rgba(253, 185, 19, 0.7);
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        width: 100%;
+        font-size: ${({ theme }) => theme.fontSize.base};
+        padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
     }
 `;
 
@@ -141,6 +211,12 @@ const SecondaryButton = styled(Link)`
         color: ${({ theme }) => theme.colors.navy};
         transform: translateY(-2px);
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        width: 100%;
+        font-size: ${({ theme }) => theme.fontSize.base};
+        padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+    }
 `;
 
 export default function Hero() {
@@ -152,6 +228,16 @@ export default function Hero() {
         fill
         priority
         quality={90}
+        className='desktop-bg'
+      />
+
+      <Image
+        src={getAssetPath('/images/hero-bg-mobile.jpg')}
+        alt='Профессиональная дезинсекция'
+        fill
+        priority
+        quality={85}
+        className='mobile-bg'
       />
     </BackgroundImage>
 
@@ -187,24 +273,8 @@ export default function Hero() {
         </Features>
 
         <CTAButtons>
-          <PrimaryButton
-            href='/#contact-form'
-            onClick={(e) => {
-              e.preventDefault();
-              const element = document.getElementById('contact-form');
-              if (element) {
-                const offset = 100;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - offset;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-              }
-            }}
-          >
-            Заказать обработку
-          </PrimaryButton>
-          <SecondaryButton href='tel:+74959564855'>
-            +7 (495) 956-48-55
-          </SecondaryButton>
+          <PrimaryButton href='/#contact-form'>Заказать обработку</PrimaryButton>
+          <SecondaryButton href='tel:+74959564855'>+7 (495) 956-48-55</SecondaryButton>
         </CTAButtons>
       </Content>
     </Container>

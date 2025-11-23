@@ -13,6 +13,10 @@ const PageWrapper = styled.div`
     align-items: center;
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
     overflow: hidden;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        padding: ${({ theme }) => theme.spacing.xxl} 0;
+    }
 `;
 
 const BackgroundImage = styled.div`
@@ -20,10 +24,48 @@ const BackgroundImage = styled.div`
     inset: 0;
     z-index: 0;
 
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+                to right,
+                rgba(5, 11, 20, 0.75) 0%,
+                rgba(10, 22, 40, 0.85) 100%
+        );
+    }
+
     img {
         object-fit: cover;
-        object-position: center left;
-        opacity: 0.4;
+        object-position: center;
+    }
+
+    .desktop-bg {
+        display: block;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        .desktop-bg {
+            display: none;
+        }
+
+        &::after {
+            background: linear-gradient(
+                    to bottom,
+                    rgba(5, 11, 20, 0.85) 0%,
+                    rgba(10, 22, 40, 0.9) 100%
+            );
+        }
+    }
+
+    .mobile-bg {
+        display: none;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        .mobile-bg {
+            display: block;
+        }
     }
 `;
 
@@ -57,6 +99,10 @@ const Title = styled.h1`
         text-align: center;
         max-width: 100%;
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize['2xl']};
+    }
 `;
 
 const ContactsGrid = styled.div`
@@ -72,6 +118,7 @@ const ContactsGrid = styled.div`
         grid-template-columns: 1fr;
         max-width: 500px;
         padding-bottom: 0;
+        gap: ${({ theme }) => theme.spacing.lg};
     }
 
     & > *:nth-child(2n) {
@@ -102,6 +149,15 @@ const ContactCard = styled.div`
         transform: translateX(-4px);
         background: rgba(10, 16, 24, 0.95);
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        min-height: auto;
+        padding: ${({ theme }) => theme.spacing.md};
+
+        &:hover {
+            transform: translateY(-4px);
+        }
+    }
 `;
 
 const CardHeader = styled.div`
@@ -122,12 +178,26 @@ const IconWrapper = styled.div`
     color: ${({ theme }) => theme.colors.navy};
     box-shadow: ${({ theme }) => theme.shadows.glow};
     flex-shrink: 0;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 36px;
+        height: 36px;
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
 `;
 
 const CardTitle = styled.h3`
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.colors.heading};
     font-weight: ${({ theme }) => theme.fontWeight.semibold};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.base};
+    }
 `;
 
 const CardContent = styled.div`
@@ -140,6 +210,10 @@ const ContactInfo = styled.div`
     font-size: ${({ theme }) => theme.fontSize.sm};
     color: ${({ theme }) => theme.colors.text};
     line-height: 1.5;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+    }
 `;
 
 const ContactLink = styled.a`
@@ -153,6 +227,10 @@ const ContactLink = styled.a`
     &:hover {
         color: ${({ theme }) => theme.colors.primaryLight};
         text-decoration: underline;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.sm};
     }
 `;
 
@@ -193,6 +271,16 @@ const SocialButton = styled.a`
     svg {
         flex-shrink: 0;
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+        padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
 `;
 
 export default function ContactsPage() {
@@ -200,10 +288,20 @@ export default function ContactsPage() {
     <BackgroundImage>
       <Image
         src={getAssetPath('/images/contacts-bg.jpg')}
-        alt='Профессиональная дезинсекция'
+        alt='Свяжитесь с нами'
         fill
         priority
         quality={90}
+        className='desktop-bg'
+      />
+
+      <Image
+        src={getAssetPath('/images/hero-bg-mobile.jpg')}
+        alt='Свяжитесь с нами'
+        fill
+        priority
+        quality={85}
+        className='mobile-bg'
       />
     </BackgroundImage>
 
@@ -214,6 +312,7 @@ export default function ContactsPage() {
         </Title>
 
         <ContactsGrid>
+          {/* Мессенджеры */}
           <ContactCard>
             <CardHeader>
               <IconWrapper>
@@ -254,9 +353,7 @@ export default function ContactsPage() {
             </CardHeader>
             <CardContent>
               <ContactInfo>Звоните нам по телефону:</ContactInfo>
-              <ContactLink href='tel:+74959564855'>
-                +7 (495) 956-48-55
-              </ContactLink>
+              <ContactLink href='tel:+74959564855'>+7 (495) 956-48-55</ContactLink>
               <WorkingHours>Ежедневно с 8:00 до 22:00</WorkingHours>
             </CardContent>
           </ContactCard>
@@ -291,7 +388,6 @@ export default function ContactsPage() {
               </ContactInfo>
             </CardContent>
           </ContactCard>
-
         </ContactsGrid>
       </ContentWrapper>
     </Container>

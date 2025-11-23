@@ -1,6 +1,6 @@
 'use client';
 
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import Container from '@/components/layout/Container';
 import { getAssetPath } from '@/utils/getAssetPath';
 
@@ -8,11 +8,20 @@ const ClientsSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
     background-color: ${({ theme }) => theme.colors.background};
     overflow: hidden;
+    position: relative;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        padding: ${({ theme }) => theme.spacing.xl} 0;
+    }
 `;
 
 const SectionHeader = styled.div`
     text-align: center;
     margin-bottom: ${({ theme }) => theme.spacing.xxxl};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        margin-bottom: ${({ theme }) => theme.spacing.lg};
+    }
 `;
 
 const SectionTitle = styled.h2`
@@ -28,116 +37,107 @@ const SectionTitle = styled.h2`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize['3xl']};
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize['2xl']};
+    }
 `;
 
 const SectionDescription = styled.p`
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme }) => theme.colors.textLight};
-    max-width: 700px;
-    margin: 0 auto;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.base};
+    }
 `;
 
 const SliderWrapper = styled.div`
+    width: 100%;
+    overflow: hidden;
     position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 ${({ theme }) => theme.spacing.xl};
+    padding: ${({ theme }) => theme.spacing.xl} 0;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        padding: 0 ${({ theme }) => theme.spacing.md};
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        padding: 0;
     }
 `;
 
 const SliderContainer = styled.div`
-    overflow: hidden;
-    position: relative;
+    overflow: visible;
+    padding: 0;
 
-    /* Градиенты по бокам для эффекта бесконечности */
+    /* Скрываем скроллбар */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100px;
-        z-index: 2;
-        pointer-events: none;
-    }
-
-    &::before {
-        left: 0;
-        background: linear-gradient(
-                to right,
-                ${({ theme }) => theme.colors.background} 0%,
-                transparent 100%
-        );
-    }
-
-    &::after {
-        right: 0;
-        background: linear-gradient(
-                to left,
-                ${({ theme }) => theme.colors.background} 0%,
-                transparent 100%
-        );
-    }
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        &::before,
-        &::after {
-            width: 40px;
-        }
-    }
-`;
-
-const scroll = keyframes`
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
+    &::-webkit-scrollbar {
+        display: none;
     }
 `;
 
 const SliderTrack = styled.div`
     display: flex;
-    gap: ${({ theme }) => theme.spacing.xxl};
-    animation: ${scroll} 20s linear infinite;
+    gap: ${({ theme }) => theme.spacing.lg};
+    animation: scroll 40s linear infinite;
     width: fit-content;
+    padding: ${({ theme }) => theme.spacing.md} 0;
 
     &:hover {
         animation-play-state: paused;
     }
 
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        gap: ${({ theme }) => theme.spacing.xl};
-        animation-duration: 15s;
+        animation: scroll 30s linear infinite;
     }
 `;
 
 const LogoCard = styled.div`
+    flex: 0 0 auto;
+    width: 280px;
+    background-color: ${({ theme }) => theme.colors.navy};
+    border: 2px solid ${({ theme }) => theme.colors.navyLight};
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
+    padding: ${({ theme }) => theme.spacing.xl};
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-width: 280px;
-    background-color: ${({ theme }) => theme.colors.backgroundAlt};
-    border: 2px solid ${({ theme }) => theme.colors.navyLight};
-    border-radius: ${({ theme }) => theme.borderRadius.lg};
-    padding: ${({ theme }) => theme.spacing.xl};
+    gap: ${({ theme }) => theme.spacing.md};
     transition: all ${({ theme }) => theme.transitions.normal};
-    cursor: pointer;
+    height: 220px;
 
     &:hover {
         border-color: ${({ theme }) => theme.colors.primary};
         box-shadow: ${({ theme }) => theme.shadows.glow};
-        transform: translateY(-4px);
+        transform: translateY(-12px);
+        z-index: 10;
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        min-width: 220px;
+        width: 240px;
+        height: 180px;
         padding: ${({ theme }) => theme.spacing.lg};
+        gap: ${({ theme }) => theme.spacing.sm};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 200px;
+        height: 140px;
+        padding: ${({ theme }) => theme.spacing.md};
+
+        &:hover {
+            transform: translateY(-8px);
+        }
     }
 `;
 
@@ -148,28 +148,31 @@ const LogoWrapper = styled.div`
     align-items: center;
     justify-content: center;
     margin-bottom: ${({ theme }) => theme.spacing.md};
+    padding: ${({ theme }) => theme.spacing.sm};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         height: 80px;
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        height: 60px;
+        margin-bottom: ${({ theme }) => theme.spacing.sm};
+    }
 `;
 
 const LogoImage = styled.img`
-    width: 100%;
-    height: 100%;
-    max-width: 160px;
-    max-height: 100px;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1);
-    transition: all ${({ theme }) => theme.transitions.normal};
+    mix-blend-mode: screen;
+    opacity: 0.9;
+    transition: all ${({ theme }) => theme.transitions.fast};
 
     ${LogoCard}:hover & {
-        filter: brightness(0) invert(1) opacity(0.85);
-    }
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        max-width: 120px;
-        max-height: 80px;
+        opacity: 1;
+        filter: drop-shadow(0 0 8px ${({ theme }) => theme.colors.primary});
     }
 `;
 
@@ -182,11 +185,13 @@ const LogoPlaceholder = styled.div`
     font-size: ${({ theme }) => theme.fontSize['3xl']};
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.colors.primary};
-    text-align: center;
-    line-height: 1.2;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize['2xl']};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.xl};
     }
 `;
 
@@ -195,10 +200,13 @@ const LogoName = styled.div`
     font-weight: ${({ theme }) => theme.fontWeight.semibold};
     color: ${({ theme }) => theme.colors.heading};
     text-align: center;
-    margin-bottom: ${({ theme }) => theme.spacing.xs};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize.base};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.sm};
     }
 `;
 
@@ -206,29 +214,36 @@ const LogoDescription = styled.div`
     font-size: ${({ theme }) => theme.fontSize.sm};
     color: ${({ theme }) => theme.colors.textLight};
     text-align: center;
-    line-height: 1.4;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize.xs};
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+        display: none;
+    }
 `;
 
 const clients = [{
-  name: 'Maison Dellos', description: 'Рестораны, сеть «МуМу»', logo: getAssetPath('/images/clients/maison-dellos.svg'), hasLogo: true,
+  name: 'Сеть «МуМу»', description: 'Сеть ресторанов', logo: getAssetPath('/images/clients/mumu.png'), hasLogo: true,
 }, {
-  name: 'ВсеИнструменты.Ру', description: 'Розничная сеть', hasLogo: false,
+  name: 'ВсеИнструменты.Ру', description: 'Розничная сеть', logo: getAssetPath('/images/clients/vseinstr.png'), hasLogo: true,
 }, {
-  name: 'Хадасса Медикал', description: 'Медицинский центр', hasLogo: false,
+  name: 'Хадасса Медикал', description: 'Медицинский центр', logo: getAssetPath('/images/clients/hadassa.png'), hasLogo: true,
 }, {
-  name: 'Сеть «Штолле»', description: 'Кафе-пекарни', hasLogo: false,
+  name: 'Сеть «Штолле»', description: 'Кафе-пекарни', logo: getAssetPath('/images/clients/shtolle.png'), hasLogo: true,
 }, {
-  name: 'Сеть «PIMS»', description: 'Кофейни', hasLogo: false,
+  name: 'Сеть «PIMS»', description: 'Кофейни', logo: getAssetPath('/images/clients/pims.png'), hasLogo: true,
 }, {
-  name: 'Школы Москвы', description: 'Образовательные учреждения', hasLogo: false,
+  name: 'Школы Москвы', description: 'Образовательные учреждения', logo: getAssetPath('/images/clients/schools.png'), hasLogo: true,
+}, {
+  name: 'Министерство обороны', description: 'Объекты Минобороны РФ', logo: getAssetPath('/images/clients/minobr.png'), hasLogo: true,
+}, {
+  name: 'Сеть «Бетховен»', description: 'Зоомагазины', logo: getAssetPath('/images/clients/bethoven.png'), hasLogo: true,
 }];
 
 export default function Clients() {
-  // Дублируем массив для бесконечного эффекта
   const doubledClients = [...clients, ...clients];
 
   return (<ClientsSection>

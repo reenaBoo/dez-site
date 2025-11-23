@@ -7,11 +7,15 @@ import Container from '@/components/layout/Container';
 
 const ServicesSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
-    background-color: ${({ theme }) => theme.colors.backgroundAlt}; // Темный фон
+    background-color: ${({ theme }) => theme.colors.backgroundAlt};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        padding: 0 0 ${({ theme }) => theme.spacing.xl} 0;
+    }
 `;
 
 const ServiceCard = styled(motion.div)`
-    background-color: ${({ theme }) => theme.colors.navy}; // Темнее карточки
+    background-color: ${({ theme }) => theme.colors.navy};
     border: 2px solid ${({ theme }) => theme.colors.navyLight};
     border-radius: ${({ theme }) => theme.borderRadius.lg};
     padding: ${({ theme }) => theme.spacing.xl};
@@ -23,11 +27,19 @@ const ServiceCard = styled(motion.div)`
         box-shadow: ${({ theme }) => theme.shadows.glow};
         transform: translateY(-4px);
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        padding: ${({ theme }) => theme.spacing.lg};
+    }
 `;
 
 const SectionHeader = styled.div`
     text-align: center;
     margin-bottom: ${({ theme }) => theme.spacing.xxxl};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        margin-bottom: ${({ theme }) => theme.spacing.xl};
+    }
 `;
 
 const SectionTitle = styled.h2`
@@ -42,6 +54,10 @@ const SectionTitle = styled.h2`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize['3xl']};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize['2xl']};
     }
 `;
 
@@ -67,21 +83,46 @@ const ServicesGrid = styled.div`
 const ServiceIcon = styled.div`
     width: 64px;
     height: 64px;
-    background: ${({ theme }) => theme.colors.primary}; // Желтый фон
+    background: ${({ theme }) => theme.colors.primary};
     border-radius: ${({ theme }) => theme.borderRadius.md};
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: ${({ theme }) => theme.spacing.lg};
-    color: ${({ theme }) => theme.colors.navy}; // Темно-синяя иконка
+    color: ${({ theme }) => theme.colors.navy};
     box-shadow: ${({ theme }) => theme.shadows.glow};
-`;
+    flex-shrink: 0;
 
+    svg {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 0;
+
+        svg {
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
+            min-height: 24px;
+        }
+    }
+`;
 const ServiceTitle = styled.h3`
     font-size: ${({ theme }) => theme.fontSize['2xl']};
     font-weight: ${({ theme }) => theme.fontWeight.semibold};
     color: ${({ theme }) => theme.colors.heading};
     margin-bottom: ${({ theme }) => theme.spacing.md};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.xl};
+        margin-bottom: 0;
+    }
 `;
 
 const ServiceDescription = styled.p`
@@ -109,6 +150,19 @@ const ServiceFeature = styled.li`
     }
 `;
 
+const ServiceHeader = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        flex-direction: row;
+        align-items: center;
+        gap: ${({ theme }) => theme.spacing.md};
+        margin-bottom: ${({ theme }) => theme.spacing.md};
+    }
+`;
+
 const services = [{
   icon: Bug, title: 'Дезинсекция',
   description: 'Комплексная борьба с различными насекомыми (тараканы, муравьи, мошки, комары, клопы, мухи, кожееды и др.). Используем профессиональные препараты.',
@@ -128,40 +182,42 @@ const services = [{
 
 export default function Services() {
   return (<ServicesSection id='services'>
-      <Container>
-        <SectionHeader>
-          <SectionTitle>
-            Наши <span>услуги</span>
-          </SectionTitle>
-          <SectionDescription>
-            Профессиональная обработка любых помещений от вредителей.
-            Работаем быстро, качественно, с гарантией.
-          </SectionDescription>
-        </SectionHeader>
+    <Container>
+      <SectionHeader>
+        <SectionTitle>
+          Наши <span>услуги</span>
+        </SectionTitle>
+        <SectionDescription>
+          Профессиональная обработка любых помещений от вредителей. Работаем быстро,
+          качественно, с гарантией.
+        </SectionDescription>
+      </SectionHeader>
 
-        <ServicesGrid>
-          {services.map((service, index) => (<ServiceCard
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <ServiceIcon>
-                <service.icon size={32} />
-              </ServiceIcon>
+      <ServicesGrid>
+        {services.map((service, index) => (<ServiceCard
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+        >
+          <ServiceHeader>
+            <ServiceIcon>
+              <service.icon />
+            </ServiceIcon>
+            <ServiceTitle>{service.title}</ServiceTitle>
+          </ServiceHeader>
 
-              <ServiceTitle>{service.title}</ServiceTitle>
-              <ServiceDescription>{service.description}</ServiceDescription>
+          <ServiceDescription>{service.description}</ServiceDescription>
 
-              <ServiceFeatures>
-                {service.features.map((feature, idx) => (<ServiceFeature key={idx}>
-                    <Check size={16} />
-                    {feature}
-                  </ServiceFeature>))}
-              </ServiceFeatures>
-            </ServiceCard>))}
-        </ServicesGrid>
-      </Container>
-    </ServicesSection>);
+          <ServiceFeatures>
+            {service.features.map((feature, idx) => (<ServiceFeature key={idx}>
+              <Check />
+              {feature}
+            </ServiceFeature>))}
+          </ServiceFeatures>
+        </ServiceCard>))}
+      </ServicesGrid>
+    </Container>
+  </ServicesSection>);
 }

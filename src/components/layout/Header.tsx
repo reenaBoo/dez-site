@@ -12,9 +12,12 @@ const HeaderWrapper = styled.header`
     box-shadow: ${({ theme }) => theme.shadows.md};
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 999;
     padding: ${({ theme }) => theme.spacing.lg} 0;
     border-bottom: 2px solid ${({ theme }) => theme.colors.navyLight};
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
 `;
 
 const HeaderContent = styled.div`
@@ -35,6 +38,10 @@ const Logo = styled(Link)`
         color: ${({ theme }) => theme.colors.primaryLight};
         transform: scale(1.05);
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize['base']};
+    }
 `;
 
 const Nav = styled.nav<{ $isOpen: boolean }>`
@@ -51,10 +58,15 @@ const Nav = styled.nav<{ $isOpen: boolean }>`
         flex-direction: column;
         padding: ${({ theme }) => theme.spacing.xxxl} ${({ theme }) => theme.spacing.xl};
         box-shadow: ${({ theme }) => theme.shadows.xl};
-        transform: translateX(${({ $isOpen }) => $isOpen ? '0' : '100%'});
+        transform: translateX(${({ $isOpen }) => ($isOpen ? '0' : '100%')});
         transition: transform ${({ theme }) => theme.transitions.normal};
         z-index: 1000;
         border-left: 2px solid ${({ theme }) => theme.colors.navyLight};
+        overflow-y: auto;
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+        width: 100%;
     }
 `;
 
@@ -85,6 +97,10 @@ const PhoneLink = styled.a`
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         font-size: ${({ theme }) => theme.fontSize.base};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        display: none;
     }
 `;
 
@@ -117,11 +133,12 @@ const Overlay = styled.div<{ $isOpen: boolean }>`
     display: none;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-        display: ${({ $isOpen }) => $isOpen ? 'block' : 'none'};
+        display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
         position: fixed;
         inset: 0;
-        background-color: rgba(10, 22, 40, 0.9);
-        z-index: 999;
+        background-color: rgba(10, 22, 40, 0.95);
+        z-index: 998;
+        cursor: pointer;
     }
 `;
 
@@ -142,63 +159,65 @@ export default function Header() {
   };
 
   return (<>
-      <HeaderWrapper>
-        <Container>
-          <HeaderContent>
-            <Logo href='/' onClick={() => setIsMenuOpen(false)}>
-              НПП «БИОХИММАШ»
-            </Logo>
+    <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
 
-            <Nav $isOpen={isMenuOpen}>
-              <CloseButton onClick={() => setIsMenuOpen(false)}>
-                <X size={24} />
-              </CloseButton>
+    <HeaderWrapper>
+      <Container>
 
-              <NavLink href='/' onClick={() => setIsMenuOpen(false)}>
-                Главная
-              </NavLink>
+        <HeaderContent>
+          <Logo href='/' onClick={() => setIsMenuOpen(false)}>
+            НПП «БИОХИММАШ»
+          </Logo>
 
-              <NavLink
-                href='/#services'
-                onClick={(e) => handleAnchorClick(e, 'services')}
-              >
-                Услуги
-              </NavLink>
+          <Nav $isOpen={isMenuOpen}>
+            <CloseButton onClick={() => setIsMenuOpen(false)}>
+              <X size={24} />
+            </CloseButton>
 
-              <NavLink href='/industries' onClick={() => setIsMenuOpen(false)}>
-                Отрасли
-              </NavLink>
+            <NavLink href='/' onClick={() => setIsMenuOpen(false)}>
+              Главная
+            </NavLink>
 
-              <NavLink
-                href='/#prices'
-                onClick={(e) => handleAnchorClick(e, 'prices')}
-              >
-                Цены
-              </NavLink>
+            <NavLink
+              href='/#services'
+              onClick={(e) => handleAnchorClick(e, 'services')}
+            >
+              Услуги
+            </NavLink>
 
-              <NavLink href='/about' onClick={() => setIsMenuOpen(false)}>
-                О нас
-              </NavLink>
+            <NavLink
+              href='/#prices'
+              onClick={(e) => handleAnchorClick(e, 'prices')}
+            >
+              Цены
+            </NavLink>
 
-              <NavLink href='/contacts' onClick={() => setIsMenuOpen(false)}>
-                Контакты
-              </NavLink>
-            </Nav>
+            <NavLink href='/industries' onClick={() => setIsMenuOpen(false)}>
+              Отрасли
+            </NavLink>
 
-            <RightSection>
-              <PhoneLink href='tel:+74959564855'>
-                <Phone size={20} />
-                <span>+7 (495) 956-48-55</span>
-              </PhoneLink>
+            <NavLink href='/about' onClick={() => setIsMenuOpen(false)}>
+              О нас
+            </NavLink>
 
-              <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <Menu size={24} />
-              </MenuButton>
-            </RightSection>
-          </HeaderContent>
-        </Container>
-      </HeaderWrapper>
+            <NavLink href='/contacts' onClick={() => setIsMenuOpen(false)}>
+              Контакты
+            </NavLink>
+          </Nav>
 
-      <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
-    </>);
+          <RightSection>
+            <PhoneLink href='tel:+74959564855'>
+              <Phone size={20} />
+              <span>+7 (495) 956-48-55</span>
+            </PhoneLink>
+
+            <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <Menu size={24} />
+            </MenuButton>
+          </RightSection>
+        </HeaderContent>
+      </Container>
+    </HeaderWrapper>
+
+  </>);
 }

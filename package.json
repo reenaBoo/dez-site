@@ -33,6 +33,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
     "typescript": "^5"
   }
 }

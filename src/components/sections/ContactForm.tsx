@@ -206,13 +206,37 @@ const SubmitButton = styled.button`
     }
 `;
 
+const SuccessMessage = styled.div`
+    padding: ${({ theme }) => theme.spacing.md};
+    background-color: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    color: #22c55e;
+    margin-bottom: ${({ theme }) => theme.spacing.lg};
+    text-align: center;
+    font-weight: ${({ theme }) => theme.fontWeight.medium};
+`;
+
+const ErrorMessage = styled.div`
+    padding: ${({ theme }) => theme.spacing.md};
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    color: #ef4444;
+    margin-bottom: ${({ theme }) => theme.spacing.lg};
+    text-align: center;
+    font-weight: ${({ theme }) => theme.fontWeight.medium};
+`;
+
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '', phone: '', message: '', consent: false,
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const newErrors: { [key: string]: string } = {};
@@ -238,13 +262,40 @@ export default function ContactForm() {
       return;
     }
 
-    console.log('Form submitted:', formData);
-    alert('Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.');
+    // Отправка
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
 
-    setFormData({
-      name: '', phone: '', message: '', consent: false,
-    });
-    setErrors({});
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST', headers: {
+          'Content-Type': 'application/json',
+        }, body: JSON.stringify({
+          name: formData.name, phone: formData.phone, message: formData.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus('success');
+
+        // Очищаем форму
+        setFormData({
+          name: '', phone: '', message: '', consent: false,
+        });
+
+        // Скрыть сообщение об успехе через 10 секунд
+        setTimeout(() => setSubmitStatus('idle'), 10000);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Submit error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -269,6 +320,14 @@ export default function ContactForm() {
       <SectionTitle>Оставить заявку</SectionTitle>
 
       <FormWrapper>
+        {submitStatus === 'success' && (<SuccessMessage>
+          ✓ Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.
+        </SuccessMessage>)}
+
+        {submitStatus === 'error' && (<ErrorMessage>
+          ✗ Произошла ошибка при отправке. Пожалуйста, попробуйте позже или позвоните нам по телефону.
+        </ErrorMessage>)}
+
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Label htmlFor='name'>Ваше имя</Label>
@@ -323,9 +382,9 @@ export default function ContactForm() {
           </FormGroup>
 
           <ButtonsWrapper>
-            <SubmitButton type='submit' disabled={!formData.consent}>
+            <SubmitButton type='submit' disabled={!formData.consent || isSubmitting}>
               <Send size={20} />
-              Отправить
+              {isSubmitting ? 'Отправка...' : 'Отправить'}
             </SubmitButton>
           </ButtonsWrapper>
         </Form>

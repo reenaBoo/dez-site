@@ -69,16 +69,29 @@ const ContactItem = styled.div`
         flex-shrink: 0;
         margin-top: 2px;
         color: ${({ theme }) => theme.colors.primary};
+        align-self: center;
     }
+`;
+
+const ContactInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing.xs};
 `;
 
 const ContactLink = styled.a`
     color: ${({ theme }) => theme.colors.text};
     transition: color ${({ theme }) => theme.transitions.fast};
+    text-decoration: none;
 
     &:hover {
         color: ${({ theme }) => theme.colors.primary};
     }
+`;
+
+const WorkingHours = styled.span`
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    color: ${({ theme }) => theme.colors.textLight};
 `;
 
 const SocialLinks = styled.div`
@@ -159,14 +172,6 @@ export default function Footer() {
           </FooterText>
           <SocialLinks>
             <SocialLink
-              href='https://t.me/yourcompany'
-              target='_blank'
-              rel='noopener noreferrer'
-              aria-label='Telegram'
-            >
-              <Send size={20} />
-            </SocialLink>
-            <SocialLink
               href='https://wa.me/74959564855'
               target='_blank'
               rel='noopener noreferrer'
@@ -203,21 +208,21 @@ export default function Footer() {
 
           <ContactItem>
             <Phone size={18} />
-            <div>
+            <ContactInfo>
               <ContactLink href='tel:+74959564855'>
                 +7 (495) 956‑48‑55
               </ContactLink>
-              <br />
-              <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-                  Ежедневно 8:00 — 22:00
-                </span>
-            </div>
+              <ContactLink href='tel:+74953912102'>
+                +7 (495) 391-21-02
+              </ContactLink>
+              <WorkingHours>Ежедневно 8:00 — 22:00</WorkingHours>
+            </ContactInfo>
           </ContactItem>
 
           <ContactItem>
             <Mail size={18} />
-            <ContactLink href='mailto:info@dezservice.ru'>
-              info@dezservice.ru
+            <ContactLink href='mailto:biohimmash@mail.ru'>
+              biohimmash@mail.ru
             </ContactLink>
           </ContactItem>
 

@@ -3,6 +3,8 @@
 import styled from 'styled-components';
 import Container from '@/components/layout/Container';
 import { getAssetPath } from '@/utils/getAssetPath';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 const ClientsSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -17,7 +19,7 @@ const ClientsSection = styled.section`
 
 const SectionHeader = styled.div`
     text-align: center;
-    margin-bottom: ${({ theme }) => theme.spacing.xxxl};
+    margin-bottom: ${({ theme }) => theme.spacing.xl};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         margin-bottom: ${({ theme }) => theme.spacing.lg};
@@ -67,7 +69,6 @@ const SliderContainer = styled.div`
     overflow: visible;
     padding: 0;
 
-    /* Скрываем скроллбар */
     scrollbar-width: none;
     -ms-overflow-style: none;
 
@@ -225,6 +226,54 @@ const LogoDescription = styled.div`
     }
 `;
 
+const ViewAllButton = styled(Link)`
+    display: inline-flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.sm};
+    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.primary};
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border-radius: ${({ theme }) => theme.borderRadius.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    text-decoration: none;
+    cursor: pointer;
+    transition: all ${({ theme }) => theme.transitions.normal};
+    margin-top: ${({ theme }) => theme.spacing.lg};
+
+    &:hover {
+        background-color: ${({ theme }) => theme.colors.primary};
+        color: ${({ theme }) => theme.colors.navy};
+        transform: translateY(-2px);
+        box-shadow: ${({ theme }) => theme.shadows.glow};
+    }
+
+    svg {
+        flex-shrink: 0;
+        transition: transform ${({ theme }) => theme.transitions.fast};
+    }
+
+    &:hover svg {
+        transform: translateX(4px);
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.sm};
+        padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
+        margin-top: 0;
+    }
+`;
+
+const ButtonWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        margin-top: ${({ theme }) => theme.spacing.lg};
+    }
+`;
+
 const clients = [{
   name: 'Сеть «МуМу»', description: 'Сеть ресторанов', logo: getAssetPath('/images/clients/mumu.png'), hasLogo: true,
 }, {
@@ -271,5 +320,14 @@ export default function Clients() {
         </SliderTrack>
       </SliderContainer>
     </SliderWrapper>
+
+    <Container>
+      <ButtonWrapper>
+        <ViewAllButton href='/about#clients'>
+          Посмотреть полный список клиентов
+          <ArrowRight size={20} />
+        </ViewAllButton>
+      </ButtonWrapper>
+    </Container>
   </ClientsSection>);
 }

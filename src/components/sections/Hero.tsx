@@ -118,7 +118,7 @@ const Subtitle = styled.p`
 
 const Features = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(200px, 300px));
     gap: ${({ theme }) => theme.spacing.md};
     margin-bottom: ${({ theme }) => theme.spacing.xxl};
 
@@ -167,7 +167,7 @@ const CTAButtons = styled.div`
     }
 `;
 
-const PrimaryButton = styled(Link)`
+const PrimaryButton = styled.button`
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -179,6 +179,8 @@ const PrimaryButton = styled(Link)`
     border-radius: ${({ theme }) => theme.borderRadius.md};
     transition: all ${({ theme }) => theme.transitions.normal};
     box-shadow: ${({ theme }) => theme.shadows.glow};
+    border: none;
+    cursor: pointer;
 
     &:hover {
         background-color: ${({ theme }) => theme.colors.primaryLight};
@@ -193,7 +195,7 @@ const PrimaryButton = styled(Link)`
     }
 `;
 
-const SecondaryButton = styled(Link)`
+const PhoneLink = styled.a`
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -205,6 +207,7 @@ const SecondaryButton = styled(Link)`
     border: 2px solid ${({ theme }) => theme.colors.primary};
     border-radius: ${({ theme }) => theme.borderRadius.md};
     transition: all ${({ theme }) => theme.transitions.normal};
+    text-decoration: none;
 
     &:hover {
         background-color: ${({ theme }) => theme.colors.primary};
@@ -220,6 +223,15 @@ const SecondaryButton = styled(Link)`
 `;
 
 export default function Hero() {
+  const scrollToForm = () => {
+    const formElement = document.getElementById('contact-form');
+    if (formElement) {
+      formElement.scrollIntoView({
+        behavior: 'smooth', block: 'start',
+      });
+    }
+  };
+
   return (<HeroSection>
     <BackgroundImage>
       <Image
@@ -249,8 +261,8 @@ export default function Hero() {
         </Title>
 
         <Subtitle>
-          Дезинсекция (уничтожение насекомых), дератизация (уничтожение грызунов) и
-          фитосанитарная обработка для физлиц и бизнеса в Москве, МО и ЦФО
+          Дезинсекция (уничтожение насекомых), дератизация (уничтожение грызунов),
+          дезинфекция и фитосанитарная обработка для бизнеса в Москве, МО и ЦФО
         </Subtitle>
 
         <Features>
@@ -268,13 +280,17 @@ export default function Hero() {
           </Feature>
           <Feature>
             <CheckCircle size={24} />
-            Выезд в день заказа
+            Оперативный выезд
           </Feature>
         </Features>
 
         <CTAButtons>
-          <PrimaryButton href='/#contact-form'>Заказать обработку</PrimaryButton>
-          <SecondaryButton href='tel:+74959564855'>+7 (495) 956-48-55</SecondaryButton>
+          <PrimaryButton onClick={scrollToForm}>
+            Заказать обработку
+          </PrimaryButton>
+          <PhoneLink href='tel:+74959564855'>
+            +7 (495) 956-48-55
+          </PhoneLink>
         </CTAButtons>
       </Content>
     </Container>

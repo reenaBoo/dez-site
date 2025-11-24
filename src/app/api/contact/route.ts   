@@ -1,0 +1,21 @@
+import { NextResponse } from 'next/server';
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { name, phone, message } = body;
+
+    console.log('📧 НОВАЯ ЗАЯВКА:', { name, phone, message });
+
+    if (!name || !phone || !message) {
+      return NextResponse.json({ success: false, error: 'Все поля обязательны' }, { status: 400 });
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Ошибка:', error);
+    return NextResponse.json({ success: false, error: 'Ошибка обработки' }, { status: 500 });
+  }
+}

@@ -31,12 +31,10 @@ const Logo = styled(Link)`
     font-size: ${({ theme }) => theme.fontSize['2xl']};
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.colors.primary};
-    transition: all ${({ theme }) => theme.transitions.fast};
     text-shadow: ${({ theme }) => theme.shadows.glow};
 
     &:hover {
         color: ${({ theme }) => theme.colors.primaryLight};
-        transform: scale(1.05);
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -160,10 +158,8 @@ export default function Header() {
 
   return (<>
     <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
-
     <HeaderWrapper>
       <Container>
-
         <HeaderContent>
           <Logo href='/' onClick={() => setIsMenuOpen(false)}>
             НПП «БИОХИММАШ»
@@ -218,6 +214,5 @@ export default function Header() {
         </HeaderContent>
       </Container>
     </HeaderWrapper>
-
   </>);
 }

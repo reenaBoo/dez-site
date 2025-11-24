@@ -284,7 +284,7 @@ export default function AboutPage() {
           </List>
         </Section>
 
-        <Section>
+        <Section id='clients'>
           <SectionTitle>Клиенты и опыт</SectionTitle>
           <Text>
             Работаем с объектами любой сложности. Среди реализованных проектов и категорий

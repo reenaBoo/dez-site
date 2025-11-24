@@ -324,14 +324,6 @@ export default function ContactsPage() {
               <ContactInfo>Свяжитесь с нами удобным способом:</ContactInfo>
               <SocialButtons>
                 <SocialButton
-                  href='https://t.me/+74959564855'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Send size={18} />
-                  Написать в Telegram
-                </SocialButton>
-                <SocialButton
                   href='https://wa.me/74959564855'
                   target='_blank'
                   rel='noopener noreferrer'

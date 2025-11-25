@@ -108,12 +108,12 @@ const LogoCard = styled.div`
     background-color: ${({ theme }) => theme.colors.navy};
     border: 2px solid ${({ theme }) => theme.colors.navyLight};
     border-radius: ${({ theme }) => theme.borderRadius.lg};
-    padding: ${({ theme }) => theme.spacing.xl};
+    padding: ${({ theme }) => theme.spacing.lg};
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: ${({ theme }) => theme.spacing.md};
+    gap: ${({ theme }) => theme.spacing.sm};
     transition: all ${({ theme }) => theme.transitions.normal};
     height: 220px;
 
@@ -127,14 +127,14 @@ const LogoCard = styled.div`
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         width: 240px;
         height: 180px;
-        padding: ${({ theme }) => theme.spacing.lg};
-        gap: ${({ theme }) => theme.spacing.sm};
+        padding: ${({ theme }) => theme.spacing.md};
+        gap: ${({ theme }) => theme.spacing.xs};
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         width: 200px;
         height: 140px;
-        padding: ${({ theme }) => theme.spacing.md};
+        padding: ${({ theme }) => theme.spacing.sm};
 
         &:hover {
             transform: translateY(-8px);
@@ -148,16 +148,17 @@ const LogoWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: ${({ theme }) => theme.spacing.md};
+    margin-bottom: ${({ theme }) => theme.spacing.sm};
     padding: ${({ theme }) => theme.spacing.sm};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         height: 80px;
+        margin-bottom: ${({ theme }) => theme.spacing.xs};
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         height: 60px;
-        margin-bottom: ${({ theme }) => theme.spacing.sm};
+        margin-bottom: ${({ theme }) => theme.spacing.xs};
     }
 `;
 
@@ -279,8 +280,6 @@ const clients = [{
 }, {
   name: 'ВсеИнструменты.Ру', description: 'Розничная сеть', logo: getAssetPath('/images/clients/vseinstr.png'), hasLogo: true,
 }, {
-  name: 'Хадасса Медикал', description: 'Медицинский центр', logo: getAssetPath('/images/clients/hadassa.png'), hasLogo: true,
-}, {
   name: 'Сеть «Штолле»', description: 'Кафе-пекарни', logo: getAssetPath('/images/clients/shtolle.png'), hasLogo: true,
 }, {
   name: 'Сеть «PIMS»', description: 'Кофейни', logo: getAssetPath('/images/clients/pims.png'), hasLogo: true,
@@ -290,6 +289,10 @@ const clients = [{
   name: 'Министерство обороны', description: 'Объекты Минобороны РФ', logo: getAssetPath('/images/clients/minobr.png'), hasLogo: true,
 }, {
   name: 'Сеть «Бетховен»', description: 'Зоомагазины', logo: getAssetPath('/images/clients/bethoven.png'), hasLogo: true,
+}, {
+  name: 'Аэропорт «Жуковский»', description: 'Международный аэропорт', logo: getAssetPath('/images/clients/zhukovskiy.png'), hasLogo: true,
+}, {
+  name: 'ООО «СИМПЛ ФУД»', description: 'Кейтеринговая компания', logo: getAssetPath('/images/clients/simple-food.png'), hasLogo: true,
 }];
 
 export default function Clients() {
@@ -324,7 +327,7 @@ export default function Clients() {
     <Container>
       <ButtonWrapper>
         <ViewAllButton href='/about#clients'>
-          Посмотреть полный список клиентов
+          Посмотреть список клиентов
           <ArrowRight size={20} />
         </ViewAllButton>
       </ButtonWrapper>

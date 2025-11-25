@@ -280,7 +280,7 @@ export default function AboutPage() {
             <ListItem>Работаем с 2002 года — более 20 лет опыта</ListItem>
             <ListItem>Гарантия результата</ListItem>
             <ListItem>Безопасные сертифицированные препараты</ListItem>
-            <ListItem>Выезд специалиста в день обращения</ListItem>
+            <ListItem>Оперативный выезд специалиста</ListItem>
           </List>
         </Section>
 
@@ -292,18 +292,22 @@ export default function AboutPage() {
           </Text>
           <List>
             <ListItem>Maison Dellos (рестораны, сеть «МуМу» и др.)</ListItem>
+            <ListItem>Аэропорт «Жуковский»</ListItem>
             <ListItem>Бизнес-залы</ListItem>
             <ListItem>Бизнесцентры</ListItem>
             <ListItem>Объекты Министерства обороны</ListItem>
             <ListItem>Объекты Минздрава</ListItem>
+            <ListItem>ООО «Агрокомплекс»</ListItem>
             <ListItem>ООО «ВсеИнструменты.Ру»</ListItem>
-            <ListItem>ООО «РБЕ»</ListItem>
-            <ListItem>ООО «СИМПЛ ФУД»</ListItem>
+            <ListItem>ООО «Мега Сервис» (ИЦ «Сколково»)</ListItem>
+            <ListItem>ООО «РБЕ» (военное, социальное и медицинское питание, склады)</ListItem>
+            <ListItem>ООО «СИМПЛ ФУД» (питание складских комплексов)</ListItem>
+            <ListItem>ПАО «Химлаборприбор»</ListItem>
             <ListItem>Сеть зоомагазинов «Бетховен»</ListItem>
             <ListItem>Сеть кафе «PIMS»</ListItem>
             <ListItem>Сеть кафе «Штолле»</ListItem>
             <ListItem>Социальные объекты</ListItem>
-            <ListItem>Хадасса Медикал</ListItem>
+            <ListItem>Торговые центры</ListItem>
             <ListItem>Школы Москвы</ListItem>
           </List>
           <Text style={{ marginTop: '1.5rem' }}>

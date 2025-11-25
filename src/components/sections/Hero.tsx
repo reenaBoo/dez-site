@@ -118,7 +118,7 @@ const Subtitle = styled.p`
 
 const Features = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, minmax(200px, 300px));
+    grid-template-columns: repeat(2, minmax(200px, 320px));
     gap: ${({ theme }) => theme.spacing.md};
     margin-bottom: ${({ theme }) => theme.spacing.xxl};
 
@@ -161,7 +161,7 @@ const CTAButtons = styled.div`
     gap: ${({ theme }) => theme.spacing.lg};
     flex-wrap: wrap;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         flex-direction: column;
         gap: ${({ theme }) => theme.spacing.md};
     }
@@ -189,9 +189,12 @@ const PrimaryButton = styled.button`
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        width: 100%;
         font-size: ${({ theme }) => theme.fontSize.base};
         padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 100%;
     }
 `;
 
@@ -216,9 +219,12 @@ const PhoneLink = styled.a`
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-        width: 100%;
         font-size: ${({ theme }) => theme.fontSize.base};
         padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 100%;
     }
 `;
 
@@ -280,7 +286,7 @@ export default function Hero() {
           </Feature>
           <Feature>
             <CheckCircle size={24} />
-            Оперативный выезд
+            Оперативный выезд специалиста
           </Feature>
         </Features>
 

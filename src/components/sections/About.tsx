@@ -32,9 +32,9 @@ const AboutSection = styled.section`
 
 const ContentWrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     gap: ${({ theme }) => theme.spacing.xxxl};
-    align-items: center;
+    align-items: start;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
         grid-template-columns: 1fr;
@@ -118,7 +118,6 @@ const Subtitle = styled(motion.p)`
     }
 `;
 
-// Десктопная сетка карточек
 const StatsGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -136,6 +135,11 @@ const StatCard = styled(motion.div)`
     padding: ${({ theme }) => theme.spacing.xl};
     text-align: center;
     transition: all ${({ theme }) => theme.transitions.normal};
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         border-color: ${({ theme }) => theme.colors.primary};
@@ -152,7 +156,7 @@ const StatIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto ${({ theme }) => theme.spacing.md};
+    margin-bottom: ${({ theme }) => theme.spacing.md};
     color: ${({ theme }) => theme.colors.navy};
     box-shadow: ${({ theme }) => theme.shadows.glow};
 `;
@@ -162,14 +166,15 @@ const StatNumber = styled.div`
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.colors.primary};
     margin-bottom: ${({ theme }) => theme.spacing.xs};
+    line-height: 1.2;
 `;
 
 const StatLabel = styled.div`
     font-size: ${({ theme }) => theme.fontSize.base};
     color: ${({ theme }) => theme.colors.text};
+    line-height: 1.4;
 `;
 
-// Мобильный список
 const MobileStatsList = styled.div`
     display: none;
 
@@ -275,9 +280,9 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            С 2002 года помогаем ресторанам, пищевым производствам, агрохолдингам, школам и
-            госучреждениям обеспечивать санитарную безопасность, снижать риски и соблюдать
-            требования контролирующих органов.
+            Более 20 лет обеспечиваем санитарную безопасность для бизнеса и госучреждений. Работаем строго по нормам СанПиН, используя современные методы и
+            сертифицированные препараты. Гарантируем качество, полное документальное сопровождение, конфиденциальность и индивидуальный подход. Выполняем работы
+            в удобное для вас время, включая срочные выезды. <br /> ООО «НПП «Биохиммаш» — ваш профессиональный щит от санитарных рисков.
           </Subtitle>
         </TextContent>
 

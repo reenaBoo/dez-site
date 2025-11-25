@@ -1,11 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Phone, Menu, X } from 'lucide-react';
 import Container from './Container';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
+import { getAssetPath } from '@/utils/getAssetPath';
 
 const HeaderWrapper = styled.header`
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
@@ -28,18 +30,15 @@ const HeaderContent = styled.div`
 `;
 
 const Logo = styled(Link)`
-    font-size: ${({ theme }) => theme.fontSize['2xl']};
-    font-weight: ${({ theme }) => theme.fontWeight.bold};
-    color: ${({ theme }) => theme.colors.primary};
-    text-shadow: ${({ theme }) => theme.shadows.glow};
+    transition: opacity ${({ theme }) => theme.transitions.fast};
 
     &:hover {
-        color: ${({ theme }) => theme.colors.primaryLight};
+        opacity: 0.8;
     }
+`;
 
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-        font-size: ${({ theme }) => theme.fontSize['base']};
-    }
+const LogoImage = styled(Image)`
+    object-fit: contain;
 `;
 
 const Nav = styled.nav<{ $isOpen: boolean }>`
@@ -162,7 +161,13 @@ export default function Header() {
       <Container>
         <HeaderContent>
           <Logo href='/' onClick={() => setIsMenuOpen(false)}>
-            НПП «БИОХИММАШ»
+            <LogoImage
+              src={getAssetPath('/images/logo.png')}
+              alt='НПП БИОХИММАШ'
+              width={50}
+              height={50}
+              priority
+            />
           </Logo>
 
           <Nav $isOpen={isMenuOpen}>

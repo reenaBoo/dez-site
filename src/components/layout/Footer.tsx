@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Phone, Mail, MapPin, Send } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import Container from './Container';
 
 const FooterWrapper = styled.footer`
@@ -67,9 +67,8 @@ const ContactItem = styled.div`
 
     svg {
         flex-shrink: 0;
-        margin-top: 2px;
+        margin-top: 5px;
         color: ${({ theme }) => theme.colors.primary};
-        align-self: center;
     }
 `;
 
@@ -92,29 +91,6 @@ const ContactLink = styled.a`
 const WorkingHours = styled.span`
     font-size: ${({ theme }) => theme.fontSize.sm};
     color: ${({ theme }) => theme.colors.textLight};
-`;
-
-const SocialLinks = styled.div`
-    display: flex;
-    gap: ${({ theme }) => theme.spacing.md};
-    margin-top: ${({ theme }) => theme.spacing.sm};
-`;
-
-const SocialLink = styled.a`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: ${({ theme }) => theme.borderRadius.md};
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: white;
-    transition: all ${({ theme }) => theme.transitions.fast};
-
-    &:hover {
-        background-color: ${({ theme }) => theme.colors.primaryDark};
-        transform: translateY(-2px);
-    }
 `;
 
 const FooterBottom = styled.div`
@@ -167,19 +143,9 @@ export default function Footer() {
         <FooterSection>
           <FooterTitle>НПП «БИОХИММАШ»</FooterTitle>
           <FooterText>
-            Профессиональная дезинсекция, дератизация и дезинфекция в Москве и области.
+            Профессиональная дезинсекция, дератизация, дезинфекция и фитосанитарная обработка территорий в Москве и области.
             Гарантия результата. Работаем с 2002 года.
           </FooterText>
-          <SocialLinks>
-            <SocialLink
-              href='https://wa.me/74959564855'
-              target='_blank'
-              rel='noopener noreferrer'
-              aria-label='WhatsApp'
-            >
-              <Phone size={20} />
-            </SocialLink>
-          </SocialLinks>
         </FooterSection>
 
         {/* Навигация */}
@@ -195,11 +161,10 @@ export default function Footer() {
         {/* Услуги */}
         <FooterSection>
           <FooterTitle>Услуги</FooterTitle>
-          <FooterLink href='/services#bedbugs'>Уничтожение клопов</FooterLink>
-          <FooterLink href='/services#cockroaches'>Уничтожение тараканов</FooterLink>
-          <FooterLink href='/services#rodents'>Дератизация</FooterLink>
-          <FooterLink href='/services#disinfection'>Дезинфекция</FooterLink>
-          <FooterLink href='/services#ticks'>Обработка от клещей</FooterLink>
+          <FooterLink href='/services'>Дезинсекция</FooterLink>
+          <FooterLink href='/services'>Дератизация</FooterLink>
+          <FooterLink href='/services'>Дезинфекция</FooterLink>
+          <FooterLink href='/services'>Фитосанитарная защита</FooterLink>
         </FooterSection>
 
         {/* Контакты */}

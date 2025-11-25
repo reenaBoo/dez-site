@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import Image from 'next/image';
-import { Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import Container from '@/components/layout/Container';
 import { getAssetPath } from '@/utils/getAssetPath';
 
@@ -240,49 +240,6 @@ const WorkingHours = styled.div`
     margin-top: ${({ theme }) => theme.spacing.xs};
 `;
 
-const SocialButtons = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.sm};
-    margin-top: ${({ theme }) => theme.spacing.sm};
-`;
-
-const SocialButton = styled.a`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: ${({ theme }) => theme.spacing.xs};
-    padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.navy};
-    border-radius: ${({ theme }) => theme.borderRadius.md};
-    font-weight: ${({ theme }) => theme.fontWeight.bold};
-    font-size: ${({ theme }) => theme.fontSize.sm};
-    text-decoration: none;
-    transition: all ${({ theme }) => theme.transitions.normal};
-    box-shadow: ${({ theme }) => theme.shadows.glow};
-
-    &:hover {
-        background-color: ${({ theme }) => theme.colors.primaryLight};
-        transform: translateY(-2px);
-        box-shadow: 0 0 30px rgba(253, 185, 19, 0.7);
-    }
-
-    svg {
-        flex-shrink: 0;
-    }
-
-    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-        font-size: ${({ theme }) => theme.fontSize.xs};
-        padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
-
-        svg {
-            width: 16px;
-            height: 16px;
-        }
-    }
-`;
-
 export default function ContactsPage() {
   return (<PageWrapper>
     <BackgroundImage>
@@ -312,29 +269,6 @@ export default function ContactsPage() {
         </Title>
 
         <ContactsGrid>
-          {/* Мессенджеры */}
-          <ContactCard>
-            <CardHeader>
-              <IconWrapper>
-                <MessageCircle size={20} />
-              </IconWrapper>
-              <CardTitle>Мессенджеры</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ContactInfo>Свяжитесь с нами удобным способом:</ContactInfo>
-              <SocialButtons>
-                <SocialButton
-                  href='https://wa.me/74959564855'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <MessageCircle size={18} />
-                  Написать в WhatsApp
-                </SocialButton>
-              </SocialButtons>
-            </CardContent>
-          </ContactCard>
-
           {/* Телефон */}
           <ContactCard>
             <CardHeader>
@@ -345,8 +279,13 @@ export default function ContactsPage() {
             </CardHeader>
             <CardContent>
               <ContactInfo>Звоните нам по телефону:</ContactInfo>
-              <ContactLink href='tel:+74959564855'>+7 (495) 956-48-55</ContactLink>
-              <WorkingHours>Ежедневно с 8:00 до 22:00</WorkingHours>
+              <ContactLink href='tel:+74959564855'>
+                +7 (495) 956‑48‑55
+              </ContactLink>
+              <ContactLink href='tel:+74953912102'>
+                +7 (495) 391-21-02
+              </ContactLink>
+              <WorkingHours>Ежедневно 8:00 — 22:00</WorkingHours>
             </CardContent>
           </ContactCard>
 

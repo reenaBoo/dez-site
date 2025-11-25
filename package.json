@@ -1,15 +1,13 @@
 {
   "name": "dez-site",
   "version": "0.1.0",
-  "homepage": "https://reenaboo.github.io/dez-site",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
-    "export": "next build && next export"
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

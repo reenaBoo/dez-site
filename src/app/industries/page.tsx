@@ -205,7 +205,7 @@ const industries = [{
 export default function Industries() {
   return (<IndustriesSection id='industries'>
     <InsectDecoration
-      src='/images/bug-1.svg'
+      src='/images/centipede.svg'
       top='10%'
       left='10%'
     />

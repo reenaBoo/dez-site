@@ -243,7 +243,7 @@ export default function Prices() {
 
   return (<PricesSection id='prices'>
     <InsectDecoration
-      src='/images/bug-1.svg'
+      src='/images/centipede.svg'
       top='10%'
       right='10%'
     />

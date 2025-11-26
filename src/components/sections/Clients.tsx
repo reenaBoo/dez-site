@@ -2,7 +2,6 @@
 
 import styled from 'styled-components';
 import Container from '@/components/layout/Container';
-import { getAssetPath } from '@/utils/getAssetPath';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
@@ -276,23 +275,23 @@ const ButtonWrapper = styled.div`
 `;
 
 const clients = [{
-  name: 'Сеть «МуМу»', description: 'Сеть ресторанов', logo: getAssetPath('/images/clients/mumu.png'), hasLogo: true,
+  name: 'Сеть «МуМу»', description: 'Сеть ресторанов', logo: '/images/clients/mumu.png', hasLogo: true,
 }, {
-  name: 'ВсеИнструменты.Ру', description: 'Розничная сеть', logo: getAssetPath('/images/clients/vseinstr.png'), hasLogo: true,
+  name: 'ВсеИнструменты.Ру', description: 'Розничная сеть', logo: '/images/clients/vseinstr.png', hasLogo: true,
 }, {
-  name: 'Сеть «Штолле»', description: 'Кафе-пекарни', logo: getAssetPath('/images/clients/shtolle.png'), hasLogo: true,
+  name: 'Сеть «Штолле»', description: 'Кафе-пекарни', logo: '/images/clients/shtolle.png', hasLogo: true,
 }, {
-  name: 'Сеть «PIMS»', description: 'Кофейни', logo: getAssetPath('/images/clients/pims.png'), hasLogo: true,
+  name: 'Сеть «PIMS»', description: 'Кофейни', logo: '/images/clients/pims.png', hasLogo: true,
 }, {
-  name: 'Школы Москвы', description: 'Образовательные учреждения', logo: getAssetPath('/images/clients/schools.png'), hasLogo: true,
+  name: 'Школы Москвы', description: 'Образовательные учреждения', logo: '/images/clients/schools.png', hasLogo: true,
 }, {
-  name: 'Министерство обороны', description: 'Объекты Минобороны РФ', logo: getAssetPath('/images/clients/minobr.png'), hasLogo: true,
+  name: 'Министерство обороны', description: 'Объекты Минобороны РФ', logo: '/images/clients/minobr.png', hasLogo: true,
 }, {
-  name: 'Сеть «Бетховен»', description: 'Зоомагазины', logo: getAssetPath('/images/clients/bethoven.png'), hasLogo: true,
+  name: 'Сеть «Бетховен»', description: 'Зоомагазины', logo: '/images/clients/bethoven.png', hasLogo: true,
 }, {
-  name: 'Аэропорт «Жуковский»', description: 'Международный аэропорт', logo: getAssetPath('/images/clients/zhukovskiy.png'), hasLogo: true,
+  name: 'Аэропорт «Жуковский»', description: 'Международный аэропорт', logo: '/images/clients/zhukovskiy.png', hasLogo: true,
 }, {
-  name: 'ООО «СИМПЛ ФУД»', description: 'Кейтеринговая компания', logo: getAssetPath('/images/clients/simple-food.png'), hasLogo: true,
+  name: 'ООО «СИМПЛ ФУД»', description: 'Кейтеринговая компания', logo: '/images/clients/simple-food.png', hasLogo: true,
 }];
 
 export default function Clients() {

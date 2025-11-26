@@ -207,9 +207,6 @@ export default function Footer() {
           <FooterBottomLink href='/privacy'>
             Политика конфиденциальности
           </FooterBottomLink>
-          <FooterBottomLink href='/terms'>
-            Условия использования
-          </FooterBottomLink>
         </FooterLinks>
       </FooterBottom>
     </Container>

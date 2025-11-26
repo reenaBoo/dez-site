@@ -1,4 +1,6 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request) {
   try {
@@ -12,18 +14,8 @@ export async function POST(request) {
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: true,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
-      },
-    });
-
-    await transporter.sendMail({
-      from: process.env.SMTP_USER,
+    await resend.emails.send({
+      from: 'Заявки с сайта <onboarding@resend.dev>',
       to: process.env.CONTACT_EMAIL,
       subject: `Новая заявка: ${name}`,
       text: `Имя: ${name}\nТелефон: ${phone}\nСообщение: ${message}`,

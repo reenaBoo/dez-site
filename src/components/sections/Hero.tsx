@@ -2,10 +2,8 @@
 
 import styled from 'styled-components';
 import Image from 'next/image';
-import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 import Container from '@/components/layout/Container';
-import { getAssetPath } from '@/utils/getAssetPath';
 
 const HeroSection = styled.section`
     position: relative;
@@ -241,7 +239,7 @@ export default function Hero() {
   return (<HeroSection>
     <BackgroundImage>
       <Image
-        src={getAssetPath('/images/hero-bg.jpg')}
+        src={'/images/hero-bg.jpg'}
         alt='Профессиональная дезинсекция'
         fill
         priority
@@ -250,7 +248,7 @@ export default function Hero() {
       />
 
       <Image
-        src={getAssetPath('/images/hero-bg-mobile.jpg')}
+        src={'/images/hero-bg-mobile.jpg'}
         alt='Профессиональная дезинсекция'
         fill
         priority

@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { Phone, Menu, X } from 'lucide-react';
 import Container from './Container';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
-import { getAssetPath } from '@/utils/getAssetPath';
 
 const HeaderWrapper = styled.header`
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
@@ -30,6 +29,9 @@ const HeaderContent = styled.div`
 `;
 
 const Logo = styled(Link)`
+    display: flex;
+    align-items: center;
+    gap: ${({ theme }) => theme.spacing.md};
     transition: opacity ${({ theme }) => theme.transitions.fast};
 
     &:hover {
@@ -39,6 +41,22 @@ const Logo = styled(Link)`
 
 const LogoImage = styled(Image)`
     object-fit: contain;
+    flex-shrink: 0;
+`;
+
+const LogoText = styled.span`
+    font-size: ${({ theme }) => theme.fontSize.xl};
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    color: ${({ theme }) => theme.colors.primary};
+    white-space: nowrap;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        font-size: ${({ theme }) => theme.fontSize.lg};
+    }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.base};
+    }
 `;
 
 const Nav = styled.nav<{ $isOpen: boolean }>`
@@ -162,12 +180,13 @@ export default function Header() {
         <HeaderContent>
           <Logo href='/' onClick={() => setIsMenuOpen(false)}>
             <LogoImage
-              src={getAssetPath('/images/logo.png')}
+              src={'/images/logo.png'}
               alt='НПП БИОХИММАШ'
               width={50}
               height={50}
               priority
             />
+            <LogoText>НПП «БИОХИММАШ»</LogoText>
           </Logo>
 
           <Nav $isOpen={isMenuOpen}>

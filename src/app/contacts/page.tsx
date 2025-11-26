@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import Container from '@/components/layout/Container';
-import { getAssetPath } from '@/utils/getAssetPath';
 
 const PageWrapper = styled.div`
     position: relative;
@@ -122,7 +121,7 @@ const ContactsGrid = styled.div`
     }
 
     & > *:nth-child(2n) {
-        transform: translateY(50px);
+        transform: translateY(100px);
 
         @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
             transform: translateY(0);
@@ -163,8 +162,12 @@ const ContactCard = styled.div`
 const CardHeader = styled.div`
     display: flex;
     align-items: center;
-    gap: ${({ theme }) => theme.spacing.sm};
+    gap: ${({ theme }) => theme.spacing.md};
     margin-bottom: ${({ theme }) => theme.spacing.sm};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        gap: ${({ theme }) => theme.spacing.sm};
+    }
 `;
 
 const IconWrapper = styled.div`
@@ -196,7 +199,7 @@ const CardTitle = styled.h3`
     font-weight: ${({ theme }) => theme.fontWeight.semibold};
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-        font-size: ${({ theme }) => theme.fontSize.base};
+        font-size: ${({ theme }) => theme.fontSize.sm};
     }
 `;
 
@@ -244,7 +247,7 @@ export default function ContactsPage() {
   return (<PageWrapper>
     <BackgroundImage>
       <Image
-        src={getAssetPath('/images/contacts-bg.jpg')}
+        src={'/images/contacts-bg.jpg'}
         alt='Свяжитесь с нами'
         fill
         priority
@@ -253,7 +256,7 @@ export default function ContactsPage() {
       />
 
       <Image
-        src={getAssetPath('/images/hero-bg-mobile.jpg')}
+        src={'/images/hero-bg-mobile.jpg'}
         alt='Свяжитесь с нами'
         fill
         priority

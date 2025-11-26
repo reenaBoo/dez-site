@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { Send } from 'lucide-react';
 import Container from '@/components/layout/Container';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { IContactForm } from '@/types/IContactForm';
 
 const FormSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -58,13 +59,27 @@ const FormWrapper = styled.div`
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.lg};
+    gap: ${({ theme }) => theme.spacing.md};
 `;
 
 const FormGroup = styled.div`
     display: flex;
     flex-direction: column;
     gap: ${({ theme }) => theme.spacing.sm};
+    min-height: 117px;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        min-height: 90px;
+    }
+`;
+
+const ErrorText = styled.span`
+    color: ${({ theme }) => theme.colors.error};
+    font-size: ${({ theme }) => theme.fontSize.sm};
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+    }
 `;
 
 const Label = styled.label`
@@ -99,6 +114,10 @@ const Input = styled.input`
             font-size: ${({ theme }) => theme.fontSize.sm};
         }
     }
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        padding: ${({ theme }) => theme.spacing.sm};
+    }
 `;
 
 const Textarea = styled.textarea`
@@ -121,6 +140,10 @@ const Textarea = styled.textarea`
 
     &::placeholder {
         color: ${({ theme }) => theme.colors.textLight};
+
+        @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+            font-size: ${({ theme }) => theme.fontSize.sm};
+        }
     }
 `;
 
@@ -155,12 +178,6 @@ const CheckboxLabel = styled.label`
             color: ${({ theme }) => theme.colors.primaryLight};
         }
     }
-`;
-
-const ErrorText = styled.span`
-    color: ${({ theme }) => theme.colors.error};
-    font-size: ${({ theme }) => theme.fontSize.sm};
-    margin-top: ${({ theme }) => theme.spacing.xs};
 `;
 
 const ButtonsWrapper = styled.div`
@@ -229,88 +246,46 @@ const ErrorMessage = styled.div`
 `;
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: '', phone: '', message: '', consent: false,
+  const {
+    register, handleSubmit, formState: { errors, isValid, isSubmitting, isSubmitSuccessful }, reset, setError,
+  } = useForm<IContactForm>({
+    mode: 'onTouched',
   });
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (isSubmitSuccessful && !errors.root) {
+      const timer = setTimeout(() => {
+        reset();
+      }, 5000);
 
-    const newErrors: { [key: string]: string } = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = 'Пожалуйста, укажите ваше имя';
+      return () => clearTimeout(timer);
     }
+  }, [isSubmitSuccessful, errors.root, reset]);
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Пожалуйста, укажите телефон';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Пожалуйста, опишите задачу';
-    }
-
-    if (!formData.consent) {
-      newErrors.consent = 'Необходимо согласие на обработку персональных данных';
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    // Отправка
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
+  const onSubmit = async (data: IContactForm) => {
+    const { name, phone, message } = data;
     try {
       const response = await fetch('/api/contact', {
         method: 'POST', headers: {
           'Content-Type': 'application/json',
         }, body: JSON.stringify({
-          name: formData.name, phone: formData.phone, message: formData.message,
+          name, phone, message,
         }),
       });
 
       const result = await response.json();
 
       if (result.success) {
-        setSubmitStatus('success');
-
-        // Очищаем форму
-        setFormData({
-          name: '', phone: '', message: '', consent: false,
-        });
-
-        // Скрыть сообщение об успехе через 10 секунд
-        setTimeout(() => setSubmitStatus('idle'), 10000);
+        reset();
       } else {
-        setSubmitStatus('error');
+        setError('root', {
+          message: 'Ошибка отправки. Попробуйте позже или позвоните нам.',
+        });
       }
     } catch (error) {
       console.error('Submit error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value, type } = e.target;
-    const checked = (e.target as HTMLInputElement).checked;
-
-    setFormData((prev) => ({
-      ...prev, [id]: type === 'checkbox' ? checked : value,
-    }));
-
-    if (errors[id]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[id];
-        return newErrors;
+      setError('root', {
+        message: 'Ошибка отправки. Попробуйте позже или позвоните нам.',
       });
     }
   };
@@ -320,25 +295,28 @@ export default function ContactForm() {
       <SectionTitle>Оставить заявку</SectionTitle>
 
       <FormWrapper>
-        {submitStatus === 'success' && (<SuccessMessage>
+        {isSubmitSuccessful && !errors.root && (<SuccessMessage>
           ✓ Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.
         </SuccessMessage>)}
 
-        {submitStatus === 'error' && (<ErrorMessage>
-          ✗ Произошла ошибка при отправке. Пожалуйста, попробуйте позже или позвоните нам по телефону.
+        {errors.root && (<ErrorMessage>
+          ✗ {errors.root.message}
         </ErrorMessage>)}
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <Label htmlFor='name'>Ваше имя</Label>
             <Input
               id='name'
               type='text'
               placeholder='Иван Иванов'
-              value={formData.name}
-              onChange={handleChange}
+              {...register('name', {
+                required: 'Пожалуйста, укажите ваше имя', maxLength: {
+                  value: 99, message: 'Имя слишком длинное',
+                },
+              })}
             />
-            {errors.name && <ErrorText>{errors.name}</ErrorText>}
+            {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
           </FormGroup>
 
           <FormGroup>
@@ -347,10 +325,20 @@ export default function ContactForm() {
               id='phone'
               type='tel'
               placeholder='+7 (___) ___-__-__'
-              value={formData.phone}
-              onChange={handleChange}
+              {...register('phone', {
+                required: 'Пожалуйста, укажите телефон', validate: (value) => {
+                  const digits = value.replace(/\D/g, '');
+                  if (digits.length !== 11) {
+                    return 'Номер должен содержать 11 цифр';
+                  }
+                  if (!digits.startsWith('7') && !digits.startsWith('8')) {
+                    return 'Номер должен начинаться с +7 или 8';
+                  }
+                  return true;
+                },
+              })}
             />
-            {errors.phone && <ErrorText>{errors.phone}</ErrorText>}
+            {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
           </FormGroup>
 
           <FormGroup>
@@ -358,32 +346,32 @@ export default function ContactForm() {
             <Textarea
               id='message'
               placeholder='Площадь, тип объекта, вид работ, сроки...'
-              value={formData.message}
-              onChange={handleChange}
+              {...register('message', {
+                required: 'Пожалуйста, опишите задачу', maxLength: {
+                  value: 999, message: 'Сообщение слишком длинное',
+                },
+              })}
             />
-            {errors.message && <ErrorText>{errors.message}</ErrorText>}
+            {errors.message && <ErrorText>{errors.message.message}</ErrorText>}
           </FormGroup>
 
-          <FormGroup>
-            <CheckboxWrapper>
-              <CheckboxInput
-                type='checkbox'
-                id='consent'
-                checked={formData.consent}
-                onChange={handleChange}
-              />
-              <CheckboxLabel htmlFor='consent'>
-                Я согласен с{' '}
-                <Link href='/privacy'>политикой конфиденциальности</Link> и даю
-                согласие на обработку персональных данных
-              </CheckboxLabel>
-            </CheckboxWrapper>
-            {errors.consent && <ErrorText>{errors.consent}</ErrorText>}
-          </FormGroup>
+          <CheckboxWrapper>
+            <CheckboxInput
+              type='checkbox'
+              id='consent'
+              {...register('consent', {
+                required: 'Необходимо согласие на обработку персональных данных',
+              })}
+            />
+            <CheckboxLabel htmlFor='consent'>
+              Я согласен с{' '}
+              <Link href='/privacy'>политикой конфиденциальности</Link> и даю
+              согласие на обработку персональных данных
+            </CheckboxLabel>
+          </CheckboxWrapper>
 
           <ButtonsWrapper>
-            <SubmitButton type='submit' disabled={!formData.consent || isSubmitting}>
-              <Send size={20} />
+            <SubmitButton type='submit' disabled={!isValid}>
               {isSubmitting ? 'Отправка...' : 'Отправить'}
             </SubmitButton>
           </ButtonsWrapper>

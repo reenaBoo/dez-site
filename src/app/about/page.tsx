@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import { Download, ExternalLink } from 'lucide-react';
 import Container from '@/components/layout/Container';
-import { getAssetPath } from '@/utils/getAssetPath';
 
 const PageWrapper = styled.div`
     min-height: 60vh;
@@ -260,7 +259,7 @@ export default function AboutPage() {
 
         <IllustrationWrapper>
           <IllustrationImage
-            src={getAssetPath('/images/disinsection.svg')}
+            src={'/images/disinsection.svg'}
             alt='Профессиональная дезинсекция'
             fill
           />

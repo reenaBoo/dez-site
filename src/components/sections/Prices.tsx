@@ -5,10 +5,12 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import InsectDecoration from '@/components/common/InsectDecoration';
 
 const PricesSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
+    position: relative;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         padding: ${({ theme }) => theme.spacing.xxl} 0;
@@ -240,6 +242,17 @@ export default function Prices() {
   };
 
   return (<PricesSection id='prices'>
+    <InsectDecoration
+      src='/images/bug-1.svg'
+      top='10%'
+      right='10%'
+    />
+    <InsectDecoration
+      src='/images/mosquito.svg'
+      bottom='30%'
+      left='10%'
+      flipHorizontal
+    />
     <Container>
       <SectionWrapper>
         <SectionHeader>

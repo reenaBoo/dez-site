@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Utensils, Wheat, GraduationCap, Building2, Home, Factory } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import InsectDecoration from '@/components/common/InsectDecoration';
 
 const IndustriesSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
     background-color: ${({ theme }) => theme.colors.background};
+    position: relative;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         padding: ${({ theme }) => theme.spacing.xl} 0 0 0;
@@ -202,6 +204,16 @@ const industries = [{
 
 export default function Industries() {
   return (<IndustriesSection id='industries'>
+    <InsectDecoration
+      src='/images/bug-1.svg'
+      top='10%'
+      left='10%'
+    />
+    <InsectDecoration
+      src='/images/bug.svg'
+      bottom='30%'
+      right='10%'
+    />
     <Container>
       <SectionHeader>
         <SectionTitle>

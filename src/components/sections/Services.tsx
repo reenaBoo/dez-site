@@ -4,10 +4,12 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Bug, Rat, Check, Leaf, FlaskConical } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import InsectDecoration from '@/components/common/InsectDecoration';
 
 const ServicesSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
     background-color: ${({ theme }) => theme.colors.backgroundAlt};
+    position: relative;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
         padding: 0 0 ${({ theme }) => theme.spacing.xl} 0;
@@ -187,6 +189,11 @@ const services = [{
 
 export default function Services() {
   return (<ServicesSection id='services'>
+    <InsectDecoration
+      src='/images/bug.svg'
+      top='10%'
+      left='15%'
+    />
     <Container>
       <SectionHeader>
         <SectionTitle>

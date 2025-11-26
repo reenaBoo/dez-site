@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Shield, Award, Users, TrendingUp } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import InsectDecoration from '@/components/common/InsectDecoration';
 
 const AboutSection = styled.section`
     padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -35,6 +36,7 @@ const ContentWrapper = styled.div`
     grid-template-columns: 1.2fr 1fr;
     gap: ${({ theme }) => theme.spacing.xxxl};
     align-items: start;
+    position: relative;
 
     @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
         grid-template-columns: 1fr;
@@ -241,6 +243,11 @@ const stats = [{
 
 export default function About() {
   return (<AboutSection>
+    <InsectDecoration
+      src='/images/mosquito.svg'
+      bottom='10%'
+      right='15%'
+    />
     <Container>
       <ContentWrapper>
         <TextContent>

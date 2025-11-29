@@ -294,19 +294,23 @@ export default function AboutPage() {
             <ListItem>Аэропорт «Жуковский»</ListItem>
             <ListItem>Бизнес-залы</ListItem>
             <ListItem>Бизнесцентры</ListItem>
+            <ListItem>Группа ЛСР</ListItem>
             <ListItem>Объекты Министерства обороны</ListItem>
             <ListItem>Объекты Минздрава</ListItem>
+            <ListItem>Объекты РПЦ</ListItem>
             <ListItem>ООО «Агрокомплекс»</ListItem>
             <ListItem>ООО «ВсеИнструменты.Ру»</ListItem>
             <ListItem>ООО «Мега Сервис» (ИЦ «Сколково»)</ListItem>
             <ListItem>ООО «РБЕ» (военное, социальное и медицинское питание, склады)</ListItem>
             <ListItem>ООО «СИМПЛ ФУД» (питание складских комплексов)</ListItem>
+            <ListItem>ООО «Транслайн» (Санаторно-курортный комплекс МО)</ListItem>
             <ListItem>ПАО «Химлаборприбор»</ListItem>
             <ListItem>Сеть зоомагазинов «Бетховен»</ListItem>
             <ListItem>Сеть кафе «PIMS»</ListItem>
             <ListItem>Сеть кафе «Штолле»</ListItem>
             <ListItem>Социальные объекты</ListItem>
             <ListItem>Торговые центры</ListItem>
+            <ListItem>УК «Преимущество»</ListItem>
             <ListItem>Школы Москвы</ListItem>
           </List>
           <Text style={{ marginTop: '1.5rem' }}>

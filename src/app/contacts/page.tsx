@@ -145,17 +145,12 @@ const ContactCard = styled.div`
     &:hover {
         border-color: ${({ theme }) => theme.colors.primary};
         box-shadow: ${({ theme }) => theme.shadows.glow};
-        transform: translateX(-4px);
         background: rgba(10, 16, 24, 0.95);
     }
 
     @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
         min-height: auto;
         padding: ${({ theme }) => theme.spacing.md};
-
-        &:hover {
-            transform: translateY(-4px);
-        }
     }
 `;
 

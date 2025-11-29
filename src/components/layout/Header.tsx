@@ -19,6 +19,10 @@ const HeaderWrapper = styled.header`
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+        padding: ${({ theme }) => theme.spacing.md} 0;
+    }
 `;
 
 const HeaderContent = styled.div`
@@ -31,7 +35,7 @@ const HeaderContent = styled.div`
 const Logo = styled(Link)`
     display: flex;
     align-items: center;
-    gap: ${({ theme }) => theme.spacing.md};
+    gap: ${({ theme }) => theme.spacing.sm};
     transition: opacity ${({ theme }) => theme.transitions.fast};
 
     &:hover {
@@ -42,6 +46,11 @@ const Logo = styled(Link)`
 const LogoImage = styled(Image)`
     object-fit: contain;
     flex-shrink: 0;
+
+    @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+        width: 50px;
+        height: 50px;
+    }
 `;
 
 const LogoText = styled.span`
@@ -182,8 +191,8 @@ export default function Header() {
             <LogoImage
               src={'/images/logo.png'}
               alt='НПП БИОХИММАШ'
-              width={50}
-              height={50}
+              width={60}
+              height={60}
               priority
             />
             <LogoText>НПП «БИОХИММАШ»</LogoText>

@@ -12,13 +12,15 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return (<>
-    <ScrollHandler />
-    <Hero />
-    <About />
-    <Services />
-    <Clients />
-    <Prices />
-    <ContactForm />
-  </>);
+  return (
+    <>
+      <ScrollHandler/>
+      <Hero/>
+      <About/>
+      <Services/>
+      <Clients/>
+      <Prices/>
+      <ContactForm/>
+    </>
+  );
 }

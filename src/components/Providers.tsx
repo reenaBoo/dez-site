@@ -6,10 +6,12 @@ import { GlobalStyles } from '@/styles/GlobalStyles';
 import { theme } from '@/styles/theme';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  return (<StyledComponentsRegistry>
+  return (
+    <StyledComponentsRegistry>
       <ThemeProvider theme={theme}>
-        <GlobalStyles />
+        <GlobalStyles/>
         {children}
       </ThemeProvider>
-    </StyledComponentsRegistry>);
+    </StyledComponentsRegistry>
+  );
 }

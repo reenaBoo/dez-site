@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /_next/static/
+Disallow: /api/
+
+Disallow: /*.json$
+Disallow: /*.xml$
+
+Sitemap: https://nppbiohimmash.ru/sitemap.xml

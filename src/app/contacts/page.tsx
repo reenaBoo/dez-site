@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import Image from 'next/image';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import Container from '@/components/layout/Container';
 
 const PageWrapper = styled.div`
@@ -300,6 +300,22 @@ export default function ContactsPage() {
                 <ContactInfo>Напишите нам на почту:</ContactInfo>
                 <ContactLink href='mailto:biohimmash@mail.ru'>
                   biohimmash@mail.ru
+                </ContactLink>
+              </CardContent>
+            </ContactCard>
+
+            {/* Telegram */}
+            <ContactCard>
+              <CardHeader>
+                <IconWrapper>
+                  <Send size={20}/>
+                </IconWrapper>
+                <CardTitle>Telegram</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ContactInfo>Напишите нам в Telegram:</ContactInfo>
+                <ContactLink href='https://t.me/nppbiohimmash' target='_blank' rel='noopener noreferrer'>
+                  @nppbiohimmash
                 </ContactLink>
               </CardContent>
             </ContactCard>

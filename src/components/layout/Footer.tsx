@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import Container from './Container';
 
 const FooterWrapper = styled.footer`
@@ -190,6 +190,13 @@ export default function Footer() {
               <Mail size={18}/>
               <ContactLink href='mailto:biohimmash@mail.ru'>
                 biohimmash@mail.ru
+              </ContactLink>
+            </ContactItem>
+
+            <ContactItem>
+              <Send size={18}/>
+              <ContactLink href='https://t.me/nppbiohimmash' target='_blank' rel='noopener noreferrer'>
+                Telegram
               </ContactLink>
             </ContactItem>
 

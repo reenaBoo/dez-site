@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Providers from '@/components/Providers'
+import YandexMetrika from '@/components/YandexMetrika'
 
 export const metadata: Metadata = {
   title: 'Дезинсекция в Москве — Профессиональное уничтожение насекомых',
@@ -14,19 +15,16 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
     <body>
     <Providers>
-      <Header />
+      <Header/>
       <main>{children}</main>
-      <Footer />
+      <Footer/>
     </Providers>
+    <YandexMetrika/>
     </body>
     </html>
   )

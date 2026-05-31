@@ -330,7 +330,7 @@ export default function ContactsPage() {
               </CardHeader>
               <CardContent>
                 <ContactInfo>
-                  107076, г. Москва, пер. Большой Матросский, д. 1, эт. 1, пом. XXVII, ком. 19
+                  Московская область, г.Жуковский, улица Грищенко 5, офис 30
                 </ContactInfo>
               </CardContent>
             </ContactCard>

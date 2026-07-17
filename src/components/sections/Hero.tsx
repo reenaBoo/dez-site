@@ -72,7 +72,6 @@ const BackgroundImage = styled.div`
 const Content = styled.div`
   position: relative;
   z-index: 10;
-  padding: ${({ theme }) => theme.spacing.xxxl} 0;
   max-width: 900px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -227,15 +226,6 @@ const PhoneLink = styled.a`
 `;
 
 export default function Hero() {
-  const scrollToForm = () => {
-    const formElement = document.getElementById('contact-form');
-    if (formElement) {
-      formElement.scrollIntoView({
-        behavior: 'smooth', block: 'start',
-      });
-    }
-  };
-
   return (
     <HeroSection>
       <BackgroundImage>
@@ -288,15 +278,6 @@ export default function Hero() {
               Оперативный выезд специалиста
             </Feature>
           </Features>
-
-          <CTAButtons>
-            <PrimaryButton onClick={scrollToForm}>
-              Заказать обработку
-            </PrimaryButton>
-            <PhoneLink href='tel:+74959564855'>
-              +7 (495) 956-48-55
-            </PhoneLink>
-          </CTAButtons>
         </Content>
       </Container>
     </HeroSection>

@@ -240,12 +240,12 @@ const FootNote = styled.p`
   line-height: 1.6;
 `;
 
-function pluralRegions(n: number): string {
+function pluralRu(n: number, one: string, few: string, many: string): string {
   const m10 = n % 10;
   const m100 = n % 100;
-  if (m10 === 1 && m100 !== 11) return 'РЕГИОН';
-  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'РЕГИОНА';
-  return 'РЕГИОНОВ';
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+  return many;
 }
 
 interface LabelPlacement {
@@ -347,10 +347,10 @@ export default function RegionsMap() {
               Карта покрытия
             </BarItem>
             <BarItem>
-              Активно · {labels.length} {pluralRegions(labels.length)}
+              Активно · {labels.length} {pluralRu(labels.length, 'регион', 'региона', 'регионов')}
             </BarItem>
             <BarItem>
-              РФ / {RUSSIA_REGIONS.length} субъекта
+              РФ / {RUSSIA_REGIONS.length} {pluralRu(RUSSIA_REGIONS.length, 'субъект', 'субъекта', 'субъектов')}
             </BarItem>
           </PanelBar>
 

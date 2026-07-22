@@ -9,6 +9,27 @@ const geojson = JSON.parse(
   readFileSync('./node_modules/@amcharts/amcharts5-geodata/json/russiaCrimeaLow.json', 'utf8'),
 );
 
+const ukraine = JSON.parse(
+  readFileSync('./node_modules/@amcharts/amcharts5-geodata/json/ukraineLow.json', 'utf8'),
+);
+
+const NEW_REGIONS = {
+  'UA-14': { id: 'RU-DPR', name: 'Donetsk People\'s Republic' },
+  'UA-09': { id: 'RU-LPR', name: 'Luhansk People\'s Republic' },
+  'UA-23': { id: 'RU-ZAP', name: 'Zaporozhye' },
+  'UA-65': { id: 'RU-KHE', name: 'Kherson' },
+};
+
+for (const f of ukraine.features) {
+  const mapped = NEW_REGIONS[f.properties.id];
+  if (mapped) {
+    geojson.features.push({
+      ...f,
+      properties: { ...f.properties, id: mapped.id, name: mapped.name },
+    });
+  }
+}
+
 const projection = geoMercator()
   .rotate([-105, 0])
   .fitExtent(

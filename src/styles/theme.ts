@@ -11,7 +11,6 @@ export const theme = {
 
     border: '#23232B', error: '#EF4444', success: '#8FB573', warning: '#D9B15F',
 
-    // Карта
     mapFill: '#161D2C', mapFillHover: '#222D44', mapStroke: 'rgba(200, 210, 235, 0.13)',
   },
 

@@ -269,8 +269,6 @@ const pricesData = [{
 }];
 
 export default function Prices() {
-  // Описания карточек свёрнуты по умолчанию; название и цена видны всегда.
-  // Карточки раскрываются независимо друг от друга.
   const [openItems, setOpenItems] = useState<Set<number>>(new Set());
 
   const toggleItem = (index: number) => {

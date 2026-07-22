@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import Container from '@/components/layout/Container';
@@ -8,7 +8,6 @@ import { RUSSIA_REGIONS, MAP_WIDTH, MAP_HEIGHT, type RegionShape } from './geo/r
 import { RU_REGION_NAMES } from './geo/names';
 import { ACTIVE_REGION_IDS } from './geo/config';
 
-// Ширина левого поля под выноски-подписи (в координатах viewBox)
 const GUTTER = 300;
 const LABEL_GAP = 56;
 
@@ -256,7 +255,8 @@ interface LabelPlacement {
 
 export default function RegionsMap() {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [hover, setHover] = useState<{ name: string; x: number; y: number } | null>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [hoverName, setHoverName] = useState<string | null>(null);
   const [compact, setCompact] = useState(false);
 
   useEffect(() => {
@@ -275,7 +275,6 @@ export default function RegionsMap() {
       .filter((r): r is RegionShape => Boolean(r))
       .sort((a, b) => a.cy - b.cy);
 
-    // раскладываем подписи сверху вниз с минимальным зазором
     const ys = active.map((r) => r.cy);
     for (let i = 1; i < ys.length; i++) {
       ys[i] = Math.max(ys[i], ys[i - 1] + LABEL_GAP);
@@ -292,15 +291,30 @@ export default function RegionsMap() {
     return active.map((region, i) => ({ region, y: ys[i] }));
   }, []);
 
-  const handleMove = (e: React.MouseEvent, id: string) => {
+  const handleMove = useCallback((e: React.MouseEvent) => {
     const rect = wrapRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    setHover({
-      name: RU_REGION_NAMES[id] ?? id,
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
+    const el = tooltipRef.current;
+    if (!rect || !el) return;
+    el.style.left = `${e.clientX - rect.left}px`;
+    el.style.top = `${e.clientY - rect.top}px`;
+  }, []);
+
+  const handleLeave = useCallback(() => setHoverName(null), []);
+
+  const regionPaths = useMemo(() => (
+    <g transform={`translate(${GUTTER}, 0)`}>
+      {RUSSIA_REGIONS.map((region) => (
+        <path
+          key={region.id}
+          d={region.d}
+          className={activeSet.has(region.id) ? 'region active' : 'region'}
+          onMouseEnter={() => setHoverName(RU_REGION_NAMES[region.id] ?? region.id)}
+          onMouseMove={handleMove}
+          onMouseLeave={handleLeave}
+        />
+      ))}
+    </g>
+  ), [activeSet, handleMove, handleLeave]);
 
   const viewBox = compact
     ? `${GUTTER} 0 ${MAP_WIDTH} ${MAP_HEIGHT}`
@@ -356,17 +370,7 @@ export default function RegionsMap() {
                 </filter>
               </defs>
 
-              <g transform={`translate(${GUTTER}, 0)`}>
-                {RUSSIA_REGIONS.map((region) => (
-                  <path
-                    key={region.id}
-                    d={region.d}
-                    className={activeSet.has(region.id) ? 'region active' : 'region'}
-                    onMouseMove={(e) => handleMove(e, region.id)}
-                    onMouseLeave={() => setHover(null)}
-                  />
-                ))}
-              </g>
+              {regionPaths}
 
               {!compact && (
                 <g>
@@ -392,9 +396,12 @@ export default function RegionsMap() {
               )}
             </MapSvg>
 
-            {hover && (
-              <Tooltip style={{ left: hover.x, top: hover.y }}>{hover.name}</Tooltip>
-            )}
+            <Tooltip
+              ref={tooltipRef}
+              style={{ display: hoverName ? 'block' : 'none' }}
+            >
+              {hoverName}
+            </Tooltip>
           </MapWrap>
 
           <PanelFooter>

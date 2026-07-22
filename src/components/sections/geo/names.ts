@@ -1,4 +1,3 @@
-// Русские названия субъектов РФ по кодам ISO 3166-2 (ключи совпадают с id в russia.ts).
 export const RU_REGION_NAMES: Record<string, string> = {
   'RU-AD': 'Республика Адыгея',
   'RU-AL': 'Республика Алтай',

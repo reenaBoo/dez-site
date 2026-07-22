@@ -1,6 +1,3 @@
-// Файл сгенерирован scripts/generate-map.mjs — не редактировать вручную.
-// Проекция: Mercator, rotate [-105, 0], viewBox 0 0 1000 580.
-
 export const MAP_WIDTH = 1000;
 export const MAP_HEIGHT = 580;
 

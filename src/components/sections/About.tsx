@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Award, Shield, Users, TrendingUp } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import { useLazyVideo } from '@/hooks/useLazyVideo';
 
 const AboutSection = styled.section`
   padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -75,8 +76,6 @@ const StatsArea = styled.div`
   position: relative;
 `;
 
-// Слот под Seedance-клип карточек: public/videos/cards-loop.mp4.
-// Пока файла нет — элемент прозрачный и ни на что не влияет.
 const AmbientVideo = styled.video`
   position: absolute;
   inset: -5%;
@@ -108,11 +107,6 @@ const sweep = keyframes`
   0% { transform: translateX(-130%) skewX(-14deg); }
   55% { transform: translateX(130%) skewX(-14deg); }
   100% { transform: translateX(130%) skewX(-14deg); }
-`;
-
-const glowPulse = keyframes`
-  0%, 100% { text-shadow: 0 0 18px rgba(217, 177, 95, 0.25); }
-  50% { text-shadow: 0 0 30px rgba(217, 177, 95, 0.55); }
 `;
 
 const StatCard = styled(motion.div)<{ $delay: number }>`
@@ -175,7 +169,7 @@ const StatNumber = styled.div`
   color: ${({ theme }) => theme.colors.primary};
   line-height: 1;
   margin-bottom: ${({ theme }) => theme.spacing.sm};
-  animation: ${glowPulse} 5s ease-in-out infinite;
+  text-shadow: 0 0 24px rgba(217, 177, 95, 0.4);
 `;
 
 const StatLabel = styled.div`
@@ -197,6 +191,8 @@ const stats = [{
 }];
 
 export default function About() {
+  const videoRef = useLazyVideo();
+
   return (
     <AboutSection>
       <Container>
@@ -248,7 +244,7 @@ export default function About() {
           </TextContent>
 
           <StatsArea>
-            <AmbientVideo autoPlay muted loop playsInline>
+            <AmbientVideo ref={videoRef} autoPlay muted loop playsInline>
               <source src='/videos/cards-loop.mp4' type='video/mp4'/>
             </AmbientVideo>
             <StatsGrid>

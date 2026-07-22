@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Container from '@/components/layout/Container';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
+import { useLazyVideo } from '@/hooks/useLazyVideo';
 
 const HeroSection = styled.section`
   position: relative;
@@ -231,8 +232,7 @@ const Ticker = styled.div`
   bottom: 0;
   z-index: 10;
   border-top: 1px solid rgba(217, 177, 95, 0.14);
-  background: rgba(10, 10, 12, 0.5);
-  backdrop-filter: blur(6px);
+  background: rgba(10, 10, 12, 0.72);
   overflow: hidden;
   padding: 14px 0;
 `;
@@ -275,6 +275,7 @@ const RAIL_ITEMS = [
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useLazyVideo();
   const { scrollToSection } = useScrollToSection();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -296,9 +297,7 @@ export default function Hero() {
   return (
     <HeroSection ref={sectionRef}>
       <MediaLayer style={{ y: mediaY, scale: mediaScale }}>
-        {/* Слот под Seedance-клип: положите файл в public/videos/hero-loop.mp4 —
-            видео подхватится, пока его нет, показывается постер */}
-        <video autoPlay muted loop playsInline poster='/images/hero-bg.jpg'>
+        <video ref={videoRef} autoPlay muted loop playsInline poster='/images/hero-bg.jpg'>
           <source src='/videos/hero-loop.mp4' type='video/mp4'/>
         </video>
       </MediaLayer>

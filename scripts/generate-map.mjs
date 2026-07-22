@@ -1,7 +1,3 @@
-// Генерация статичных SVG-путей регионов РФ для секции «География».
-// Запуск (пакеты не в package.json, ставятся разово):
-//   npm i --no-save @amcharts/amcharts5-geodata d3-geo
-//   node scripts/generate-map.mjs
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { geoMercator, geoPath } from 'd3-geo';
 
@@ -13,7 +9,6 @@ const geojson = JSON.parse(
   readFileSync('./node_modules/@amcharts/amcharts5-geodata/json/russiaCrimeaLow.json', 'utf8'),
 );
 
-// rotate по долготе, чтобы Чукотка не рвалась на антимеридиане
 const projection = geoMercator()
   .rotate([-105, 0])
   .fitExtent(
@@ -35,10 +30,7 @@ const regions = geojson.features.map((f) => {
   };
 });
 
-const out = `// Файл сгенерирован scripts/generate-map.mjs — не редактировать вручную.
-// Проекция: Mercator, rotate [-105, 0], viewBox 0 0 ${WIDTH} ${HEIGHT}.
-
-export const MAP_WIDTH = ${WIDTH};
+const out = `export const MAP_WIDTH = ${WIDTH};
 export const MAP_HEIGHT = ${HEIGHT};
 
 export interface RegionShape {

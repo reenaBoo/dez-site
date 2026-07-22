@@ -49,9 +49,12 @@ const FogSecond = styled.div`
     radial-gradient(45% 36% at 20% 80%, rgba(140, 150, 180, 0.04) 0%, transparent 70%);
   animation: ${driftSlow} 64s ease-in-out infinite;
   will-change: transform;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
-// шум через SVG feTurbulence, инлайном — без внешних запросов
 const GRAIN_URI = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")`;
 
 const Grain = styled.div`
@@ -87,6 +90,7 @@ export default function Atmosphere() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(max-width: 768px)').matches) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -107,7 +111,7 @@ export default function Atmosphere() {
 
     const seed = () => {
       particles.length = 0;
-      const count = Math.min(70, Math.floor((width * height) / 26000));
+      const count = Math.min(56, Math.floor((width * height) / 30000));
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * width,

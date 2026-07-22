@@ -71,7 +71,29 @@ const Subtitle = styled(motion.p)`
   border-left: 2px solid rgba(217, 177, 95, 0.5);
 `;
 
+const StatsArea = styled.div`
+  position: relative;
+`;
+
+// Слот под Seedance-клип карточек: public/videos/cards-loop.mp4.
+// Пока файла нет — элемент прозрачный и ни на что не влияет.
+const AmbientVideo = styled.video`
+  position: absolute;
+  inset: -5%;
+  width: 110%;
+  height: 110%;
+  object-fit: cover;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  pointer-events: none;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
+
 const StatsGrid = styled.div`
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: ${({ theme }) => theme.spacing.md};
@@ -100,7 +122,7 @@ const StatCard = styled(motion.div)<{ $delay: number }>`
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   background:
     linear-gradient(160deg, rgba(217, 177, 95, 0.05) 0%, transparent 40%),
-    ${({ theme }) => theme.colors.navy};
+    rgba(18, 18, 22, 0.72);
   padding: ${({ theme }) => theme.spacing.xl};
   transition: border-color ${({ theme }) => theme.transitions.normal};
 
@@ -225,7 +247,11 @@ export default function About() {
             </Subtitle>
           </TextContent>
 
-          <StatsGrid>
+          <StatsArea>
+            <AmbientVideo autoPlay muted loop playsInline>
+              <source src='/videos/cards-loop.mp4' type='video/mp4'/>
+            </AmbientVideo>
+            <StatsGrid>
             {stats.map((stat, index) => (<StatCard
               key={index}
               $delay={index * 0.9}
@@ -240,7 +266,8 @@ export default function About() {
               <StatNumber>{stat.number}</StatNumber>
               <StatLabel>{stat.label}</StatLabel>
             </StatCard>))}
-          </StatsGrid>
+            </StatsGrid>
+          </StatsArea>
         </ContentWrapper>
       </Container>
     </AboutSection>

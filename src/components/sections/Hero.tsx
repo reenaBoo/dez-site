@@ -66,6 +66,7 @@ const HeroContent = styled.div`
 
 const MainCol = styled.div`
   max-width: 760px;
+  min-width: 0;
 `;
 
 const Eyebrow = styled(motion.div)`
@@ -95,7 +96,7 @@ const Eyebrow = styled(motion.div)`
 `;
 
 const Title = styled(motion.h1)`
-  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-size: clamp(2.05rem, 6vw, 5rem);
   font-weight: ${({ theme }) => theme.fontWeight.extrabold};
   line-height: 1.04;
   margin-bottom: ${({ theme }) => theme.spacing.xl};

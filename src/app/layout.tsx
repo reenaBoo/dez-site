@@ -35,6 +35,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru" className={`${manrope.variable} ${jbMono.variable}`}>
     <body>
+    <link
+      rel="preload"
+      as="image"
+      imageSrcSet="/images/hero-bg-mobile.jpg 800w, /images/hero-bg.jpg 1920w"
+      imageSizes="100vw"
+      fetchPriority="high"
+    />
     <Providers>
       <Header/>
       <main>{children}</main>

@@ -191,7 +191,7 @@ const stats = [{
 }];
 
 export default function About() {
-  const videoRef = useLazyVideo();
+  const videoRef = useLazyVideo('/videos/cards-loop.mp4');
 
   return (
     <AboutSection>
@@ -244,9 +244,7 @@ export default function About() {
           </TextContent>
 
           <StatsArea>
-            <AmbientVideo ref={videoRef} autoPlay muted loop playsInline>
-              <source src='/videos/cards-loop.mp4' type='video/mp4'/>
-            </AmbientVideo>
+            <AmbientVideo ref={videoRef} muted loop playsInline preload='none'/>
             <StatsGrid>
             {stats.map((stat, index) => (<StatCard
               key={index}

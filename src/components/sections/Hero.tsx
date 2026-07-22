@@ -7,6 +7,21 @@ import Container from '@/components/layout/Container';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
 import { useLazyVideo } from '@/hooks/useLazyVideo';
 
+const fadeUp = keyframes`
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+const fadeSide = keyframes`
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+`;
+
+const slideUp = keyframes`
+  from { transform: translateY(20px); }
+  to { transform: translateY(0); }
+`;
+
 const HeroSection = styled.section`
   position: relative;
   min-height: 100svh;
@@ -26,6 +41,11 @@ const MediaLayer = styled(motion.div)`
     height: 100%;
     object-fit: cover;
     object-position: 68% center;
+  }
+
+  video {
+    position: absolute;
+    inset: 0;
   }
 `;
 
@@ -70,7 +90,9 @@ const MainCol = styled.div`
   min-width: 0;
 `;
 
-const Eyebrow = styled(motion.div)`
+const Eyebrow = styled.div`
+  opacity: 0;
+  animation: ${fadeUp} 0.6s ease-out 0.1s forwards;
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
@@ -96,7 +118,8 @@ const Eyebrow = styled(motion.div)`
   }
 `;
 
-const Title = styled(motion.h1)`
+const Title = styled.h1`
+  animation: ${slideUp} 0.6s ease-out;
   font-size: clamp(2.05rem, 6vw, 5rem);
   font-weight: ${({ theme }) => theme.fontWeight.extrabold};
   line-height: 1.04;
@@ -108,7 +131,9 @@ const Title = styled(motion.h1)`
   }
 `;
 
-const Subtitle = styled(motion.p)`
+const Subtitle = styled.p`
+  opacity: 0;
+  animation: ${fadeUp} 0.7s ease-out 0.35s forwards;
   font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.colors.text};
   max-width: 520px;
@@ -121,7 +146,9 @@ const Subtitle = styled(motion.p)`
   }
 `;
 
-const CTARow = styled(motion.div)`
+const CTARow = styled.div`
+  opacity: 0;
+  animation: ${fadeUp} 0.7s ease-out 0.5s forwards;
   display: flex;
   gap: ${({ theme }) => theme.spacing.md};
   flex-wrap: wrap;
@@ -178,7 +205,9 @@ const GhostButton = styled.button`
   }
 `;
 
-const Rail = styled(motion.aside)`
+const Rail = styled.aside`
+  opacity: 0;
+  animation: ${fadeSide} 0.7s ease-out 0.6s forwards;
   display: none;
   flex-direction: column;
   border-left: 1px solid rgba(217, 177, 95, 0.18);
@@ -275,7 +304,7 @@ const RAIL_ITEMS = [
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useLazyVideo();
+  const videoRef = useLazyVideo('/videos/hero-loop.mp4');
   const { scrollToSection } = useScrollToSection();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -297,9 +326,14 @@ export default function Hero() {
   return (
     <HeroSection ref={sectionRef}>
       <MediaLayer style={{ y: mediaY, scale: mediaScale }}>
-        <video ref={videoRef} autoPlay muted loop playsInline poster='/images/hero-bg.jpg'>
-          <source src='/videos/hero-loop.mp4' type='video/mp4'/>
-        </video>
+        <img
+          src='/images/hero-bg.jpg'
+          srcSet='/images/hero-bg-mobile.jpg 800w, /images/hero-bg.jpg 1920w'
+          sizes='100vw'
+          alt=''
+          fetchPriority='high'
+        />
+        <video ref={videoRef} muted loop playsInline preload='none'/>
       </MediaLayer>
       <Shade/>
       <LightCone/>
@@ -307,37 +341,21 @@ export default function Hero() {
       <Container>
         <HeroContent>
           <MainCol>
-            <Eyebrow
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
+            <Eyebrow>
               ООО «НПП „Биохиммаш“» · Москва · с 2002 года
             </Eyebrow>
 
-            <Title
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
+            <Title>
               Профессиональная <span>дезинсекция</span>{' '}и&nbsp;санитарная безопасность
             </Title>
 
-            <Subtitle
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35 }}
-            >
+            <Subtitle>
               Дезинсекция, дератизация, дезинфекция и фитосанитарная обработка
               для бизнеса в Москве, Московской области и ЦФО.
               Строго по нормам СанПиН, с полным документальным сопровождением.
             </Subtitle>
 
-            <CTARow
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.5 }}
-            >
+            <CTARow>
               <PrimaryButton href='tel:+74959564855'>Оперативный выезд</PrimaryButton>
               <GhostButton onClick={() => scrollToSection('geography')}>
                 География работ
@@ -345,11 +363,7 @@ export default function Hero() {
             </CTARow>
           </MainCol>
 
-          <Rail
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-          >
+          <Rail>
             {RAIL_ITEMS.map((item) => (
               <RailItem
                 key={item.num}

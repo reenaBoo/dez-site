@@ -1,28 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Phone, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Container from './Container';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
 
-const HeaderWrapper = styled.header`
-  background-color: ${({ theme }) => theme.colors.backgroundAlt};
-  box-shadow: ${({ theme }) => theme.shadows.md};
-  position: sticky;
+const HeaderWrapper = styled.header<{ $scrolled: boolean }>`
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 999;
-  padding: ${({ theme }) => theme.spacing.lg} 0;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.navyLight};
-  width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: ${({ theme }) => theme.spacing.md} 0;
-  }
+  padding: ${({ theme, $scrolled }) => ($scrolled ? theme.spacing.sm : theme.spacing.md)} 0;
+  background: ${({ $scrolled }) => ($scrolled ? 'rgba(10, 10, 12, 0.82)' : 'transparent')};
+  backdrop-filter: ${({ $scrolled }) => ($scrolled ? 'blur(14px)' : 'none')};
+  border-bottom: 1px solid ${({ $scrolled }) => ($scrolled ? 'rgba(217, 177, 95, 0.12)' : 'transparent')};
+  transition: all ${({ theme }) => theme.transitions.normal};
 `;
 
 const HeaderContent = styled.div`
@@ -39,37 +34,45 @@ const Logo = styled(Link)`
   transition: opacity ${({ theme }) => theme.transitions.fast};
 
   &:hover {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 `;
 
-const LogoImage = styled(Image)`
-  object-fit: contain;
+const LogoMark = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.primary};
   flex-shrink: 0;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 50px;
-    height: 50px;
-  }
 `;
 
 const LogoText = styled.span`
-  font-size: ${({ theme }) => theme.fontSize.xl};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.primary};
+  font-size: ${({ theme }) => theme.fontSize.base};
+  letter-spacing: 0.02em;
+  color: ${({ theme }) => theme.colors.heading};
   white-space: nowrap;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.fontSize.lg};
+  em {
+    font-style: normal;
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize.base};
+    font-size: ${({ theme }) => theme.fontSize.sm};
   }
 `;
 
 const Nav = styled.nav<{ $isOpen: boolean }>`
   display: flex;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing.xl};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
@@ -77,53 +80,75 @@ const Nav = styled.nav<{ $isOpen: boolean }>`
     top: 0;
     right: 0;
     bottom: 0;
-    width: 280px;
-    background-color: ${({ theme }) => theme.colors.backgroundAlt};
+    width: min(340px, 100%);
+    background: rgba(10, 10, 12, 0.97);
+    backdrop-filter: blur(18px);
     flex-direction: column;
-    padding: ${({ theme }) => theme.spacing.xxxl} ${({ theme }) => theme.spacing.xl};
-    box-shadow: ${({ theme }) => theme.shadows.xl};
+    align-items: flex-start;
+    justify-content: center;
+    padding: ${({ theme }) => theme.spacing.xxxl} ${({ theme }) => theme.spacing.xxl};
     transform: translateX(${({ $isOpen }) => ($isOpen ? '0' : '100%')});
     transition: transform ${({ theme }) => theme.transitions.normal};
     z-index: 1000;
-    border-left: 2px solid ${({ theme }) => theme.colors.navyLight};
-    overflow-y: auto;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
-    width: 100%;
+    border-left: 1px solid rgba(217, 177, 95, 0.15);
+    gap: ${({ theme }) => theme.spacing.lg};
   }
 `;
 
 const NavLink = styled(Link)`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: ${({ theme }) => theme.colors.text};
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
   transition: color ${({ theme }) => theme.transitions.fast};
   white-space: nowrap;
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+  }
 `;
 
 const PhoneLink = styled.a`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  color: ${({ theme }) => theme.colors.primary};
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  transition: all ${({ theme }) => theme.transitions.fast};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  letter-spacing: 0.06em;
+  color: ${({ theme }) => theme.colors.heading};
+  transition: color ${({ theme }) => theme.transitions.fast};
+  white-space: nowrap;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primaryLight};
-    text-shadow: ${({ theme }) => theme.shadows.glow};
+    color: ${({ theme }) => theme.colors.primary};
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.fontSize.base};
+    display: none;
+  }
+`;
+
+const CTAButton = styled.a`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.primary};
+  border: 1px solid rgba(217, 177, 95, 0.55);
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  padding: 10px 18px;
+  transition: all ${({ theme }) => theme.transitions.normal};
+  white-space: nowrap;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.background};
+    box-shadow: ${({ theme }) => theme.shadows.glow};
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.wide}) {
     display: none;
   }
 `;
@@ -160,7 +185,7 @@ const Overlay = styled.div<{ $isOpen: boolean }>`
     display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
     position: fixed;
     inset: 0;
-    background-color: rgba(10, 22, 40, 0.95);
+    background: rgba(5, 5, 6, 0.8);
     z-index: 998;
     cursor: pointer;
   }
@@ -174,7 +199,15 @@ const RightSection = styled.div`
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { scrollToSection } = useScrollToSection();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const handleAnchorClick = (e: React.MouseEvent, sectionId: string) => {
     e.preventDefault();
@@ -185,28 +218,20 @@ export default function Header() {
   return (
     <>
       <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)}/>
-      <HeaderWrapper>
+      <HeaderWrapper $scrolled={scrolled}>
         <Container>
           <HeaderContent>
             <Logo href='/' onClick={() => setIsMenuOpen(false)}>
-              <LogoImage
-                src={'/images/logo.png'}
-                alt='НПП БИОХИММАШ'
-                width={60}
-                height={60}
-                priority
-              />
-              <LogoText>НПП «БИОХИММАШ»</LogoText>
+              <LogoMark>БХ</LogoMark>
+              <LogoText>
+                НПП <em>«БИОХИММАШ»</em>
+              </LogoText>
             </Logo>
 
             <Nav $isOpen={isMenuOpen}>
               <CloseButton onClick={() => setIsMenuOpen(false)}>
                 <X size={24}/>
               </CloseButton>
-
-              <NavLink href='/' onClick={() => setIsMenuOpen(false)}>
-                Главная
-              </NavLink>
 
               <NavLink
                 href='/#services'
@@ -216,18 +241,28 @@ export default function Header() {
               </NavLink>
 
               <NavLink
-                href='/#prices'
-                onClick={(e) => handleAnchorClick(e, 'prices')}
+                href='/#geography'
+                onClick={(e) => handleAnchorClick(e, 'geography')}
               >
-                Цены
+                География
               </NavLink>
 
               <NavLink href='/industries' onClick={() => setIsMenuOpen(false)}>
                 Отрасли
               </NavLink>
 
-              <NavLink href='/about' onClick={() => setIsMenuOpen(false)}>
-                О нас
+              <NavLink
+                href='/#clients'
+                onClick={(e) => handleAnchorClick(e, 'clients')}
+              >
+                Клиенты
+              </NavLink>
+
+              <NavLink
+                href='/#prices'
+                onClick={(e) => handleAnchorClick(e, 'prices')}
+              >
+                Цены
               </NavLink>
 
               <NavLink href='/contacts' onClick={() => setIsMenuOpen(false)}>
@@ -236,12 +271,10 @@ export default function Header() {
             </Nav>
 
             <RightSection>
-              <PhoneLink href='tel:+74959564855'>
-                <Phone size={20}/>
-                <span>+7 (495) 956-48-55</span>
-              </PhoneLink>
+              <PhoneLink href='tel:+74959564855'>+7 (495) 956-48-55</PhoneLink>
+              <CTAButton href='tel:+74959564855'>Вызвать специалиста</CTAButton>
 
-              <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label='Открыть меню'>
                 <Menu size={24}/>
               </MenuButton>
             </RightSection>

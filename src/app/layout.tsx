@@ -1,8 +1,24 @@
 import type { Metadata } from 'next'
+import { Manrope, JetBrains_Mono } from 'next/font/google'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Providers from '@/components/Providers'
+import Atmosphere from '@/components/Atmosphere'
 import YandexMetrika from '@/components/YandexMetrika'
+
+const manrope = Manrope({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-manrope',
+  display: 'swap',
+})
+
+const jbMono = JetBrains_Mono({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600'],
+  variable: '--font-jb-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Дезинсекция в Москве — Профессиональное уничтожение насекомых',
@@ -17,12 +33,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${manrope.variable} ${jbMono.variable}`}>
     <body>
     <Providers>
       <Header/>
       <main>{children}</main>
       <Footer/>
+      <Atmosphere/>
     </Providers>
     <YandexMetrika/>
     </body>

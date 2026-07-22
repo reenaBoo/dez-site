@@ -1,234 +1,167 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
-import { Shield, Award, Users, TrendingUp } from 'lucide-react';
+import { Award, Shield, Users, TrendingUp } from 'lucide-react';
 import Container from '@/components/layout/Container';
-import InsectDecoration from '@/components/common/InsectDecoration';
 
 const AboutSection = styled.section`
   padding: ${({ theme }) => theme.spacing.xxxl} 0;
-  background-color: ${({ theme }) => theme.colors.backgroundAlt};
+  background-color: ${({ theme }) => theme.colors.background};
   position: relative;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      ${({ theme }) => theme.colors.primary} 50%,
-      transparent 100%
-    );
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: ${({ theme }) => theme.spacing.xxl} 0;
   }
 `;
 
 const ContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: ${({ theme }) => theme.spacing.xxxl};
-  align-items: start;
-  position: relative;
+  align-items: center;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     grid-template-columns: 1fr;
     gap: ${({ theme }) => theme.spacing.xxl};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    gap: ${({ theme }) => theme.spacing.sm};
   }
 `;
 
 const TextContent = styled.div``;
 
 const SectionLabel = styled(motion.div)`
-  display: inline-block;
-  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
-  background-color: ${({ theme }) => theme.colors.primary}20;
-  border: 2px solid ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  color: ${({ theme }) => theme.colors.primary};
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  color: ${({ theme }) => theme.colors.primary};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize.xs};
-    padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.sm};
-  }
 `;
 
 const Title = styled(motion.h2)`
-  font-size: ${({ theme }) => theme.fontSize['4xl']};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.heading};
-  line-height: 1.3;
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-weight: ${({ theme }) => theme.fontWeight.extrabold};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
 
   .highlight {
     color: ${({ theme }) => theme.colors.primary};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.fontSize['3xl']};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize.xl};
   }
 `;
 
 const Description = styled(motion.p)`
   font-size: ${({ theme }) => theme.fontSize.lg};
   color: ${({ theme }) => theme.colors.text};
-  line-height: 1.8;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
 
   strong {
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.heading};
     font-weight: ${({ theme }) => theme.fontWeight.semibold};
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize.sm};
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.fontSize.base};
   }
 `;
 
 const Subtitle = styled(motion.p)`
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.base};
   color: ${({ theme }) => theme.colors.textLight};
-  line-height: 1.7;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
+  line-height: 1.8;
   padding-left: ${({ theme }) => theme.spacing.lg};
-  border-left: 4px solid ${({ theme }) => theme.colors.primary};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize.sm};
-    padding-left: ${({ theme }) => theme.spacing.md};
-    border-left-width: 3px;
-  }
+  border-left: 2px solid rgba(217, 177, 95, 0.5);
 `;
 
 const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: ${({ theme }) => theme.spacing.lg};
+  gap: ${({ theme }) => theme.spacing.md};
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: none;
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    grid-template-columns: 1fr 1fr;
+    gap: ${({ theme }) => theme.spacing.sm};
   }
 `;
 
-const StatCard = styled(motion.div)`
-  background-color: ${({ theme }) => theme.colors.navy};
-  border: 2px solid ${({ theme }) => theme.colors.navyLight};
+const sweep = keyframes`
+  0% { transform: translateX(-130%) skewX(-14deg); }
+  55% { transform: translateX(130%) skewX(-14deg); }
+  100% { transform: translateX(130%) skewX(-14deg); }
+`;
+
+const glowPulse = keyframes`
+  0%, 100% { text-shadow: 0 0 18px rgba(217, 177, 95, 0.25); }
+  50% { text-shadow: 0 0 30px rgba(217, 177, 95, 0.55); }
+`;
+
+const StatCard = styled(motion.div)<{ $delay: number }>`
+  position: relative;
+  overflow: hidden;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
+  background:
+    linear-gradient(160deg, rgba(217, 177, 95, 0.05) 0%, transparent 40%),
+    ${({ theme }) => theme.colors.navy};
   padding: ${({ theme }) => theme.spacing.xl};
-  text-align: center;
-  transition: all ${({ theme }) => theme.transitions.normal};
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  transition: border-color ${({ theme }) => theme.transitions.normal};
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: ${({ theme }) => theme.shadows.glow};
-    transform: translateY(-4px);
+    border-color: rgba(217, 177, 95, 0.5);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 30%,
+      rgba(242, 212, 139, 0.09) 50%,
+      transparent 70%
+    );
+    animation: ${sweep} 7s ease-in-out infinite;
+    animation-delay: ${({ $delay }) => $delay}s;
+    pointer-events: none;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: ${({ theme }) => theme.spacing.lg};
   }
 `;
 
 const StatIcon = styled.div`
-  width: 56px;
-  height: 56px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-  color: ${({ theme }) => theme.colors.navy};
-  box-shadow: ${({ theme }) => theme.shadows.glow};
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(217, 177, 95, 0.45);
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  color: ${({ theme }) => theme.colors.primary};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 36px;
+    height: 36px;
+    margin-bottom: ${({ theme }) => theme.spacing.md};
+  }
 `;
 
 const StatNumber = styled.div`
-  font-size: ${({ theme }) => theme.fontSize['3xl']};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-family: ${({ theme }) => theme.fonts.display};
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: ${({ theme }) => theme.fontWeight.extrabold};
   color: ${({ theme }) => theme.colors.primary};
-  margin-bottom: ${({ theme }) => theme.spacing.xs};
-  line-height: 1.2;
+  line-height: 1;
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  animation: ${glowPulse} 5s ease-in-out infinite;
 `;
 
 const StatLabel = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.base};
-  color: ${({ theme }) => theme.colors.text};
-  line-height: 1.4;
-`;
-
-const MobileStatsList = styled.div`
-  display: none;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: flex;
-    flex-direction: column;
-    gap: ${({ theme }) => theme.spacing.md};
-  }
-`;
-
-const MobileStatItem = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.md};
-  padding: ${({ theme }) => theme.spacing.md};
-  background-color: ${({ theme }) => theme.colors.navy};
-  border-left: 4px solid ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-`;
-
-const MobileStatIcon = styled.div`
-  width: 40px;
-  height: 40px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${({ theme }) => theme.colors.navy};
-  flex-shrink: 0;
-`;
-
-const MobileStatContent = styled.div`
-  flex: 1;
-`;
-
-const MobileStatNumber = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.primary};
-  line-height: 1.2;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize.lg};
-
-  }
-`;
-
-const MobileStatLabel = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.sm};
-  color: ${({ theme }) => theme.colors.text};
-  margin-top: ${({ theme }) => theme.spacing.xs};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textLight};
 `;
 
 const stats = [{
@@ -244,11 +177,6 @@ const stats = [{
 export default function About() {
   return (
     <AboutSection>
-      <InsectDecoration
-        src='/images/mosquito.svg'
-        bottom='10%'
-        right='15%'
-      />
       <Container>
         <ContentWrapper>
           <TextContent>
@@ -258,7 +186,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              О компании
+              01 / О компании
             </SectionLabel>
 
             <Title
@@ -297,40 +225,22 @@ export default function About() {
             </Subtitle>
           </TextContent>
 
-          {/* Десктопная версия - карточки */}
           <StatsGrid>
             {stats.map((stat, index) => (<StatCard
               key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              $delay={index * 0.9}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * index }}
             >
               <StatIcon>
-                <stat.icon size={28}/>
+                <stat.icon size={22}/>
               </StatIcon>
               <StatNumber>{stat.number}</StatNumber>
               <StatLabel>{stat.label}</StatLabel>
             </StatCard>))}
           </StatsGrid>
-
-          <MobileStatsList>
-            {stats.map((stat, index) => (<MobileStatItem
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 * index }}
-            >
-              <MobileStatIcon>
-                <stat.icon size={20}/>
-              </MobileStatIcon>
-              <MobileStatContent>
-                <MobileStatNumber>{stat.number}</MobileStatNumber>
-                <MobileStatLabel>{stat.label}</MobileStatLabel>
-              </MobileStatContent>
-            </MobileStatItem>))}
-          </MobileStatsList>
         </ContentWrapper>
       </Container>
     </AboutSection>

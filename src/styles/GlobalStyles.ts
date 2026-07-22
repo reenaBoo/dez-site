@@ -16,18 +16,21 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-family: ${({ theme }) => theme.fonts.body};
         background-color: ${({ theme }) => theme.colors.background};
         color: ${({ theme }) => theme.colors.text};
         line-height: 1.6;
         overflow-x: hidden;
         max-width: 100vw;
         position: relative;
+        -webkit-font-smoothing: antialiased;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        font-weight: 600;
-        line-height: 1.2;
+        font-family: ${({ theme }) => theme.fonts.display};
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
         color: ${({ theme }) => theme.colors.heading};
     }
 
@@ -51,5 +54,32 @@ export const GlobalStyles = createGlobalStyle`
 
     ul {
         list-style: none;
+    }
+
+    ::selection {
+        background: rgba(217, 177, 95, 0.85);
+        color: #0A0A0C;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        background: ${({ theme }) => theme.colors.background};
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: ${({ theme }) => theme.colors.navyLight};
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: ${({ theme }) => theme.colors.primaryDark};
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
     }
 `;

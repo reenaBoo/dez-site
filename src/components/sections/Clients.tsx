@@ -25,9 +25,18 @@ const SectionHeader = styled.div`
   }
 `;
 
+const SectionLabel = styled.div`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.primary};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+`;
+
 const SectionTitle = styled.h2`
-  font-size: ${({ theme }) => theme.fontSize['4xl']};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-weight: ${({ theme }) => theme.fontWeight.extrabold};
   color: ${({ theme }) => theme.colors.heading};
   margin-bottom: ${({ theme }) => theme.spacing.md};
 
@@ -104,8 +113,10 @@ const SliderTrack = styled.div`
 const LogoCard = styled.div`
   flex: 0 0 auto;
   width: 280px;
-  background-color: ${({ theme }) => theme.colors.navy};
-  border: 2px solid ${({ theme }) => theme.colors.navyLight};
+  background:
+    linear-gradient(165deg, rgba(217, 177, 95, 0.04) 0%, transparent 36%),
+    ${({ theme }) => theme.colors.navy};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing.lg};
   display: flex;
@@ -230,13 +241,15 @@ const ViewAllButton = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
-  padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+  padding: 14px 26px;
   background-color: transparent;
   color: ${({ theme }) => theme.colors.primary};
-  border: 2px solid ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  font-size: ${({ theme }) => theme.fontSize.base};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  border: 1px solid rgba(217, 177, 95, 0.55);
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition: all ${({ theme }) => theme.transitions.normal};
@@ -304,9 +317,10 @@ export default function Clients() {
   const doubledClients = [...clients, ...clients];
 
   return (
-    <ClientsSection>
+    <ClientsSection id='clients'>
       <Container>
         <SectionHeader>
+          <SectionLabel>04 / Клиенты</SectionLabel>
           <SectionTitle>
             Нам <span>доверяют</span>
           </SectionTitle>

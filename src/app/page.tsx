@@ -4,6 +4,7 @@ import Services from '@/components/sections/Services';
 import Prices from '@/components/sections/Prices';
 import About from '@/components/sections/About';
 import Clients from '@/components/sections/Clients';
+import RegionsMap from '@/components/sections/RegionsMap';
 import ScrollHandler from '@/components/ScrollHandler';
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function Home() {
       <Hero/>
       <About/>
       <Services/>
+      <RegionsMap/>
       <Clients/>
       <Prices/>
     </>

@@ -1,33 +1,114 @@
 'use client';
 
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
-import { Bug, Rat, Check, Leaf, FlaskConical } from 'lucide-react';
+import { Bug, Rat, Leaf, FlaskConical } from 'lucide-react';
 import Container from '@/components/layout/Container';
-import InsectDecoration from '@/components/common/InsectDecoration';
 
 const ServicesSection = styled.section`
   padding: ${({ theme }) => theme.spacing.xxxl} 0;
   background-color: ${({ theme }) => theme.colors.backgroundAlt};
   position: relative;
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 0 0 ${({ theme }) => theme.spacing.xl} 0;
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: ${({ theme }) => theme.spacing.xxl} 0;
   }
 `;
 
+const SectionHeader = styled.div`
+  margin-bottom: ${({ theme }) => theme.spacing.xxl};
+`;
+
+const SectionLabel = styled(motion.div)`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSize.xs};
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.primary};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+`;
+
+const SectionTitle = styled(motion.h2)`
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-weight: ${({ theme }) => theme.fontWeight.extrabold};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+
+  span {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const SectionDescription = styled(motion.p)`
+  font-size: ${({ theme }) => theme.fontSize.lg};
+  color: ${({ theme }) => theme.colors.textLight};
+  max-width: 640px;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: ${({ theme }) => theme.fontSize.base};
+  }
+`;
+
+const ServicesGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ${({ theme }) => theme.spacing.md};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const sweep = keyframes`
+  0% { transform: translateX(-140%) skewX(-14deg); }
+  100% { transform: translateX(140%) skewX(-14deg); }
+`;
+
 const ServiceCard = styled(motion.div)`
-  background-color: ${({ theme }) => theme.colors.navy};
-  border: 2px solid ${({ theme }) => theme.colors.navyLight};
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(165deg, rgba(217, 177, 95, 0.04) 0%, transparent 36%),
+    ${({ theme }) => theme.colors.navy};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing.xl};
   transition: all ${({ theme }) => theme.transitions.normal};
-  cursor: pointer;
+
+  &::before {
+    content: attr(data-index);
+    position: absolute;
+    top: ${({ theme }) => theme.spacing.md};
+    right: ${({ theme }) => theme.spacing.lg};
+    font-family: ${({ theme }) => theme.fonts.mono};
+    font-size: 3.4rem;
+    font-weight: 600;
+    line-height: 1;
+    color: rgba(243, 239, 228, 0.045);
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 32%,
+      rgba(242, 212, 139, 0.08) 50%,
+      transparent 68%
+    );
+    transform: translateX(-140%) skewX(-14deg);
+    pointer-events: none;
+  }
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: ${({ theme }) => theme.shadows.glow};
+    border-color: rgba(217, 177, 95, 0.55);
     transform: translateY(-4px);
+    box-shadow: ${({ theme }) => theme.shadows.glow};
+
+    &::after {
+      animation: ${sweep} 1.1s ease-out;
+    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -35,133 +116,57 @@ const ServiceCard = styled(motion.div)`
   }
 `;
 
-const SectionHeader = styled.div`
-  text-align: center;
-  margin-bottom: ${({ theme }) => theme.spacing.xxxl};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-bottom: ${({ theme }) => theme.spacing.xl};
-  }
-`;
-
-const SectionTitle = styled.h2`
-  font-size: ${({ theme }) => theme.fontSize['4xl']};
-  font-weight: ${({ theme }) => theme.fontWeight.bold};
-  color: ${({ theme }) => theme.colors.heading};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
-
-  span {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: ${({ theme }) => theme.fontSize['3xl']};
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: ${({ theme }) => theme.fontSize['2xl']};
-  }
-`;
-
-const SectionDescription = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.lg};
-  color: ${({ theme }) => theme.colors.textLight};
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
-const ServicesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(350px, 450px));
-  gap: ${({ theme }) => theme.spacing.xl};
-  justify-content: center;
-  justify-items: center;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    grid-template-columns: 1fr;
-  }
-`;
-
 const ServiceIcon = styled.div`
-  width: 64px;
-  height: 64px;
-  background: ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(217, 177, 95, 0.45);
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  color: ${({ theme }) => theme.colors.primary};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
-  color: ${({ theme }) => theme.colors.navy};
-  box-shadow: ${({ theme }) => theme.shadows.glow};
-  flex-shrink: 0;
 
   svg {
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    min-height: 32px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 0;
-
-    svg {
-      width: 24px;
-      height: 24px;
-      min-width: 24px;
-      min-height: 24px;
-    }
+    width: 24px;
+    height: 24px;
   }
 `;
+
 const ServiceTitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSize['2xl']};
-  font-weight: ${({ theme }) => theme.fontWeight.semibold};
-  color: ${({ theme }) => theme.colors.heading};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
   margin-bottom: ${({ theme }) => theme.spacing.md};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: ${({ theme }) => theme.fontSize.xl};
-    margin-bottom: 0;
   }
 `;
 
 const ServiceDescription = styled.p`
   color: ${({ theme }) => theme.colors.textLight};
   margin-bottom: ${({ theme }) => theme.spacing.lg};
-  line-height: 1.6;
+  line-height: 1.7;
 `;
 
 const ServiceFeatures = styled.ul`
-  list-style: none;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm};
 `;
 
 const ServiceFeature = styled.li`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
+  position: relative;
+  padding-left: ${({ theme }) => theme.spacing.lg};
   color: ${({ theme }) => theme.colors.text};
   font-size: ${({ theme }) => theme.fontSize.sm};
-  margin-bottom: ${({ theme }) => theme.spacing.sm};
+  line-height: 1.6;
 
-  svg {
-    color: ${({ theme }) => theme.colors.success};
-    flex-shrink: 0;
-  }
-`;
-
-const ServiceHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    flex-direction: row;
-    align-items: center;
-    gap: ${({ theme }) => theme.spacing.md};
-    margin-bottom: ${({ theme }) => theme.spacing.md};
+  &::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -188,19 +193,23 @@ const services = [{
 }];
 
 export default function Services() {
+  const reveal = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+  };
+
   return (
     <ServicesSection id='services'>
-      <InsectDecoration
-        src='/images/bug.svg'
-        top='10%'
-        left='15%'
-      />
       <Container>
         <SectionHeader>
-          <SectionTitle>
+          <SectionLabel {...reveal} transition={{ duration: 0.5 }}>
+            02 / Услуги
+          </SectionLabel>
+          <SectionTitle {...reveal} transition={{ duration: 0.5, delay: 0.08 }}>
             Наши <span>услуги</span>
           </SectionTitle>
-          <SectionDescription>
+          <SectionDescription {...reveal} transition={{ duration: 0.5, delay: 0.16 }}>
             Профессиональная обработка любых помещений и прилегающих территорий от вредителей. Работаем быстро,
             качественно, с гарантией.
           </SectionDescription>
@@ -209,23 +218,21 @@ export default function Services() {
         <ServicesGrid>
           {services.map((service, index) => (<ServiceCard
             key={index}
+            data-index={String(index + 1).padStart(2, '0')}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <ServiceHeader>
-              <ServiceIcon>
-                <service.icon/>
-              </ServiceIcon>
-              <ServiceTitle>{service.title}</ServiceTitle>
-            </ServiceHeader>
+            <ServiceIcon>
+              <service.icon/>
+            </ServiceIcon>
+            <ServiceTitle>{service.title}</ServiceTitle>
 
             <ServiceDescription>{service.description}</ServiceDescription>
 
             <ServiceFeatures>
               {service.features.map((feature, idx) => (<ServiceFeature key={idx}>
-                <Check/>
                 {feature}
               </ServiceFeature>))}
             </ServiceFeatures>

@@ -72,7 +72,7 @@ const ServiceCard = styled(motion.div)`
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing.xl};
-  transition: all ${({ theme }) => theme.transitions.normal};
+  transition: border-color ${({ theme }) => theme.transitions.normal}, box-shadow ${({ theme }) => theme.transitions.normal};
 
   &::before {
     content: attr(data-index);
@@ -103,7 +103,6 @@ const ServiceCard = styled(motion.div)`
 
   &:hover {
     border-color: rgba(217, 177, 95, 0.55);
-    transform: translateY(-4px);
     box-shadow: ${({ theme }) => theme.shadows.glow};
 
     &::after {
@@ -221,6 +220,7 @@ export default function Services() {
             data-index={String(index + 1).padStart(2, '0')}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -4, transition: { duration: 0.25, delay: 0 } }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >

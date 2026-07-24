@@ -4,6 +4,7 @@ import Services from '@/components/sections/Services';
 import Prices from '@/components/sections/Prices';
 import About from '@/components/sections/About';
 import Clients from '@/components/sections/Clients';
+import Contacts from '@/components/sections/Contacts';
 import RegionsMap from '@/components/sections/RegionsMap';
 import ScrollHandler from '@/components/ScrollHandler';
 
@@ -26,6 +27,7 @@ export default function Home() {
       <RegionsMap/>
       <Clients/>
       <Prices/>
+      <Contacts/>
     </>
   );
 }

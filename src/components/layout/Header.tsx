@@ -265,7 +265,10 @@ export default function Header() {
                 Цены
               </NavLink>
 
-              <NavLink href='/contacts' onClick={() => setIsMenuOpen(false)}>
+              <NavLink
+                href='/#contacts'
+                onClick={(e) => handleAnchorClick(e, 'contacts')}
+              >
                 Контакты
               </NavLink>
             </Nav>

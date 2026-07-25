@@ -105,9 +105,15 @@ const StatsGrid = styled.div`
 `;
 
 const sweep = keyframes`
-  0% { transform: translateX(-130%) skewX(-14deg); }
-  55% { transform: translateX(130%) skewX(-14deg); }
-  100% { transform: translateX(130%) skewX(-14deg); }
+  0% {
+    transform: translateX(-130%) skewX(-14deg);
+  }
+  55% {
+    transform: translateX(130%) skewX(-14deg);
+  }
+  100% {
+    transform: translateX(130%) skewX(-14deg);
+  }
 `;
 
 const StatCard = styled(motion.div)<{ $delay: number }>`
@@ -115,9 +121,8 @@ const StatCard = styled(motion.div)<{ $delay: number }>`
   overflow: hidden;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  background:
-    linear-gradient(160deg, rgba(217, 177, 95, 0.05) 0%, transparent 40%),
-    rgba(18, 18, 22, 0.72);
+  background: linear-gradient(160deg, rgba(217, 177, 95, 0.05) 0%, transparent 40%),
+  rgba(18, 18, 22, 0.72);
   padding: ${({ theme }) => theme.spacing.xl};
   transition: border-color ${({ theme }) => theme.transitions.normal};
 
@@ -198,7 +203,7 @@ export default function About() {
     <AboutSection>
       <InsectDecoration
         src='/images/mosquito.svg'
-        bottom='10%'
+        top='14%'
         right='15%'
         rotate={-12}
       />
@@ -253,20 +258,20 @@ export default function About() {
           <StatsArea>
             <AmbientVideo ref={videoRef} muted loop playsInline preload='none'/>
             <StatsGrid>
-            {stats.map((stat, index) => (<StatCard
-              key={index}
-              $delay={index * 0.9}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 * index }}
-            >
-              <StatIcon>
-                <stat.icon size={22}/>
-              </StatIcon>
-              <StatNumber>{stat.number}</StatNumber>
-              <StatLabel>{stat.label}</StatLabel>
-            </StatCard>))}
+              {stats.map((stat, index) => (<StatCard
+                key={index}
+                $delay={index * 0.9}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 * index }}
+              >
+                <StatIcon>
+                  <stat.icon size={22}/>
+                </StatIcon>
+                <StatNumber>{stat.number}</StatNumber>
+                <StatLabel>{stat.label}</StatLabel>
+              </StatCard>))}
             </StatsGrid>
           </StatsArea>
         </ContentWrapper>

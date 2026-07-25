@@ -8,12 +8,10 @@ import Container from './Container';
 const FooterWrapper = styled.footer`
   background-color: ${({ theme }) => theme.colors.navy};
   padding: ${({ theme }) => theme.spacing.xxxl} 0 ${({ theme }) => theme.spacing.xl};
-  margin-top: ${({ theme }) => theme.spacing.xxxl};
   border-top: 2px solid ${({ theme }) => theme.colors.navyLight};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: ${({ theme }) => theme.spacing.xl} 0 ${({ theme }) => theme.spacing.xl};
-    margin-top: 0;
   }
 `;
 
@@ -202,7 +200,7 @@ export default function Footer() {
 
             <ContactItem>
               <MapPin size={18}/>
-              <span>г. Москва, пер. Большой Матросский, д. 1, эт. 1, пом. XXVII, ком. 19</span>
+              <span>Московская область, г. Жуковский, ул. Грищенко, 5, офис 30</span>
             </ContactItem>
           </FooterSection>
         </FooterContent>

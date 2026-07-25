@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Menu, X } from 'lucide-react';
 import Container from './Container';
 import { useScrollToSection } from '@/hooks/useScrollToSection';
+import Image from 'next/image';
 
 const HeaderWrapper = styled.header<{ $scrolled: boolean }>`
   position: fixed;
@@ -36,21 +37,6 @@ const Logo = styled(Link)`
   &:hover {
     opacity: 0.85;
   }
-`;
-
-const LogoMark = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border: 1px solid ${({ theme }) => theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.primary};
-  flex-shrink: 0;
 `;
 
 const LogoText = styled.span`
@@ -127,6 +113,16 @@ const PhoneLink = styled.a`
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: none;
+  }
+`;
+
+const LogoImage = styled(Image)`
+  object-fit: contain;
+  flex-shrink: 0;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    width: 50px;
+    height: 50px;
   }
 `;
 
@@ -222,7 +218,13 @@ export default function Header() {
         <Container>
           <HeaderContent>
             <Logo href='/' onClick={() => setIsMenuOpen(false)}>
-              <LogoMark>БХ</LogoMark>
+              <LogoImage
+                src={'/images/logo_transparent.png'}
+                alt='НПП БИОХИММАШ'
+                width={60}
+                height={60}
+                priority
+              />
               <LogoText>
                 НПП <em>«БИОХИММАШ»</em>
               </LogoText>

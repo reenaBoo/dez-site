@@ -8,18 +8,34 @@ import { useScrollToSection } from '@/hooks/useScrollToSection';
 import { useLazyVideo } from '@/hooks/useLazyVideo';
 
 const fadeUp = keyframes`
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `;
 
 const fadeSide = keyframes`
-  from { opacity: 0; transform: translateX(24px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 `;
 
 const slideUp = keyframes`
-  from { transform: translateY(20px); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(20px);
+  }
+  to {
+    transform: translateY(0);
+  }
 `;
 
 const HeroSection = styled.section`
@@ -46,6 +62,7 @@ const MediaLayer = styled(motion.div)`
   video {
     position: absolute;
     inset: 0;
+    transform: rotateY(180deg);
   }
 `;
 
@@ -53,10 +70,9 @@ const Shade = styled.div`
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(to right, rgba(10, 10, 12, 0.95) 0%, rgba(10, 10, 12, 0.76) 45%, rgba(10, 10, 12, 0.55) 100%),
-    linear-gradient(to top, rgba(10, 10, 12, 1) 0%, transparent 26%),
-    linear-gradient(to bottom, rgba(10, 10, 12, 0.75) 0%, transparent 24%);
+  background: linear-gradient(to right, rgba(10, 10, 12, 0.95) 0%, rgba(10, 10, 12, 0.76) 45%, rgba(10, 10, 12, 0.55) 100%),
+  linear-gradient(to top, rgba(10, 10, 12, 1) 0%, transparent 26%),
+  linear-gradient(to bottom, rgba(10, 10, 12, 0.75) 0%, transparent 24%);
 `;
 
 const LightCone = styled.div`
@@ -250,8 +266,12 @@ const RailItem = styled.a`
 `;
 
 const tickerMove = keyframes`
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 `;
 
 const Ticker = styled.div`
@@ -317,7 +337,7 @@ export default function Hero() {
     <>
       {TICKER_ITEMS.map((item) => (
         <span key={item}>
-          {item} <i>•</i>
+         <i>•</i> {item}
         </span>
       ))}
     </>
@@ -342,7 +362,7 @@ export default function Hero() {
         <HeroContent>
           <MainCol>
             <Eyebrow>
-              ООО «НПП „Биохиммаш“» · Москва · с 2002 года
+              20+ ЛЕТ ОПЫТА · 5000+ ОБЪЕКТОВ · ГАРАНТИЯ РЕЗУЛЬТАТА
             </Eyebrow>
 
             <Title>

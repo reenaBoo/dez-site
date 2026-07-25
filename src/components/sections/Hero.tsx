@@ -346,13 +346,6 @@ export default function Hero() {
   return (
     <HeroSection ref={sectionRef}>
       <MediaLayer style={{ y: mediaY, scale: mediaScale }}>
-        <img
-          src='/images/hero-bg.jpg'
-          srcSet='/images/hero-bg-mobile.jpg 800w, /images/hero-bg.jpg 1920w'
-          sizes='100vw'
-          alt=''
-          fetchPriority='high'
-        />
         <video ref={videoRef} muted loop playsInline preload='none'/>
       </MediaLayer>
       <Shade/>

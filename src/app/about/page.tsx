@@ -139,8 +139,12 @@ const SectionDescription = styled(motion.p)`
 `;
 
 const sweep = keyframes`
-  0% { transform: translateX(-140%) skewX(-14deg); }
-  100% { transform: translateX(140%) skewX(-14deg); }
+  0% {
+    transform: translateX(-140%) skewX(-14deg);
+  }
+  100% {
+    transform: translateX(140%) skewX(-14deg);
+  }
 `;
 
 const AdvantagesGrid = styled.div`
@@ -160,9 +164,8 @@ const AdvantagesGrid = styled.div`
 const AdvantageCard = styled(motion.div)`
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(165deg, rgba(217, 177, 95, 0.04) 0%, transparent 36%),
-    ${({ theme }) => theme.colors.navy};
+  background: linear-gradient(165deg, rgba(217, 177, 95, 0.04) 0%, transparent 36%),
+  ${({ theme }) => theme.colors.navy};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing.xl};
@@ -268,9 +271,8 @@ const GeographyNote = styled(motion.div)`
 const LicenseCard = styled(motion.div)`
   position: relative;
   overflow: hidden;
-  background:
-    linear-gradient(165deg, rgba(217, 177, 95, 0.05) 0%, transparent 40%),
-    ${({ theme }) => theme.colors.navy};
+  background: linear-gradient(165deg, rgba(217, 177, 95, 0.05) 0%, transparent 40%),
+  ${({ theme }) => theme.colors.navy};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing.xxl};
@@ -436,8 +438,8 @@ export default function AboutPage() {
       <HeaderSection>
         <InsectDecoration
           src='/images/mosquito.svg'
-          top='18%'
-          right='10%'
+          top='43%'
+          right='15%'
           rotate={-14}
           hideOnMobile
         />

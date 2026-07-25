@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 
 interface InsectDecorationProps {
   src: string;
@@ -15,6 +14,7 @@ interface InsectDecorationProps {
 }
 
 const StyledInsect = styled.div<{
+  $src: string;
   $top?: string;
   $right?: string;
   $bottom?: string;
@@ -30,18 +30,15 @@ const StyledInsect = styled.div<{
   right: ${({ $right }) => $right || 'auto'};
   bottom: ${({ $bottom }) => $bottom || 'auto'};
   left: ${({ $left }) => $left || 'auto'};
-  opacity: ${({ $opacity = 0.15 }) => $opacity};
-  transform: rotate(${({ $rotate = 0 }) => $rotate}deg) scaleX(${({ $flipHorizontal }) => $flipHorizontal ? -1 : 1});
-  pointer-events: none;
-  z-index: 1;
   width: ${({ $size }) => $size}px;
   height: ${({ $size }) => $size}px;
-
-  img {
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
-    width: 100%;
-    height: 100%;
-  }
+  opacity: ${({ $opacity = 0.14 }) => $opacity};
+  transform: rotate(${({ $rotate = 0 }) => $rotate}deg) scaleX(${({ $flipHorizontal }) => $flipHorizontal ? -1 : 1});
+  background-color: ${({ theme }) => theme.colors.primary};
+  -webkit-mask: url(${({ $src }) => $src}) no-repeat center / contain;
+  mask: url(${({ $src }) => $src}) no-repeat center / contain;
+  pointer-events: none;
+  z-index: 1;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     ${({ $hideOnMobile }) => $hideOnMobile && 'display: none;'}
@@ -51,10 +48,12 @@ const StyledInsect = styled.div<{
 `;
 
 export default function InsectDecoration({
-  src, top, right, bottom, left, size = 100, opacity = 0.25, rotate = 0, flipHorizontal = false, hideOnMobile = false,
+  src, top, right, bottom, left, size = 100, opacity = 0.14, rotate = 0, flipHorizontal = false, hideOnMobile = false,
 }: InsectDecorationProps) {
   return (
     <StyledInsect
+      aria-hidden
+      $src={src}
       $top={top}
       $right={right}
       $bottom={bottom}
@@ -64,14 +63,6 @@ export default function InsectDecoration({
       $rotate={rotate}
       $flipHorizontal={flipHorizontal}
       $hideOnMobile={hideOnMobile}
-    >
-      <Image
-        src={src}
-        alt=''
-        width={size}
-        height={size}
-        priority={false}
-      />
-    </StyledInsect>
+    />
   );
 }

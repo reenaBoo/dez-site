@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Send } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import InsectDecoration from '@/components/common/InsectDecoration';
 
 const ContactsSection = styled.section`
   padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -193,6 +194,13 @@ export default function Contacts({ standalone = false }: ContactsProps) {
 
   return (
     <ContactsSection id='contacts'>
+      <InsectDecoration
+        src='/images/bug.svg'
+        top='12%'
+        right='8%'
+        rotate={-18}
+        flipHorizontal
+      />
       <Container>
         <SectionHeader>
           <SectionLabel {...reveal} transition={{ duration: 0.5 }}>

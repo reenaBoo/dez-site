@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, Check } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import InsectDecoration from '@/components/common/InsectDecoration';
 
 const PricesSection = styled.section`
   padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -291,6 +292,19 @@ export default function Prices() {
 
   return (
     <PricesSection id='prices'>
+      <InsectDecoration
+        src='/images/centipede.svg'
+        top='10%'
+        right='10%'
+        rotate={8}
+      />
+      <InsectDecoration
+        src='/images/mosquito.svg'
+        bottom='30%'
+        left='10%'
+        flipHorizontal
+        hideOnMobile
+      />
       <Container>
         <SectionWrapper>
           <SectionHeader>

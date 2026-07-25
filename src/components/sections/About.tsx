@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Award, Shield, Users, TrendingUp } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import InsectDecoration from '@/components/common/InsectDecoration';
 import { useLazyVideo } from '@/hooks/useLazyVideo';
 
 const AboutSection = styled.section`
@@ -195,6 +196,12 @@ export default function About() {
 
   return (
     <AboutSection>
+      <InsectDecoration
+        src='/images/mosquito.svg'
+        bottom='10%'
+        right='15%'
+        rotate={-12}
+      />
       <Container>
         <ContentWrapper>
           <TextContent>

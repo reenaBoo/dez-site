@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Bug, Rat, Leaf, FlaskConical } from 'lucide-react';
 import Container from '@/components/layout/Container';
+import InsectDecoration from '@/components/common/InsectDecoration';
 
 const ServicesSection = styled.section`
   padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -200,6 +201,12 @@ export default function Services() {
 
   return (
     <ServicesSection id='services'>
+      <InsectDecoration
+        src='/images/bug.svg'
+        top='9%'
+        left='58%'
+        rotate={20}
+      />
       <Container>
         <SectionHeader>
           <SectionLabel {...reveal} transition={{ duration: 0.5 }}>

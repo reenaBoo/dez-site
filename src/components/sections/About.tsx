@@ -86,6 +86,7 @@ const AmbientVideo = styled.video`
   opacity: 0.3;
   mix-blend-mode: screen;
   pointer-events: none;
+  border-radius: 8px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     display: none;

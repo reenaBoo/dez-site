@@ -211,13 +211,21 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    setIsMenuOpen(false);
+    if (window.location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)}/>
       <HeaderWrapper $scrolled={scrolled}>
         <Container>
           <HeaderContent>
-            <Logo href='/' onClick={() => setIsMenuOpen(false)}>
+            <Logo href='/' onClick={handleLogoClick}>
               <LogoImage
                 src={'/images/logo_transparent.png'}
                 alt='НПП БИОХИММАШ'

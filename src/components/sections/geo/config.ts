@@ -4,5 +4,6 @@ export const ACTIVE_REGION_IDS: string[] = [
   'RU-RYA',
   'RU-KOS',
   'RU-IVA',
+  'RU-YAR',
   'RU-BA',
 ];

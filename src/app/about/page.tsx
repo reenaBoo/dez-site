@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Download, ExternalLink } from 'lucide-react';
 import Container from '@/components/layout/Container';
 import InsectDecoration from '@/components/common/InsectDecoration';
+import { PartnershipCard } from "@/components/sections/Sponsorship";
 
 const PageWrapper = styled.div`
   padding-top: 72px;
@@ -535,10 +536,25 @@ export default function AboutPage() {
         </Container>
       </Section>
 
+      <Section id='sponsorship' aria-labelledby='about-sponsorship-title'>
+        <Container>
+          <SectionLabel {...reveal} transition={{ duration: 0.5 }}>
+            03 / Партнёрство и развитие
+          </SectionLabel>
+          <SectionTitle id='about-sponsorship-title' {...reveal} transition={{ duration: 0.5, delay: 0.08 }}>
+            Развиваем <span>Жуковский</span> вместе
+          </SectionTitle>
+
+          <motion.div {...reveal} transition={{ duration: 0.5, delay: 0.2 }}>
+            <PartnershipCard showLabel={false} headingAs='h3'/>
+          </motion.div>
+        </Container>
+      </Section>
+
       <Section>
         <Container>
           <SectionLabel {...reveal} transition={{ duration: 0.5 }}>
-            03 / Лицензия
+            04 / Лицензия
           </SectionLabel>
           <SectionTitle {...reveal} transition={{ duration: 0.5, delay: 0.08 }}>
             Работаем <span>официально</span>

@@ -226,8 +226,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Профессиональная <span className='highlight'>дезинсекция</span> и санитарная
-              безопасность для бизнеса
+              <span className='highlight'>Комплексный</span> подход к защите вашего объекта
             </Title>
 
             <Description

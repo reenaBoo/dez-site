@@ -7,6 +7,7 @@ import Clients from '@/components/sections/Clients';
 import Contacts from '@/components/sections/Contacts';
 import RegionsMap from '@/components/sections/RegionsMap';
 import ScrollHandler from '@/components/ScrollHandler';
+import Sponsorship from "@/components/sections/Sponsorship";
 
 export const metadata: Metadata = {
   title: 'Дезинсекция для организаций в Москве | НПП БИОХИММАШ',
@@ -26,6 +27,7 @@ export default function Home() {
       <Services/>
       <RegionsMap/>
       <Clients/>
+      <Sponsorship/>
       <Prices/>
       <Contacts/>
     </>

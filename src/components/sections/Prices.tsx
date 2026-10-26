@@ -207,7 +207,7 @@ const PriceNote = styled.div`
 `;
 
 const SpecialConditions = styled.div`
-  margin-top: ${({ theme }) => theme.spacing.xxl};
+  margin-bottom: ${({ theme }) => theme.spacing.xl};
   padding: ${({ theme }) => theme.spacing.xxl};
   background:
     linear-gradient(165deg, rgba(217, 177, 95, 0.07) 0%, transparent 45%),
@@ -319,6 +319,21 @@ export default function Prices() {
             </SectionDescription>
           </SectionHeader>
 
+          <SpecialConditions>
+            <SpecialTitle>Специальные условия</SpecialTitle>
+            <SpecialList>
+              <SpecialItem>
+                Скидка при площадях {'>'} 50 га (фитосанитария)
+              </SpecialItem>
+              <SpecialItem>
+                Индивидуальные SLA для сетей и крупных производств
+              </SpecialItem>
+              <SpecialItem>
+                Консалтинг на площадке заказчика «инженер + химия» – от 100 000 ₽ за 3 дня (без учёта препаратов)
+              </SpecialItem>
+            </SpecialList>
+          </SpecialConditions>
+
           <PricesList>
             {pricesData.map((item, index) => {
               const isOpen = openItems.has(index);
@@ -365,21 +380,6 @@ export default function Prices() {
               </PriceItem>);
             })}
           </PricesList>
-
-          <SpecialConditions>
-            <SpecialTitle>Специальные условия</SpecialTitle>
-            <SpecialList>
-              <SpecialItem>
-                Скидка при площадях {'>'} 50 га (фитосанитария)
-              </SpecialItem>
-              <SpecialItem>
-                Индивидуальные SLA для сетей и крупных производств
-              </SpecialItem>
-              <SpecialItem>
-                Консалтинг на площадке заказчика «инженер + химия» – от 100 000 ₽ за 3 дня (без учёта препаратов)
-              </SpecialItem>
-            </SpecialList>
-          </SpecialConditions>
         </SectionWrapper>
       </Container>
     </PricesSection>

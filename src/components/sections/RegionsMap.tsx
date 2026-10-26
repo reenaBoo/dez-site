@@ -9,7 +9,10 @@ import { RU_REGION_NAMES } from './geo/names';
 import { ACTIVE_REGION_IDS } from './geo/config';
 
 const GUTTER = 300;
-const LABEL_GAP = 56;
+const LABEL_GAP = 64;
+// Регионы, стоящие особняком к востоку, подписываются справа от себя
+const RIGHT_LABEL_IDS = new Set(['RU-BA']);
+const RIGHT_LABEL_OFFSET = 90;
 
 const Section = styled.section`
   padding: ${({ theme }) => theme.spacing.xxxl} 0;
@@ -157,15 +160,23 @@ const MapSvg = styled.svg`
   .label-name {
     fill: ${({ theme }) => theme.colors.heading};
     font-family: ${({ theme }) => theme.fonts.body};
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 700;
   }
 
   .label-sub {
     fill: rgba(217, 177, 95, 0.8);
     font-family: ${({ theme }) => theme.fonts.mono};
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 0.16em;
+  }
+
+  /* Подпись справа лежит поверх карты — подложка под текстом для читаемости */
+  .label-on-map tspan {
+    paint-order: stroke;
+    stroke: ${({ theme }) => theme.colors.background};
+    stroke-width: 4px;
+    stroke-linejoin: round;
   }
 `;
 
@@ -251,6 +262,7 @@ function pluralRu(n: number, one: string, few: string, many: string): string {
 interface LabelPlacement {
   region: RegionShape;
   y: number;
+  side: 'left' | 'right';
 }
 
 export default function RegionsMap() {
@@ -275,7 +287,10 @@ export default function RegionsMap() {
       .filter((r): r is RegionShape => Boolean(r))
       .sort((a, b) => a.cy - b.cy);
 
-    const ys = active.map((r) => r.cy);
+    const left = active.filter((r) => !RIGHT_LABEL_IDS.has(r.id));
+    const right = active.filter((r) => RIGHT_LABEL_IDS.has(r.id));
+
+    const ys = left.map((r) => r.cy);
     for (let i = 1; i < ys.length; i++) {
       ys[i] = Math.max(ys[i], ys[i - 1] + LABEL_GAP);
     }
@@ -288,7 +303,11 @@ export default function RegionsMap() {
       for (let i = 0; i < ys.length; i++) ys[i] += shift;
     }
 
-    return active.map((region, i) => ({ region, y: ys[i] }));
+    return [
+      ...left.map((region, i) => ({ region, y: ys[i], side: 'left' as const })),
+      // Справа подпись уходит вниз, под южную границу карты, чтобы не наезжать на неё
+      ...right.map((region) => ({ region, y: MAP_HEIGHT - 32, side: 'right' as const })),
+    ];
   }, []);
 
   const handleMove = useCallback((e: React.MouseEvent) => {
@@ -374,24 +393,48 @@ export default function RegionsMap() {
 
               {!compact && (
                 <g>
-                  {labels.map(({ region, y }) => (
-                    <g key={region.id}>
-                      <path
-                        className='leader'
-                        d={`M ${GUTTER - 44} ${y - 5} H ${GUTTER + region.cx - 26} L ${GUTTER + region.cx} ${region.cy}`}
-                      />
-                      <circle className='anchor' cx={GUTTER + region.cx} cy={region.cy} r='3'/>
-                      <circle className='anchor' cx={GUTTER - 44} cy={y - 5} r='1.6'/>
-                      <text textAnchor='end'>
-                        <tspan className='label-name' x={GUTTER - 54} y={y}>
-                          {RU_REGION_NAMES[region.id]}
-                        </tspan>
-                        <tspan className='label-sub' x={GUTTER - 54} y={y + 15}>
-                          {`ЗОНА ОБСЛУЖИВАНИЯ · ${region.id}`}
-                        </tspan>
-                      </text>
-                    </g>
-                  ))}
+                  {labels.map(({ region, y, side }) => {
+                    if (side === 'left') {
+                      return (
+                        <g key={region.id}>
+                          <path
+                            className='leader'
+                            d={`M ${GUTTER - 44} ${y - 5} H ${GUTTER + region.cx - 26} L ${GUTTER + region.cx} ${region.cy}`}
+                          />
+                          <circle className='anchor' cx={GUTTER + region.cx} cy={region.cy} r='3'/>
+                          <circle className='anchor' cx={GUTTER - 44} cy={y - 5} r='1.6'/>
+                          <text textAnchor='end'>
+                            <tspan className='label-name' x={GUTTER - 54} y={y}>
+                              {RU_REGION_NAMES[region.id]}
+                            </tspan>
+                            <tspan className='label-sub' x={GUTTER - 54} y={y + 18}>
+                              {`ЗОНА ОБСЛУЖИВАНИЯ · ${region.id}`}
+                            </tspan>
+                          </text>
+                        </g>
+                      );
+                    }
+
+                    const endX = GUTTER + region.cx + RIGHT_LABEL_OFFSET;
+                    return (
+                      <g key={region.id}>
+                        <path
+                          className='leader'
+                          d={`M ${endX} ${y - 5} H ${GUTTER + region.cx + 26} L ${GUTTER + region.cx} ${region.cy}`}
+                        />
+                        <circle className='anchor' cx={GUTTER + region.cx} cy={region.cy} r='3'/>
+                        <circle className='anchor' cx={endX} cy={y - 5} r='1.6'/>
+                        <text className='label-on-map'>
+                          <tspan className='label-name' x={endX + 10} y={y}>
+                            {RU_REGION_NAMES[region.id]}
+                          </tspan>
+                          <tspan className='label-sub' x={endX + 10} y={y + 18}>
+                            {`ЗОНА ОБСЛУЖИВАНИЯ · ${region.id}`}
+                          </tspan>
+                        </text>
+                      </g>
+                    );
+                  })}
                 </g>
               )}
             </MapSvg>

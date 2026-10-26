@@ -239,7 +239,7 @@ export default function Header() {
             </Logo>
 
             <Nav $isOpen={isMenuOpen}>
-              <CloseButton onClick={() => setIsMenuOpen(false)}>
+              <CloseButton onClick={() => setIsMenuOpen(false)} aria-label='Закрыть меню'>
                 <X size={24}/>
               </CloseButton>
 

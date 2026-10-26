@@ -1,0 +1,22 @@
+# Альтернатива PM2 — systemd: /etc/systemd/system/biohimmash.service
+#   systemctl daemon-reload && systemctl enable --now biohimmash
+[Unit]
+Description=НПП «Биохиммаш» — Next.js
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=biohimmash
+WorkingDirectory=/var/www/biohimmash/app
+EnvironmentFile=/var/www/biohimmash/app/.env
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start -p 3000 -H 127.0.0.1
+Restart=always
+RestartSec=5
+# Пишем только в папку медиа
+ProtectSystem=strict
+ReadWritePaths=/var/www/biohimmash/media /var/www/biohimmash/app/.next
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

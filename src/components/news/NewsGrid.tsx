@@ -245,7 +245,8 @@ export default function NewsGrid({ initialItems, page, totalPages, crumbs }: New
                   key={card.id}
                   style={placementVars(layout4[i], layout2[i])}
                   layout='position'
-                  initial={returning ? false : { opacity: 0, y: 32, scale: 0.98 }}
+                  // Первые карточки — сразу видимые (LCP), остальные появляются при прокрутке
+                  initial={returning || i < 2 ? false : { opacity: 0, y: 32, scale: 0.98 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, amount: 0.15 }}
                   transition={{ duration: 0.6, delay: (i % 6) * 0.07, ease: [0.22, 1, 0.36, 1] }}

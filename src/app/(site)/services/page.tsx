@@ -1,6 +1,10 @@
 import ServicesPage from '@/components/pages/ServicesPage';
 import { pageMetadata } from '@/lib/seo/metadata';
-import { JsonLd, breadcrumbLd } from '@/lib/seo/jsonld';
+import { JsonLd, breadcrumbLd, servicesLd } from '@/lib/seo/jsonld';
+import LatestArticles from '@/components/news/LatestArticles';
+import { getLatestCards } from '@/lib/news/repo';
+
+export const revalidate = 3600;
 
 export const metadata = pageMetadata({
   title: 'Дезинсекция, дератизация, дезинфекция',
@@ -8,11 +12,14 @@ export const metadata = pageMetadata({
   path: '/services',
 });
 
-export default function Page() {
+export default async function Page() {
+  const latest = await getLatestCards(3);
   return (
     <>
       <JsonLd data={breadcrumbLd([{ name: 'Главная', path: '/' }, { name: 'Услуги', path: '/services' }])}/>
+      <JsonLd data={servicesLd()}/>
       <ServicesPage/>
+      <LatestArticles items={latest}/>
     </>
   );
 }

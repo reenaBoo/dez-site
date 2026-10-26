@@ -209,7 +209,7 @@ export function PartnershipCard({ showLabel = true, headingAs = 'h2', titleId }:
         </ProjectLink>
       </div>
 
-      <Badge href={url} target='_blank' rel='noopener' aria-label={`Сайт проекта «${name}»`}>
+      <Badge href={url} target='_blank' rel='noopener' aria-label={`${displayUrl} — сайт проекта «${name}»`}>
         {logo ? (
           <Image
             src={logo}

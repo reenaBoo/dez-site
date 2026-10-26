@@ -9,6 +9,11 @@ import ScrollHandler from '@/components/ScrollHandler';
 import Sponsorship from '@/components/sections/Sponsorship';
 import { pageMetadata } from '@/lib/seo/metadata';
 import { JsonLd, servicesLd } from '@/lib/seo/jsonld';
+import LatestArticles from '@/components/news/LatestArticles';
+import { getLatestCards } from '@/lib/news/repo';
+
+// Блок свежих статей обновляется при публикации (revalidatePath) и раз в час
+export const revalidate = 3600;
 
 export const metadata = pageMetadata({
   title: 'Дезинсекция для организаций в Москве и МО | НПП «Биохиммаш»',
@@ -17,7 +22,8 @@ export const metadata = pageMetadata({
   absoluteTitle: true,
 });
 
-export default function Home() {
+export default async function Home() {
+  const latest = await getLatestCards(3);
   return (
     <>
       <JsonLd data={servicesLd()}/>
@@ -29,6 +35,7 @@ export default function Home() {
       <Clients/>
       <Sponsorship/>
       <Prices/>
+      <LatestArticles items={latest}/>
       <Contacts/>
     </>
   );

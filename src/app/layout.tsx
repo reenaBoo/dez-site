@@ -3,16 +3,16 @@ import { Manrope, JetBrains_Mono } from 'next/font/google'
 import Providers from '@/components/Providers'
 import { SITE, SITE_URL } from '@/lib/site'
 
+// Variable-шрифты: один файл на набор символов вместо файла на каждое начертание —
+// меньше запросов и нет перерисовки заголовков при догрузке отдельных весов (LCP)
 const manrope = Manrope({
   subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-manrope',
   display: 'swap',
 })
 
 const jbMono = JetBrains_Mono({
   subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '600'],
   variable: '--font-jb-mono',
   display: 'swap',
 })

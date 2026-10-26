@@ -27,7 +27,8 @@ export interface ProcessedImage {
 // Безопасный путь внутри MEDIA_DIR: без `..`, абсолютных путей и пустых сегментов
 export function resolveMediaPath(parts: string[]): string | null {
   if (parts.some((p) => !p || p === '.' || p === '..' || p.includes('\0') || /[\\/]/.test(p))) return null;
-  const full = normalize(join(MEDIA_DIR, ...parts));
+  // turbopackIgnore: путь к загрузкам вычисляется в рантайме, трассировать его при сборке не нужно
+  const full = normalize(join(/* turbopackIgnore: true */ MEDIA_DIR, ...parts));
   return full.startsWith(normalize(MEDIA_DIR) + sep) ? full : null;
 }
 
@@ -57,7 +58,9 @@ export async function processImage(input: Buffer, baseName?: string): Promise<Pr
   const now = new Date();
   const folder = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(2, '0')}`;
   const name = baseName ?? randomUUID();
-  const dir = baseName ? join(MEDIA_DIR, 'seed') : join(MEDIA_DIR, ...folder.split('/'));
+  const dir = baseName
+    ? join(/* turbopackIgnore: true */ MEDIA_DIR, 'seed')
+    : join(/* turbopackIgnore: true */ MEDIA_DIR, ...folder.split('/'));
   const urlDir = baseName ? `${MEDIA_URL_PREFIX}/seed` : `${MEDIA_URL_PREFIX}/${folder}`;
   await mkdir(dir, { recursive: true });
 

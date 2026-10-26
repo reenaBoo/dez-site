@@ -13,6 +13,8 @@
 - **Email:** [Resend API](https://resend.com/)
 - **Forms:** React Hook Form
 - **Icons:** Lucide React
+- **БД:** PostgreSQL + Drizzle ORM (локально — PGlite)
+- **Редактор статей:** TipTap, dnd-kit; изображения — sharp
 
 ## 💻 Локальная разработка
 
@@ -31,14 +33,17 @@ cd dez-site
 # Установить зависимости
 npm install
 
-# Создать .env.local
-cp .env.local
+# Создать .env.local по образцу (логин/пароль админки, секрет сессии)
+cp .env.example .env.local
 
 # Запустить dev сервер
 npm run dev
 ```
 
-Сайт будет доступен на [http://localhost:3000](http://localhost:3000)
+Сайт будет доступен на [http://localhost:3000](http://localhost:3000), админка — на `/admin`.
+Без `DATABASE_URL` используется встроенный PGlite в `./.data` (миграции и демо-статьи применяются автоматически).
+
+Деплой на VPS, nginx, бэкапы — в [DEPLOY.md](DEPLOY.md).
 
 ### Доступные команды:
 

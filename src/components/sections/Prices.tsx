@@ -269,7 +269,12 @@ const pricesData = [{
   note: 'Итоговая цена рассчитывается после осмотра и подбора схемы.',
 }];
 
-export default function Prices() {
+interface PricesProps {
+  // На отдельной странице заголовок секции становится <h1>
+  standalone?: boolean;
+}
+
+export default function Prices({ standalone = false }: PricesProps) {
   const [openItems, setOpenItems] = useState<Set<number>>(new Set());
 
   const toggleItem = (index: number) => {
@@ -311,7 +316,7 @@ export default function Prices() {
             <SectionLabel {...reveal} transition={{ duration: 0.5 }}>
               05 / Цены
             </SectionLabel>
-            <SectionTitle {...reveal} transition={{ duration: 0.5, delay: 0.08 }}>
+            <SectionTitle as={standalone ? motion.h1 : undefined} {...reveal} transition={{ duration: 0.5, delay: 0.08 }}>
               <span>Цены</span> на услуги
             </SectionTitle>
             <SectionDescription {...reveal} transition={{ duration: 0.5, delay: 0.16 }}>

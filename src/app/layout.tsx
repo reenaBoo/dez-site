@@ -1,10 +1,7 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Manrope, JetBrains_Mono } from 'next/font/google'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
 import Providers from '@/components/Providers'
-import Atmosphere from '@/components/Atmosphere'
-import YandexMetrika from '@/components/YandexMetrika'
+import { SITE, SITE_URL } from '@/lib/site'
 
 const manrope = Manrope({
   subsets: ['latin', 'cyrillic'],
@@ -21,34 +18,38 @@ const jbMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Дезинсекция в Москве — Профессиональное уничтожение насекомых',
-  description: 'Профессиональная дезинсекция квартир и офисов. Уничтожение клопов, тараканов, клещей.',
-  keywords: 'дезинсекция, уничтожение клопов, дератизация москва',
-  openGraph: {
-    title: 'Дезинсекция в Москве',
-    description: 'Профессиональное уничтожение насекомых',
-    images: ['/og-image.jpg'],
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Дезинсекция для организаций в Москве и МО | НПП «Биохиммаш»',
+    template: '%s | НПП «Биохиммаш»',
   },
+  description: SITE.description,
+  applicationName: SITE.name,
+  openGraph: {
+    type: 'website',
+    siteName: SITE.name,
+    locale: 'ru_RU',
+  },
+  twitter: { card: 'summary_large_image' },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    yandex: process.env.YANDEX_VERIFICATION || undefined,
+  },
+  formatDetection: { telephone: false },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0A0A0C',
+  colorScheme: 'dark',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={`${manrope.variable} ${jbMono.variable}`}>
+    <html lang="ru" className={`${manrope.variable} ${jbMono.variable}`} data-scroll-behavior="smooth">
     <body>
-    <link
-      rel="preload"
-      as="image"
-      imageSrcSet="/images/hero-bg-mobile.jpg 800w, /images/hero-bg.jpg 1920w"
-      imageSizes="100vw"
-      fetchPriority="high"
-    />
     <Providers>
-      <Header/>
-      <main>{children}</main>
-      <Footer/>
-      <Atmosphere/>
+      {children}
     </Providers>
-    <YandexMetrika/>
     </body>
     </html>
   )

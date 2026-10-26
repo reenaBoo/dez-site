@@ -11,7 +11,7 @@ const PageWrapper = styled.div`
 export default function ServicesPage() {
   return (
     <PageWrapper>
-      <Services />
+      <Services standalone/>
     </PageWrapper>
   )
 }

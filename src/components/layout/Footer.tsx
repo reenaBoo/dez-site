@@ -155,6 +155,7 @@ export default function Footer() {
             <FooterLink href='/services'>Услуги</FooterLink>
             <FooterLink href='/prices'>Цены</FooterLink>
             <FooterLink href='/about'>О компании</FooterLink>
+            <FooterLink href='/news'>Новости</FooterLink>
             <FooterLink href='/contacts'>Контакты</FooterLink>
           </FooterSection>
 

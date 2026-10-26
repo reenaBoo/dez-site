@@ -192,7 +192,12 @@ const services = [{
   features: ['Экологически безопасные препараты', 'Безопасно для растений и людей', 'Эффективно против борщевика Сосновского и инвазивных видов'],
 }];
 
-export default function Services() {
+interface ServicesProps {
+  // На отдельной странице заголовок секции становится <h1>
+  standalone?: boolean;
+}
+
+export default function Services({ standalone = false }: ServicesProps) {
   const reveal = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -212,7 +217,7 @@ export default function Services() {
           <SectionLabel {...reveal} transition={{ duration: 0.5 }}>
             02 / Услуги
           </SectionLabel>
-          <SectionTitle {...reveal} transition={{ duration: 0.5, delay: 0.08 }}>
+          <SectionTitle as={standalone ? motion.h1 : undefined} {...reveal} transition={{ duration: 0.5, delay: 0.08 }}>
             Наши <span>услуги</span>
           </SectionTitle>
           <SectionDescription {...reveal} transition={{ duration: 0.5, delay: 0.16 }}>

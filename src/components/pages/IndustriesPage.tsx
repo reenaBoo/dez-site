@@ -25,7 +25,7 @@ const SectionHeader = styled.div`
   }
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled.h1`
   font-size: ${({ theme }) => theme.fontSize['4xl']};
   font-weight: ${({ theme }) => theme.fontWeight.bold};
   color: ${({ theme }) => theme.colors.heading};
@@ -208,7 +208,7 @@ const industries = [{
   items: ['Обработка складских помещений', 'Дератизация территорий', 'Мониторинг'],
 }];
 
-export default function Industries() {
+export default function IndustriesPage() {
   return (
     <IndustriesSection id='industries'>
       <InsectDecoration

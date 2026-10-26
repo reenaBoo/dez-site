@@ -1,5 +1,7 @@
 // Общие типы раздела новостей: используются сайтом, админкой и валидацией
 
+export const NEWS_PER_PAGE = 9;
+
 export const CARD_SIZES = ['s', 'm', 'l', 'wide', 'tall'] as const;
 export type CardSize = typeof CARD_SIZES[number];
 

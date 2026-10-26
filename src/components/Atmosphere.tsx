@@ -29,6 +29,11 @@ const Layer = styled.div`
   z-index: 500;
   pointer-events: none;
   overflow: hidden;
+
+  /* Статья может отключить атмосферный слой (настройка в админке) */
+  html[data-atmosphere='off'] & {
+    display: none;
+  }
 `;
 
 const Fog = styled.div`

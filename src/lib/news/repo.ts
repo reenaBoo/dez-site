@@ -1,12 +1,12 @@
 import { and, desc, eq, ilike, lte, ne, or, sql, count } from 'drizzle-orm';
 import { getDb, schema } from '@/db';
-import type { Article, ArticleCard, ArticleStatus } from './types';
+import { NEWS_PER_PAGE, type Article, type ArticleCard, type ArticleStatus } from './types';
 import type { ArticleInput } from './validation';
 import { computeReadingTime } from './content';
 
 const { articles, articleSlugHistory, media } = schema;
 
-export const NEWS_PER_PAGE = 9;
+export { NEWS_PER_PAGE };
 
 // Статья видна, если опубликована и дата публикации уже наступила (отложенная публикация)
 const isVisible = () => and(eq(articles.status, 'published'), lte(articles.publishedAt, sql`now()`));

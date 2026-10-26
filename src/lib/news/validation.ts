@@ -60,11 +60,15 @@ export const sectionSchema = z.discriminatedUnion('type', [
   z.object({ ...base, type: z.literal('divider'), style: z.enum(['line', 'ornament', 'space']) }),
 ]);
 
+// Адреса, занятые служебными маршрутами /news/*
+const RESERVED_SLUGS = new Set(['page', 'feed', 'rss']);
+
 const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Цвет в формате #RRGGBB');
 
 export const articleInputSchema = z.object({
   title: str(200).min(1, 'Укажите заголовок'),
-  slug: z.string().trim().max(100).regex(SLUG_PATTERN, 'Только латиница, цифры и дефисы'),
+  slug: z.string().trim().max(100).regex(SLUG_PATTERN, 'Только латиница, цифры и дефисы')
+    .refine((v) => !RESERVED_SLUGS.has(v), 'Этот адрес зарезервирован'),
   excerpt: str(500),
   coverImage: mediaRefSchema.nullable(),
   cardSize: z.enum(CARD_SIZES),

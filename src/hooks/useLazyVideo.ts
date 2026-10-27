@@ -6,8 +6,9 @@ export function useLazyVideo(src: string) {
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
-    // На мобильных и при «уменьшить движение» видео не грузим вовсе — экономим трафик и LCP
-    if (window.matchMedia('(max-width: 768px), (prefers-reduced-motion: reduce)').matches) return;
+    // На мобильных видео не грузим вовсе — экономим трафик и LCP.
+    // «Уменьшить движение» не учитываем: в Windows он включается вместе с отключением анимаций системы
+    if (window.matchMedia('(max-width: 768px)').matches) return;
 
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) {

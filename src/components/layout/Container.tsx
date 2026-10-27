@@ -3,7 +3,7 @@
 import styled from 'styled-components'
 
 interface ContainerProps {
-  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'full'
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | 'wide' | 'full'
   padding?: boolean
 }
 
@@ -23,6 +23,8 @@ const StyledContainer = styled.div<ContainerProps>`
         return '1024px'
       case 'xl':
         return '1280px'
+      case 'wide':
+        return '1440px'
       case 'full':
         return '100%'
       default:

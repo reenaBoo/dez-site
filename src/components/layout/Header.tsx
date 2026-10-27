@@ -25,12 +25,13 @@ const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.xl};
+  gap: clamp(1rem, 2.2vw, ${({ theme }) => theme.spacing.xl});
 `;
 
 const Logo = styled(Link)`
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   gap: ${({ theme }) => theme.spacing.sm};
   transition: opacity ${({ theme }) => theme.transitions.fast};
 
@@ -45,6 +46,7 @@ const LogoText = styled.span`
   letter-spacing: 0.02em;
   color: ${({ theme }) => theme.colors.heading};
   white-space: nowrap;
+  flex-shrink: 0;
 
   em {
     font-style: normal;
@@ -59,7 +61,7 @@ const LogoText = styled.span`
 const Nav = styled.nav<{ $isOpen: boolean }>`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.xl};
+  gap: clamp(1rem, 2.2vw, ${({ theme }) => theme.spacing.xl});
 
   @media (max-width: ${({ theme }) => theme.breakpoints.desktop}) {
     position: fixed;
@@ -144,7 +146,8 @@ const CTAButton = styled.a`
     box-shadow: ${({ theme }) => theme.shadows.glow};
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.wide}) {
+  /* Кнопка дублирует телефон — показываем, только когда шапке хватает ширины */
+  @media (max-width: 1439px) {
     display: none;
   }
 `;
@@ -223,7 +226,7 @@ export default function Header() {
     <>
       <Overlay $isOpen={isMenuOpen} onClick={() => setIsMenuOpen(false)}/>
       <HeaderWrapper $scrolled={scrolled}>
-        <Container>
+        <Container maxWidth='wide'>
           <HeaderContent>
             <Logo href='/' onClick={handleLogoClick}>
               <LogoImage

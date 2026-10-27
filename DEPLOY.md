@@ -55,9 +55,7 @@ pm2 startOrReload deploy/ecosystem.config.cjs && pm2 save
 Первый запуск PM2 после перезагрузки сервера: `pm2 startup` (выполнить выведенную команду).
 Вместо PM2 можно использовать systemd — `deploy/biohimmash.service`.
 
-> Next.js 16.4.0 при сборке предупреждает об известной уязвимости и иногда завершает
-> первый запуск `next build` с подсказкой — повторный запуск проходит. Стоит обновить Next
-> (`npm i next@latest eslint-config-next@latest`) и проверить сборку.
+> Next обновлён до 16.4.3 (критическая уязвимость 16.4.0 закрыта); при обновлениях — `npm i next@latest eslint-config-next@latest`.
 
 ## 4. nginx и SSL
 

@@ -299,19 +299,6 @@ export async function seedIfEmpty(db: Db): Promise<boolean> {
       publishedAt: daysAgo(70), relatedServices: ['dezinfekciya'],
     },
     {
-      title: 'Видео: как проходит обследование объекта',
-      slug: 'video-obsledovanie-obekta',
-      excerpt: 'Показываем, что делает специалист на первом выезде и почему без осмотра нельзя назвать точную цену.',
-      coverImage: img.team, cardSize: 'm',
-      content: [
-        section<HeroSection>('hero', { variant: 'fullscreen', image: img.team, subtitle: 'Первый выезд специалиста: осмотр, замеры и план работ.' }),
-        section<VideoSection>('video', { url: 'https://www.youtube.com/watch?v=aqz-KE-bpKQ', title: 'Демонстрационное видео (замените в админке)', poster: img.radar }),
-        section<TextSection>('text', { doc: docFromParagraphs('На осмотре специалист определяет вид вредителей, пути проникновения и объём работ. После этого составляется программа и рассчитывается стоимость.') }),
-        ctaDefault,
-      ],
-      publishedAt: daysAgo(84), relatedServices: ['dezinsekciya', 'deratizaciya'],
-    },
-    {
       title: 'Что входит в программу пест-контроля для пищевого производства',
       slug: 'programma-pest-kontrolya',
       excerpt: 'Структура программы, роль мониторинга и что должно быть в отчётах для аудиторов и проверяющих.',
@@ -333,16 +320,23 @@ export async function seedIfEmpty(db: Db): Promise<boolean> {
     createdAt: row.publishedAt ?? new Date(),
   })));
 
-  // Один черновик — чтобы в админке были видны оба статуса
+  // Черновик под будущее видео: на сайте не виден, ссылку на ролик нужно вставить в админке
+  const videoDraft: Section[] = [
+    section<HeroSection>('hero', { variant: 'fullscreen', image: img.team, subtitle: 'Первый выезд специалиста: осмотр, замеры и план работ.' }),
+    section<VideoSection>('video', { url: '', title: 'Как проходит обследование', poster: img.radar }),
+    section<TextSection>('text', { doc: docFromParagraphs('На осмотре специалист определяет вид вредителей, пути проникновения и объём работ. После этого составляется программа и рассчитывается стоимость.') }),
+    ctaDefault,
+  ];
   await db.insert(articles).values({
-    title: 'Черновик: дезинсекция в медицинских учреждениях',
-    slug: 'chernovik-dezinsekciya-v-medicine',
-    excerpt: 'Требования к обработке в клиниках и как не нарушить работу отделений.',
-    coverImage: img.mosquito,
+    title: 'Видео: как проходит обследование объекта',
+    slug: 'video-obsledovanie-obekta',
+    excerpt: 'Показываем, что делает специалист на первом выезде и почему без осмотра нельзя назвать точную цену.',
+    coverImage: img.team,
     cardSize: 'm',
     status: 'draft',
-    content: [section<HeroSection>('hero', { variant: 'title-image', image: img.mosquito }), section<TextSection>('text', {})],
-    readingTime: 1,
+    content: videoDraft,
+    relatedServices: ['dezinsekciya', 'deratizaciya'],
+    readingTime: computeReadingTime(videoDraft),
   });
 
   return true;
